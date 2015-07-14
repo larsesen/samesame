@@ -16,7 +16,7 @@ angular.module("bodApp", [
 config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/partial-index", 
 		{
-			templateUrl: "views/partial-index.html"
+			templateUrl: "views/new_partial-index.html"
 		});
 	$routeProvider.when("/partial-start", 
 		{
