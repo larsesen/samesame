@@ -26,6 +26,26 @@ config(["$routeProvider", function($routeProvider) {
 		{
 			templateUrl: "views/new_partial-register-answer.html", controller: "RegisterAnswerCtrl"
 		});
+
+
+	$routeProvider.when("/partial-register-participant", 
+		{
+			templateUrl: "views/new_partial-register-participant.html", controller: "RegisterParticipantCtrl"
+		});
+
+	$routeProvider.when("/partial-participant-registered", 
+		{
+			templateUrl: "views/new_partial-participant-registered.html", controller: "RegisterParticipantCtrl"
+		});
+
+
+
+
+
+
+
+
+
 	$routeProvider.when("/partial-view-answers", 
 		{
 			templateUrl: "views/partial-view-answers.html", controller: "AnswerCtrl"
@@ -34,14 +54,14 @@ config(["$routeProvider", function($routeProvider) {
 		{
 			templateUrl: "views/partial-view-participants.html", controller: "ParticipantsCtrl"
 		});
-	$routeProvider.when("/partial-register-participant", 
-		{
-			templateUrl: "views/partial-register-participant.html", controller: "RegisterParticipantCtrl"
-		});
-	$routeProvider.when("/partial-participant-registered", 
-		{
-			templateUrl: "views/partial-participant-registered.html", controller: "RegisterParticipantCtrl"
-		});
+
+
+
+	
+
+
+
+	
 	$routeProvider.when("/visualize", 
 		{
 			templateUrl: "views/partial-view-answersvisual.html", controller: "VisualizeCtrl"

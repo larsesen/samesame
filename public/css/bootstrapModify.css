@@ -236,17 +236,17 @@ label > input{ /* HIDE RADIO */
 label > input + img{ /* IMAGE STYLES */
   cursor:pointer;
   border:2px solid transparent;
-  height: 350px;
-  width: 350px;
+  height: 250px;
+  width: 250px;
 }
 label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
   border:5px solid #FF6400;
 }
 
 .leftspace {
-	padding-left: 5em
+	padding-left: 3em
 }
 
 .topspace {
-	padding-top: 50em
+	padding-top: 6em
 }
