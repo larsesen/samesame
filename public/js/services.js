@@ -337,16 +337,9 @@ angular.module("bodApp.services", [])
 		return {
 			setAnswer : function(recAnswer) {
 				answer = {
-					kjonn : recAnswer.kjonn,
-					sivilstatus : recAnswer.sivilstatus,
-					utdannelse : recAnswer.utdannelse,
-					programmeringsstil : recAnswer.programmeringsstil,
-					personlighet : recAnswer.personlighet,
-					hypepreferanse : recAnswer.hypepreferanse,
-					musikk : recAnswer.musikk,
-					type : recAnswer.type,
-					favorittgode : recAnswer.favorittgode,
-					planerforkvelden : recAnswer.planerforkvelden
+					userid : recAnswer.userid,
+					questionid : recAnswer.questionid,
+					response : recAnswer.response
 				};
 			},
 			getAnswer : function() {

@@ -61,16 +61,9 @@ Converts the data values into a new 'values' object for easier naming, which is 
 */
 function insertAnswer(req, res) {
 	var values = {
-		kjonn: req.body.kjonn,
-		sivilstatus: req.body.sivilstatus, 
-		utdannelse: req.body.utdannelse, 
-		programmeringsstil: req.body.programmeringsstil, 
-		personlighet: req.body.personlighet, 
-		hypepreferanse: req.body.hypepreferanse, 
-		musikk: req.body.musikk, 
-		type: req.body.type,
-		favorittgode: req.body.favorittgode, 
-		planerforkvelden: req.body.planerforkvelden
+		userid: req.body.userid,
+		questionid: req.body.questionid,
+		response: req.body.response
 	};
 	db.insertAnswer(values, function(err, rows) {
 		if (err) {
@@ -84,7 +77,7 @@ function insertAnswer(req, res) {
 
 
 /*
-Truncate (clear/delete) the bod.answers table.
+Truncate (clear/delete) the samesame.answers table.
 */
 function deleteAnswers(req, res) {
 	db.deleteAnswers(function(err, rows) {
@@ -111,35 +104,6 @@ function deleteAnswer(req, res){
 	});
 }
 
-/*
-Change the 'processed' field of the answer with the id specified as parameter of the request.
-Is set to 1 if it's currently 0, and to 0 if it's currently 1.
-*/
-function toggleProcessedAnswer(req, res) {
-	db.toggleProcessedAnswer(req.params.id, function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send("status of answer " + req.params.id + " updated");
-		}
-	});	
-}
-
-/*
-Change the 'locked' field of the answer with the id specified as parameter of the requet.
-Is set to 1 if it's currently 0, and to 0 if it's currently 1.
-*/
-function toggleLockAnswer(req, res) {
-	db.toggleLockAnswer(req.params.id, function(err) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send("Answer: " + req.params.id + " toggled lock");
-		}
-	});
-}
 
 /*
 Get all participants from the database
@@ -297,6 +261,62 @@ function convertToCSV(objArray) {
 		return CSV;
 }
 
+
+
+
+
+
+
+/*
+TO BE DELETED
+*/
+
+/*
+Change the 'processed' field of the answer with the id specified as parameter of the request.
+Is set to 1 if it's currently 0, and to 0 if it's currently 1.
+*/
+function toggleProcessedAnswer(req, res) {
+	db.toggleProcessedAnswer(req.params.id, function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send("status of answer " + req.params.id + " updated");
+		}
+	});	
+}
+
+/*
+Change the 'locked' field of the answer with the id specified as parameter of the requet.
+Is set to 1 if it's currently 0, and to 0 if it's currently 1.
+*/
+function toggleLockAnswer(req, res) {
+	db.toggleLockAnswer(req.params.id, function(err) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send("Answer: " + req.params.id + " toggled lock");
+		}
+	});
+}
+
+exports.toggleProcessedAnswer = toggleProcessedAnswer;
+exports.toggleLockAnswer      = toggleLockAnswer;
+
+
+/*
+END DELETING
+*/
+
+
+
+
+
+
+
+
+
 /*
 Exporting of all methods used by other scripts, mostly by router.js
 */
@@ -307,8 +327,6 @@ exports.getAnswer             = getAnswer;
 exports.insertAnswer          = insertAnswer;
 exports.deleteAnswers         = deleteAnswers;
 exports.deleteAnswer          = deleteAnswer;
-exports.toggleProcessedAnswer = toggleProcessedAnswer;
-exports.toggleLockAnswer      = toggleLockAnswer;
 exports.getParticipants       = getParticipants;
 exports.insertParticipant     = insertParticipant;
 exports.deleteParticipants    = deleteParticipants;

@@ -38,17 +38,12 @@ function query(queryStr, callback) {
 
 //select all answers
 function readAnswers(callback) {
-	query("select * from bod.answers", callback);
-}
-
-//select only unproccessed answers
-function readUnprocessedAnswers(callback) {
-	query("select * from bod.answers where processed = 0", callback);
+	query("select * from samesame.answers", callback);
 }
 
 //select a specific answer
 function readOneAnswer(id, callback) {
-	query("select * from bod.answers where id_answers = " + id + ";", callback);
+	query("select * from samesame.answers where id_answers = " + id + ";", callback);
 }
 
 /*
@@ -58,18 +53,81 @@ also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
 	/*jshint multistr: true, laxbreak: true*/
-	query("insert into bod.answers(kjonn, sivilstatus, utdannelse, \
-		programmeringsstil, personlighet, hypepreferanse, musikk, type, favorittgode, \
-		planerforkvelden)" +
-		"values ('" + values.kjonn +"', '" + values.sivilstatus
-		 + "', '" + values.utdannelse +"', '" + values.programmeringsstil +"', '" + values.personlighet
-		 + "', '" + values.hypepreferanse +"', '" + values.musikk  +"', '" + values.type
-		 + "', '" + values.favorittgode +"', '" + values.planerforkvelden + "');",callback);
+	query("INSERT INTO samesame.answers(userid, questionid, response)" +
+		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "');", callback);
 }
 
 //delete all answers
 function deleteAnswers(callback) {
-	query("truncate table bod.answers", callback);
+	query("truncate table samesame.answers", callback);
+}
+
+
+
+//delete a specific answer
+function deleteAnswer(id, callback) {
+	query("delete from samesame.answers where id_answers = " + id, callback);
+}
+
+//select all participants
+function getParticipants(callback) {
+	query("select * from samesame.participants", callback);
+}
+
+/*
+insert a new participant
+values is an array containing the values to be inserted
+*/
+function insertParticipant(values, callback) {
+	query("insert into samesame.participants(email, name)" + 
+		"values ('" + values.email + "', '" + values.name + "');", callback);
+}
+
+
+//delete all participants
+function deleteParticipants(callback) {
+	query("truncate table samesame.participants", callback);
+}
+
+//toggle the 'winner' field of a specific participant
+function updateWinner(email, callback) {
+	query ("update samesame.participants set winner = not winner where email = '" + email + "'", callback);
+}
+
+//delete all winners
+function deleteWinners(callback) {
+	query("update samesame.participants set winner = 0 where winner = 1", callback);
+}
+
+//export answers to CSV-file without the status fields (locked and processed)
+function exportAnswers(callback) {
+	query("SELECT userid, questionid, response from samesame.answers", callback);
+			// INTO OUTFILE '" + exportPath + "answers" + dateHelper() + ".csv'\
+}
+
+//export participants to CSV-file without the winner field
+function exportParticipants(callback) {
+	query("SELECT email, name FROM samesame.participants", callback);
+			//INTO OUTFILE '" + exportPath + "participants" + dateHelper() + ".csv'\
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+TO BE DELETED:
+*/
+//select only unproccessed answers
+function readUnprocessedAnswers(callback) {
+	query("select * from bod.answers where processed = 0", callback);
 }
 
 //toggle the 'processed' field of a specific answer
@@ -81,77 +139,33 @@ function toggleProcessedAnswer(id, callback) {
 function toggleLockAnswer(id, callback) {
 	query("update bod.answers set locked = not locked where id_answers = " + id, callback);
 }
-
-//delete a specific answer
-function deleteAnswer(id, callback) {
-	query("delete from bod.answers where id_answers = " + id, callback);
-}
-
-//select all participants
-function getParticipants(callback) {
-	query("select * from bod.participants", callback);
-}
+exports.readUnprocessedAnswers = readUnprocessedAnswers;
+exports.toggleProcessedAnswer  = toggleProcessedAnswer;
+exports.toggleLockAnswer       = toggleLockAnswer;
 
 /*
-insert a new participant
-values is an array containing the values to be inserted
+END DELETING HERE
 */
-function insertParticipant(values, callback) {
-	query("insert into bod.participants(email, name)" + 
-		"values ('" + values.email + "', '" + values.name + "');", callback);
-}
 
-//delete all participants
-function deleteParticipants(callback) {
-	query("truncate table bod.participants", callback);
-}
 
-//toggle the 'winner' field of a specific participant
-function updateWinner(email, callback) {
-	query ("update bod.participants set winner = not winner where email = '" + email + "'", callback);
-}
 
-//delete all winners
-function deleteWinners(callback) {
-	query("update bod.participants set winner = 0 where winner = 1", callback);
-}
 
-//export answers to CSV-file without the status fields (locked and processed)
-function exportAnswers(callback) {
-	query("SELECT id_answers, kjonn, sivilstatus, utdannelse, programmeringsstil, personlighet, hypepreferanse, musikk, type, favorittgode, planerforkvelden from bod.answers", callback);
-			// INTO OUTFILE '" + exportPath + "answers" + dateHelper() + ".csv'\
-}
 
-//export participants to CSV-file without the winner field
-function exportParticipants(callback) {
-	query("SELECT email, name FROM bod.participants", callback);
-			//INTO OUTFILE '" + exportPath + "participants" + dateHelper() + ".csv'\
-}
 
-/*
-function dateHelper() {
-	var date = new Date();
-	return  leadingZero(date.getDate()) + "-" 
-	+ leadingZero(date.getMonth()) + "-" 
-	+ date.getFullYear() + "-" 
-	+ leadingZero(date.getHours()) + ";" 
-	+ leadingZero(date.getMinutes()) + ";" 
-	+ leadingZero(date.getSeconds());
-}
 
-function leadingZero(str) {
-	return ("0" + str).slice(-2);
-}
-*/
+
+
+
+
+
+
+
 
 
 exports.readAnswers            = readAnswers;
-exports.readUnprocessedAnswers = readUnprocessedAnswers;
 exports.readOneAnswer          = readOneAnswer;
 exports.insertAnswer           = insertAnswer;
 exports.deleteAnswers          = deleteAnswers;
-exports.toggleProcessedAnswer  = toggleProcessedAnswer;
-exports.toggleLockAnswer       = toggleLockAnswer;
 exports.deleteAnswer           = deleteAnswer;
 exports.getParticipants        = getParticipants;
 exports.insertParticipant      = insertParticipant;
