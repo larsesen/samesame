@@ -219,3 +219,34 @@ body {
 	color: #e50000;
 
 }
+
+
+
+
+
+
+/*
+Radio button with images functionality
+*/
+
+
+label > input{ /* HIDE RADIO */
+  display:none;
+}
+label > input + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+  height: 350px;
+  width: 350px;
+}
+label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
+  border:5px solid #FF6400;
+}
+
+.leftspace {
+	padding-left: 5em
+}
+
+.topspace {
+	padding-top: 50em
+}
