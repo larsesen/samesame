@@ -22,6 +22,6 @@ INSERT INTO answers VALUES (1,1,'a'),(1,2,'b'),(1,3,'a'),(1,4,'a'),(1,5,'b'),(1,
 CREATE TABLE answers (
 	userid varchar(20),
 	questionid varchar(20),
-	response varchar(1),
+	response varchar(20),
 	primary key (response)
 	);

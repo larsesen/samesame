@@ -111,7 +111,8 @@ body {
 	border-radius: 10px;
 }
 
-
+/*
+*/
 .btn:hover,
 .btn.active
  {
@@ -119,6 +120,7 @@ body {
 	color: #000;
 	border-color: #ff6400;
 }
+
 
 
 .btn-escape {
@@ -235,11 +237,15 @@ label > input{ /* HIDE RADIO */
 }
 label > input + img{ /* IMAGE STYLES */
   cursor:pointer;
-  border:2px solid transparent;
+  border:4px solid transparent;
   height: 250px;
   width: 250px;
 }
 label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
+  border:5px solid #FF6400;
+}
+
+input:checked + img{ /* (CHECKED) IMAGE STYLES */
   border:5px solid #FF6400;
 }
 
@@ -249,4 +255,10 @@ label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
 
 .topspace {
 	padding-top: 6em
+}
+
+
+style btn-size {
+	height:250px;
+	width: 250px;
 }

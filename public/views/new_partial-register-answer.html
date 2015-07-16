@@ -4,6 +4,9 @@
 
 <div class="container middle-pos">
 
+
+
+
 <form name="answerForm" ng-submit="processForm()" novalidate> 
 
 	<h2 class="text-orange">Choose one picture from each category</h2>
@@ -11,22 +14,41 @@
 	<body>
 
 
-	<div ng-repeat="question in questions">
+<!--
+	<div class="btn-group" name='question1' value='1'>
+		
+		<label>
+	    	<input type="radio" name="q1" value="a" ng-model="formData.response" />
+	    	<img src="./images/01a.png">
+	  	
+	  	</label>
+  		<container class="leftspace">
+	  	<label>
+    		<input type="radio" name="q1" value="b" ng-model="formData.response" />
+    		<img src="./images/01b.png">
+  		</label>
+  		</class>
+  	</div>
+  	<br>
+-->
 
 
-			<div id="{{question.questionid}}" data-toggle="buttons">
-				{{question.questionid}}
-				<label ng-repeat="option in question.options" class="btn btn-response" name="{{option.value}}">
-					<input type="radio" name="{{question.questionid}}" value="{{option.value}}" ng-model="formData[question.questionid]" required> {{option.output}}<br>
-				</label>
 
+	<div ng-repeat="question in questions" ng-model="formData.questionid">
+			<div id="{{question.questionid}}" ng-model="formData.questionid" data-toggle="buttons" >
+				
+				<label ng-repeat="option in question.options" class="btn">
+					
+					<input type="radio" name="{{question.questionid}}"  value="{{option.value}}" ng-model="formData.response" make-radio-button-detect-change required><br>
+					
+					<img src="{{option.imageURL}}" style="width:250px; height:250px">		
+					<br><br>		
+					{{question.questionid}}
+					; 
+					{{option.value}}
+					;
 
-			
-
-
-
-
-
+					</label>
 				<br>
 
 		</div>
@@ -73,100 +95,4 @@
   	<br>
 -->
 <!--
-	<div class="btn-group">
-		<div class="topspace">
-		<label>
-	    	<input type="radio" name="group2" value="small" />
-	    	<img src="./images/02a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="group2" value="small"/>
-    		<img src="./images/02b.png">
-  		</label>
-  		</container>
-    </div>
-	</div>
-    <br>
-
-	<div class="btn-group">
-		<div class="topspace">
-		<label>
-	    	<input type="radio" name="group3" value="small" />
-	    	<img src="./images/03a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="group3" value="small"/>
-    		<img src="./images/03b.png">
-  		</label>
-   		</class>
-   	</div>
-	</div>
-	<br>
-
-	<div class="btn-group">
-		<div class="topspace">
-		<label>
-	    	<input type="radio" name="group4" value="small" />
-	    	<img src="./images/04a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="group4" value="small"/>
-    		<img src="./images/04b.png">
-  		</label>
-  		</class>
-    </div>
-    </div>
-    <br>
-
-	<div class="btn-group">
-		<div class="topspace">
-		<label>
-	    	<input type="radio" name="group5" value="small" />
-	    	<img src="./images/05a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="group5" value="small"/>
-    		<img src="./images/05b.png">
-  		</label>
-		</class>
-    </div>
-    </div>
-    <br>
-
-	<div class="btn-group">
-		<div class="topspace">
-		<label>
-	    	<input type="radio" name="group6" value="small" />
-	    	<img src="./images/06a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="group6" value="small"/>
-    		<img src="./images/06b.png">
-  		</label>
-  		</class>
-    </div>
-    </div>
-    <br>
-
-
-	<div class="btn-group">
-		<div class="topspace">
-		<label>
-	    	<input type="radio" name="group7" value="small" />
-	    	<img src="./images/07a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="group7" value="small"/>
-    		<img src="./images/07b.png">
-  		</label>
-  		</class>
-    </div>
-    </div>
--->	
 

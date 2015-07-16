@@ -76,9 +76,6 @@ angular.module("bodApp.services", [])
 	.factory("Questions", function() {
 		/*
 		The object that contains the questions.
-		Is sorted alphabetically by default, so a prefix with A-D is used to sort it to make it look nice on the page displayed.
-		The object contains four objects, one for each column, which in tur contains the questions for each column.
-		This is done to be able to put the questions where we want them.
 		To see how this is used, please check the html file where they are displayed, 'partial-register-answer.html'
 		The output field is the value displayed to the user, the 'value' field is the the value stored in the database
 		*/
@@ -90,22 +87,29 @@ angular.module("bodApp.services", [])
 					options : [
 					{
 						output : 'A',
-						value : 'a'
+						value : 'a',
+						imageURL : "./images/01a.png"
 					}, {
 						output : 'B',
-						value : 'b'
+						value : 'b',
+						imageURL : "./images/01b.png",
 					}
 					],
-				},
+				}
+				/*
+				,
 				question2: {
 					questionid: '2',
 					options : [
 					{
 						output : 'A',
-						value : 'a'
+						value : 'a',
+						imageURL : "./images/02a.png"
+
 					}, {
 						output : 'B',
-						value : 'b'
+						value : 'b',
+						imageURL : "./images/02a.png"
 					}
 					],
 				},
@@ -114,13 +118,16 @@ angular.module("bodApp.services", [])
 					options : [
 					{
 						output : 'A',
-						value : 'a'
+						value : 'a',
+						imageURL : "./images/03a.png"
 					}, {
 						output : 'B',
-						value : 'b'
+						value : 'b',
+						imageURL : "./images/03b.png"
 					}
 					]
 				}
+				*/
 			}
 		};
 	})
