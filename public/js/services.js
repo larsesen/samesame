@@ -82,256 +82,51 @@ angular.module("bodApp.services", [])
 		To see how this is used, please check the html file where they are displayed, 'partial-register-answer.html'
 		The output field is the value displayed to the user, the 'value' field is the the value stored in the database
 		*/
+
 		return {
 			questions : {
-				AfirstCol :  {
-				Akjonn : {
-					title : "Kjønn",
-					name : "kjonn",
+				question1: {
+					questionid: '1',
 					options : [
-						{
-							output : "Mann",
-							value : "mann"
-						}, {
-							output: "Kvinne",
-							value : "kvinne"
-						}
+					{
+						output : 'A',
+						value : 'a'
+					}, {
+						output : 'B',
+						value : 'b'
+					}
 					],
 				},
-				Bsivilstatus : {
-					title: "Sivilstatus",
-					name : "sivilstatus",
+				question2: {
+					questionid: '2',
 					options : [
-						{
-							output: "Gift/Samboer",
-							value: "gift/samboer"
-						},
-						{
-							output: "Skilt",
-							value: "skilt"
-						},
-						{
-							output: "Singel",
-							value: "singel"
-						},
-						{
-							output: "It's complicated",
-							value: "complicated"
-						},
-					]
+					{
+						output : 'A',
+						value : 'a'
+					}, {
+						output : 'B',
+						value : 'b'
+					}
+					],
 				},
-				CUtdannelse : {
-					title: "Utdannelse",
-					name : "utdannelse",
+				question3: {
+					questionid: '3',
 					options : [
-						{
-							output: "Master",
-							value: "master"
-						},
-						{
-							output: "Bachelor",
-							value: "bachelor"
-						},
-						{
-							output: "Selvstudert røver",
-							value: "selvstudertrover"
-						},
-						{
-							output: "Annet",
-							value: "annet"
-						}
+					{
+						output : 'A',
+						value : 'a'
+					}, {
+						output : 'B',
+						value : 'b'
+					}
 					]
-				}
-			},
-			BsecondCol: {
-				Aprogrammeringsstil : {
-					title: "Programmeringsstil",
-					name : "programmeringsstil",
-					options : [
-						{
-							output: "Båten blir til mens man ror",
-							value: "batenblirtil"
-						},
-						{
-							output: "Det ordner seg",
-							value: "detordnerseg"
-						},
-						{
-							output: "Ordenung Muss Sein",
-							value: "ordenungmusssein"
-						},
-						{
-							output: "Quick and dirty",
-							value: "quickanddirty"
-						}
-					]
-				},
-				Bpersonlighet : {
-					title: "Personlighet",
-					name : "personlighet",
-					options : [
-						{
-							output: "Introvert",
-							value: "introvert"
-						},
-						{
-							output: "Ekstrovert",
-							value: "ekstrovert"
-						},
-						{
-							output: "Ekstrovert med litt innabords",
-							value: "ekstrovertpluss"
-						}
-					]
-				},
-				Chypepreferanse : {
-					title: "Hype-preferanse",
-					name : "hypepreferanse",
-					options : [
-						{
-							output: "Big Data",
-							value: "bigdata"
-						},
-						{
-							output: "Internet of Things",
-							value: "internetofthings"
-						},
-						{
-							output: "Lær Kidsa Koding",
-							value: "laerkidsakoding"
-						},
-						{
-							output: "Microservices",
-							value: "microservices"
-						}
-					]
-				}
-			},
-			CthirdCol: {
-				Amusikk : {
-					title: "Musikk",
-					name : "musikk",
-					options : [
-						{
-							output: "Rock",
-							value: "rock"
-						},
-						{
-							output: "VG-lista",
-							value: "vglista"
-						},
-						{
-							output: "Disco",
-							value: "disco"
-						},
-						{
-							output: "Trønderrock",
-							value: "tronderrock"
-						},
-						{
-							output: "Metal",
-							value: "metal"
-						},
-						{
-							output: "Rave",
-							value: "rave"
-						},
-						{
-							output: "Klassisk",
-							value: "klassisk"
-						},
-						{
-							output: "Alternativ",
-							value: "alternativ"
-						}
-					]
-				},
-				Btype : {
-					title: "Type",
-					name : "type",
-					options : [
-						{
-							output: "Youngster",
-							value: "youngster"
-						},
-						{
-							output: "Cool Cat",
-							value: "coolcat"
-						},
-						{
-							output: "Hipster",
-							value: "hipster"
-						},
-						{
-							output: "Gammel Ringrev",
-							value: "gammelringrev"
-						},
-						{
-							output: "Nerd",
-							value: "nerd"
-						}
-					]
-				}
-			},
-			DfourthCol: {
-				
-				Afavorittgode : {
-					title: "Favorittgode på jobb",
-					name : "favorittgode",
-					options : [
-						{
-							output: "Fri bar på julebord",
-							value: "fribar"
-						},
-						{
-							output: "Gadgetkonto",
-							value: "gadgetkonto"
-						},
-						{
-							output: "Kurs og konferanser",
-							value: "kurskonferanse"
-						},
-						{
-							output: "Fri kantine",
-							value: "frikantine"
-						},
-						{
-							output: "Pensjon",
-							value: "pensjon"
-						}
-					]},
-				
-				Bplanerforkvelden : {
-					title: "Planer for kvelden",
-					name : "planerforkvelden",
-					options : [
-						{
-							output: "Endre sivilstatus",
-							value: "endresivilstatus"
-						},
-						{
-							output: "Smiske med sjefen",
-							value: "smiskemedsjefen"
-						},
-						{
-							output: "Mingle",
-							value: "mingle"
-						},
-						{
-							output: "Kode",
-							value: "kode"
-						},
-						{
-							output: "Nyte livet",
-							value: "nytelivet"
-						}
-					]
-				},
-				
 				}
 			}
 		};
 	})
+
+
+
 	.factory("RecentAnswer", function($http) {
 		var answer = {};
 		return {

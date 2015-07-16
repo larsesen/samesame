@@ -11,7 +11,53 @@
 	<body>
 
 
+	<div ng-repeat="question in questions">
 
+
+			<div id="{{question.questionid}}" data-toggle="buttons">
+				{{question.questionid}}
+				<label ng-repeat="option in question.options" class="btn btn-response" name="{{option.value}}">
+					<input type="radio" name="{{question.questionid}}" value="{{option.value}}" ng-model="formData[question.questionid]" required> {{option.output}}<br>
+				</label>
+
+
+			
+
+
+
+
+
+				<br>
+
+		</div>
+	</div>
+	
+	<br><br>
+	
+	<button class="btn btn-def-bouvet" name="registerButton" type="submit">
+			Registrer svar
+	</button>
+	</div>
+
+</form>
+
+
+<br><br>
+<pre>
+    {{ formData }}
+</pre>
+
+
+
+	
+
+	
+	</body>
+
+
+
+
+<!--
 	<div class="btn-group" name='question1' value='1' ng-model="formdata.questionid">
 		<label>
 	    	<input type="radio" name="q1" value="a" ng-model="formData.response" />
@@ -25,7 +71,7 @@
   		</class>
   	</div>
   	<br>
-
+-->
 <!--
 	<div class="btn-group">
 		<div class="topspace">
@@ -124,24 +170,3 @@
     </div>
 -->	
 
-	<br><br>
-
-	
-	<button class="btn btn-def-bouvet" name="registerButton" type="submit">
-			Registrer svar
-	</button>
-	</div>
-</form>
-
-
-
-<pre>
-    {{ formData }}
-</pre>
-
-
-
-	<br><br><br><br><br><br>
-
-	
-	</body>
