@@ -18,26 +18,17 @@ Get all answers from the database and return them as an array of JSON objects.
 The parameter 'viewAll' determines whether all answers or only unprocessed are fetched
 */
 function getAnswers(req, res) {
-	if (req.param("viewAll") === "true") {
-		db.readAnswers(function(err, rows) {
-			if (err) {
-				errorHandler(err, res);
-			}
-			else {
-				res.send((rows));
-			}
-		});
-	}
-	else {
-		db.readUnprocessedAnswers(function(err, rows) {
-			if (err) {
-				errorHandler(err, res);
-			}
-			else {
-				res.send((rows));
-			}
-		});	
-	}
+	
+	db.readAnswers(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send((rows));
+		}
+	});
+	
+	
 }
 
 /*
@@ -61,6 +52,7 @@ Converts the data values into a new 'values' object for easier naming, which is 
 */
 function insertAnswer(req, res) {
 	var values = {
+		
 		userid: req.body.userid,
 		questionid: req.body.questionid,
 		response: req.body.response
@@ -270,39 +262,6 @@ function convertToCSV(objArray) {
 /*
 TO BE DELETED
 */
-
-/*
-Change the 'processed' field of the answer with the id specified as parameter of the request.
-Is set to 1 if it's currently 0, and to 0 if it's currently 1.
-*/
-function toggleProcessedAnswer(req, res) {
-	db.toggleProcessedAnswer(req.params.id, function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send("status of answer " + req.params.id + " updated");
-		}
-	});	
-}
-
-/*
-Change the 'locked' field of the answer with the id specified as parameter of the requet.
-Is set to 1 if it's currently 0, and to 0 if it's currently 1.
-*/
-function toggleLockAnswer(req, res) {
-	db.toggleLockAnswer(req.params.id, function(err) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send("Answer: " + req.params.id + " toggled lock");
-		}
-	});
-}
-
-exports.toggleProcessedAnswer = toggleProcessedAnswer;
-exports.toggleLockAnswer      = toggleLockAnswer;
 
 
 /*

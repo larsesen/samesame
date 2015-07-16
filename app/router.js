@@ -42,8 +42,6 @@ supports GET, PUT, DELETE
 		//used to get the answer with the specified id
 		.get(user.getAnswer)
 		
-		//used to change the status of the answer with the specified id
-		.put(user.toggleProcessedAnswer)
 
 		//used to delete the answer with the specified id
 		.delete(user.deleteAnswer);
@@ -53,9 +51,7 @@ route for locking the answer with the specified id, changes the 'locked' field o
 could perhaps used the put option of /answers/:id for both toggling the 'processed' and the 'locked' field for a cleaner REST API,
 but this is the solution used as of now.
 */
-	app.route("/toggleLockAnswer/:id")
-		.put(user.toggleLockAnswer);
-
+	
 /*
 route for accessing multiple participants
 supports GET, POST, DELETE

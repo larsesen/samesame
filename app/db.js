@@ -53,9 +53,14 @@ also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
 	/*jshint multistr: true, laxbreak: true*/
+	query("INSERT INTO samesame.answers(response)" +
+		"VALUES ('" + values.response + "');", callback);
+}
+/*
 	query("INSERT INTO samesame.answers(userid, questionid, response)" +
 		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "');", callback);
 }
+*/
 
 //delete all answers
 function deleteAnswers(callback) {
@@ -125,23 +130,6 @@ function exportParticipants(callback) {
 /*
 TO BE DELETED:
 */
-//select only unproccessed answers
-function readUnprocessedAnswers(callback) {
-	query("select * from bod.answers where processed = 0", callback);
-}
-
-//toggle the 'processed' field of a specific answer
-function toggleProcessedAnswer(id, callback) {
-	query("update bod.answers set processed = not processed where id_answers = " + id, callback);
-}
-
-//toggle the 'locked' field of a specific answer
-function toggleLockAnswer(id, callback) {
-	query("update bod.answers set locked = not locked where id_answers = " + id, callback);
-}
-exports.readUnprocessedAnswers = readUnprocessedAnswers;
-exports.toggleProcessedAnswer  = toggleProcessedAnswer;
-exports.toggleLockAnswer       = toggleLockAnswer;
 
 /*
 END DELETING HERE
