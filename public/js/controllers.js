@@ -291,6 +291,9 @@ angular.module("bodApp.controllers", [])
 		if the answer is valid, the formData object is passed on for creation, and we are redirected to the next page
 		if not, the submitted variable is simply set to true
 		*/
+
+
+		/*
 		$scope.submitAnswer = function(isValid) {
 			if (isValid) {
 				Answers.create($scope.formData).success(function(data) {
@@ -303,6 +306,21 @@ angular.module("bodApp.controllers", [])
 				$scope.submitted = true;
 			}
 		};
+		*/
+
+
+		$scope.processForm = function() {
+			Answers.create($scope.formData)
+
+			.success(function(data) {
+				RecentAnswer.setAnswer($scope.formData);
+				$location.path("/partial-register-participant");
+			});
+		};
+
+
+
+
 
 		$scope.questions = Questions.questions;
 	}])

@@ -4,7 +4,7 @@
 
 <div class="container middle-pos">
 
-<form name="answerForm" ng-submit="submitAnswer(answerForm.$valid)" novalidate> 
+<form name="answerForm" ng-submit="processForm()" novalidate> 
 
 	<h2 class="text-orange">Choose one picture from each category</h2>
 	<br><br> 
@@ -12,14 +12,14 @@
 
 
 
-	<div class="btn-group">
+	<div class="btn-group" name='question1' value='1' ng-model="formdata.questionid">
 		<label>
-	    	<input type="radio" name="group1" value="small" />
+	    	<input type="radio" name="q1" value="a" ng-model="formData.response" />
 	    	<img src="./images/01a.png">
 	  	</label>
   		<container class="leftspace">
 	  	<label>
-    		<input type="radio" name="group1" value="small"/>
+    		<input type="radio" name="q1" value="b" ng-model="formData.response" />
     		<img src="./images/01b.png">
   		</label>
   		</class>
@@ -121,11 +121,7 @@
   		</label>
   		</class>
     </div>
-
-
-
     </div>
-
 -->	
 
 	<br><br>
@@ -135,6 +131,15 @@
 			Registrer svar
 	</button>
 	</div>
+</form>
+
+
+
+<pre>
+    {{ formData }}
+</pre>
+
+
 
 	<br><br><br><br><br><br>
 
