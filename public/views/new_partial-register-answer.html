@@ -14,40 +14,29 @@
 	<body>
 
 
-<!--
-	<div class="btn-group" name='question1' value='1'>
-		
-		<label>
-	    	<input type="radio" name="q1" value="a" ng-model="formData.response" />
-	    	<img src="./images/01a.png">
-	  	
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="q1" value="b" ng-model="formData.response" />
-    		<img src="./images/01b.png">
-  		</label>
-  		</class>
-  	</div>
-  	<br>
--->
-
-
-
-	<div ng-repeat="question in questions" ng-model="formData.questionid">
-			<div id="{{question.questionid}}" ng-model="formData.questionid" data-toggle="buttons" >
-				
-				<label ng-repeat="option in question.options" class="btn">
+	<div ng-repeat="question in questions" ng-model="question.questionid">
+			
+			<div id="{{question.questionid}}"  data-toggle="buttons">
+				<label ng-repeat="option in question.options" class="btn" ng-model="formData.questionid">
+					
 					
 					<input type="radio" name="{{question.questionid}}"  value="{{option.value}}" ng-model="formData.response" make-radio-button-detect-change required><br>
 					
+					<!--
+					<input type="radio" name="{{question.questionid}}" value="{{option.value}}" ng-model="formData[question.questionid]" make-radio-button-detect-change required><br>
+					-->
+
 					<img src="{{option.imageURL}}" style="width:250px; height:250px">		
 					<br><br>		
+
+					<!--
+					{{formData[question.questionid]}} ||
+					
 					{{question.questionid}}
 					; 
 					{{option.value}}
-					;
-
+					-->
+					
 					</label>
 				<br>
 

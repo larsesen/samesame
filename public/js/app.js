@@ -43,17 +43,21 @@ config(["$routeProvider", function($routeProvider) {
 
 
 
-
-
-
 	$routeProvider.when("/partial-view-answers", 
 		{
-			templateUrl: "views/partial-view-answers.html", controller: "AnswerCtrl"
+			templateUrl: "views/new_partial-view-answers.html", controller: "AnswerCtrl"
 		});
+
 	$routeProvider.when("/partial-view-participants", 
 		{
 			templateUrl: "views/partial-view-participants.html", controller: "ParticipantsCtrl"
 		});
+
+
+
+
+
+
 
 
 
