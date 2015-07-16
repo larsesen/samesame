@@ -3,7 +3,7 @@
 
 /*Directives*/
 
-angular.module("bodApp.directives", [])
+angular.module("samesameApp.directives", [])
 
     /*
     A custom directive partly based on a fix found on github, modified to work in our case

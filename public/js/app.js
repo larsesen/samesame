@@ -6,12 +6,12 @@
 The dependencies used in the app are defined, and the route functionality of angular is set up.
 Defines which html file to return in 'templateUrl' and the associated controller if it exists
 */
-angular.module("bodApp", [
+angular.module("samesameApp", [
 	"ngRoute",
-	"bodApp.controllers",
-	"bodApp.directives",
-	"bodApp.services",
-	"bodApp.filters"
+	"samesameApp.controllers",
+	"samesameApp.directives",
+	"samesameApp.services",
+	"samesameApp.filters"
 	]).
 config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/partial-index", 

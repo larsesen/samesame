@@ -1,7 +1,7 @@
 "use strict";
 
-/*Services for bodApp*/
-angular.module("bodApp.services", [])
+/*Services for samesameApp*/
+angular.module("samesameApp.services", [])
 	
 	//service that communicates with the REST API for answers
 	.factory("Answers", function($http) {

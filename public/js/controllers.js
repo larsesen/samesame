@@ -2,7 +2,7 @@
 
 /*Controllers*/
 
-angular.module("bodApp.controllers", [])
+angular.module("samesameApp.controllers", [])
 
 	//the controller used in the viewing of answers
 	.controller("AnswerCtrl", ["$scope", "filterFilter", "Answers", function($scope, filterFilter, Answers) {
