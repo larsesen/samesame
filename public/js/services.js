@@ -81,54 +81,124 @@ angular.module("samesameApp.services", [])
 		*/
 
 		return {
-			questions : {
-				question1: {
-					questionid: '1',
-					options : [
-					{
-						output : 'A',
-						value : 'a',
-						imageURL : "./images/01a.png"
-					}, {
-						output : 'B',
-						value : 'b',
-						imageURL : "./images/01b.png",
-					}
-					],
+			question1: {
+				questionid: '1',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/1a.png"
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/1b.png",
 				}
-				
-				,
-				question2: {
-					questionid: '2',
-					options : [
-					{
-						output : 'A',
-						value : 'a',
-						imageURL : "./images/02a.png"
-
-					}, {
-						output : 'B',
-						value : 'b',
-						imageURL : "./images/02a.png"
-					}
-					],
-				},
-				question3: {
-					questionid: '3',
-					options : [
-					{
-						output : 'A',
-						value : 'a',
-						imageURL : "./images/03a.png"
-					}, {
-						output : 'B',
-						value : 'b',
-						imageURL : "./images/03b.png"
-					}
-					]
-				}
-				
+				],
 			}
+			
+			,
+			question2: {
+				questionid: '2',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/2a.png"
+
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/2a.png"
+				}
+				],
+			},
+			question3: {
+				questionid: '3',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/3a.png"
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/3b.png"
+				}
+				]
+			},	
+			question4: {
+				questionid: '4',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/4a.png"
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/4b.png"
+				}
+				]
+			},
+			question5: {
+				questionid: '5',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/5a.png"
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/5b.png"
+				}
+				]
+			},
+			question6: {
+				questionid: '6',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/6a.png"
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/6b.png"
+				}
+				]
+			},
+			question7: {
+				questionid: '7',
+				options : [
+				{
+					output : 'A',
+					value : 'a',
+					imageURL : "./images/7a.png"
+				}, {
+					output : 'B',
+					value : 'b',
+					imageURL : "./images/7b.png"
+				}
+				]
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		};
 	})
 
@@ -160,7 +230,7 @@ angular.module("samesameApp.services", [])
 				QuestionData = {
 					userid : data
 				};
-				console.log("initQuestionData: " + JSON.stringify(QuestionData.userid));
+				//console.log("initQuestionData: " + JSON.stringify(QuestionData.userid));
 			},
 
 			setQuestionData: function(data) {
@@ -169,7 +239,7 @@ angular.module("samesameApp.services", [])
 					questionid : "heihei",
 					response : data.response
 				};
-				console.log("setQuestionData: " + JSON.stringify(data));
+				//console.log("setQuestionData: " + JSON.stringify(data));
 			},
 
 			getInitQuestionData : function(data) {

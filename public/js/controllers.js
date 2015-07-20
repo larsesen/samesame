@@ -287,29 +287,75 @@ angular.module("samesameApp.controllers", [])
 		//boolean determining whether the user has already attempted to submit
 		$scope.submitted = false;
 
-		/*used to attempt to submit the answer
-		if the answer is valid, the formData object is passed on for creation, and we are redirected to the next page
-		if not, the submitted variable is simply set to true
-		*/
+		//maintains total number of questions
+		$scope.numberOfQuestions = Object.keys(Questions).length;
+
+
+		//holds number of already answered questions
+
+
+
 		var id = JSON.stringify(QuestionData.getInitQuestionData());
 		console.log("current user id: " + id);
 
 
+		$scope.setQuestionsSize = function() {
+			$scope.setQuestionsSize = Object.keys(Questions).length;
+		};
 
+		$scope.generateImageURL = function() {
+			var imgLink = "";
+			if ($scope.nextQ < 10) {
+				console.log("less than 10");
+				imgLink = "./images/0" + $scope.getNextQ +"a.png"
+			}
+			else {
+				console.log("greater than 10");
+				imgLink = "./images/" + $scope.getNextQ + "a.png"
+			}
+			$scope.imgURL = imgLink;
+		}	
+
+		$scope.getNextQ = function() {
+			$scope.nextQ = getRandomInt(1,$scope.numberOfQuestions);
+			//$scope.nextQ = getRandomInt(1,100);
+		}
 
 		$scope.nextQuestion = function() {
-			
+			console.log("Next question called");
 		//	$scope.submitAnswer = function(isValid) {
 		//	if (isValid) {
 
-			//http://stackoverflow.com/questions/20181323/passing-data-between-controllers-in-angular-js?rq=1
-		
 
-//extract $scope.formData (response), og putt inn i setQuestionData. Send så getQuestionData inn i Answers.create
+
+
+
+			// Randomly selecting a new question:
+			console.log("Questions: " + JSON.stringify(Questions));
+			console.log("number of questions: " + $scope.numberOfQuestions);
+
+			//randomly selecting next question
+			//$scope.nextQ = getRandomInt(2,$scope.numberOfQuestions);
+
+			$scope.getNextQ();
+			$scope.generateImageURL();
+
+
+
+		
+			//if nextQ not in alreadyAskedQuestions
+
+
+
+
+
+
+
+
 
 
 			$scope.formData.userid = id;
-			$scope.formData.questionid = 3;
+			$scope.formData.questionid = $scope.nextQ;
 
 			QuestionData.setQuestionData($scope.formData);
 
@@ -320,6 +366,7 @@ angular.module("samesameApp.controllers", [])
 			.success(function(data) {
 				console.log("answer registered" + JSON.stringify($scope.formData));
 				RecentAnswer.setAnswer($scope.formData);
+				//$scope.nextQ = nextQ;
 				$location.path("/partial-register-answer");
 			});
 			/*
@@ -433,3 +480,6 @@ angular.module("samesameApp.controllers", [])
 
 
 
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}	

@@ -43,7 +43,7 @@ function readAnswers(callback) {
 
 //select a specific answer
 function readOneAnswer(id, callback) {
-	query("select * from samesame.answers where id_answers = " + id + ";", callback);
+	query("select * from samesame.answers where answerid = " + id + ";", callback);
 }
 
 /*
