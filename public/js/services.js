@@ -253,4 +253,20 @@ angular.module("samesameApp.services", [])
 
 	
 
+	/*
+	.factory("AnsweredQuestions", function($http) {
+		var AnsweredQuestions = new Array(7);
+
+		return {
+			updateAnsweredQuestions : function(data) {
+
+			}
+		}
+	})
+
+*/
+
+
+
+	
 	});

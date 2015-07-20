@@ -289,6 +289,13 @@ angular.module("samesameApp.controllers", [])
 
 		//maintains total number of questions
 		$scope.numberOfQuestions = Object.keys(Questions).length;
+		//$scope.answeredQuestions = new Array ($scope.numberOfQuestions);
+
+
+		
+
+		console.log("number of questions: " + $scope.numberOfQuestions);
+
 
 
 		//holds number of already answered questions
@@ -303,70 +310,45 @@ angular.module("samesameApp.controllers", [])
 			$scope.setQuestionsSize = Object.keys(Questions).length;
 		};
 
-		$scope.generateImageURL = function() {
-			var imgLink = "";
-			if ($scope.nextQ < 10) {
-				console.log("less than 10");
-				imgLink = "./images/0" + $scope.getNextQ +"a.png"
-			}
-			else {
-				console.log("greater than 10");
-				imgLink = "./images/" + $scope.getNextQ + "a.png"
-			}
-			$scope.imgURL = imgLink;
-		}	
+	
 
 		$scope.getNextQ = function() {
 			$scope.nextQ = getRandomInt(1,$scope.numberOfQuestions);
 			//$scope.nextQ = getRandomInt(1,100);
 		}
 
+		$scope.deleteIndexFromArray = function(index) {
+			delete $scope.answeredQuestions[index];
+		}
+
+		$scope.initAnsweredQuestions = function() {
+				$scope.answeredQuestions = new Array($scope.numberOfQuestions);
+				var i;
+				for (i = 1 ; i < $scope.numberOfQuestions+1 ; i++) {
+					$scope.answeredQuestions[i] = i;
+				}
+			}
+		
+
 		$scope.nextQuestion = function() {
-			console.log("Next question called");
 		//	$scope.submitAnswer = function(isValid) {
 		//	if (isValid) {
 
 
-
-
-
-			// Randomly selecting a new question:
-			console.log("Questions: " + JSON.stringify(Questions));
-			console.log("number of questions: " + $scope.numberOfQuestions);
-
-			//randomly selecting next question
-			//$scope.nextQ = getRandomInt(2,$scope.numberOfQuestions);
-
 			$scope.getNextQ();
-			$scope.generateImageURL();
 
-
-
-		
 			//if nextQ not in alreadyAskedQuestions
-
-
-
-
-
-
-
-
-
-
+			//Implement this feature here...
+			
 			$scope.formData.userid = id;
 			$scope.formData.questionid = $scope.nextQ;
-
 			QuestionData.setQuestionData($scope.formData);
-
-
 
 			Answers.create($scope.formData)
 			
 			.success(function(data) {
 				console.log("answer registered" + JSON.stringify($scope.formData));
 				RecentAnswer.setAnswer($scope.formData);
-				//$scope.nextQ = nextQ;
 				$location.path("/partial-register-answer");
 			});
 			/*
@@ -379,15 +361,6 @@ angular.module("samesameApp.controllers", [])
 		};
 
 
-
-		$scope.processForm = function() {
-			Answers.create($scope.formData)
-
-			.success(function(data) {
-				RecentAnswer.setAnswer($scope.formData);
-				$location.path("/partial-register-participant");
-			});
-		};
 
 
 		$scope.questions = Questions.questions;

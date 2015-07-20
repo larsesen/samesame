@@ -12,17 +12,17 @@
 	<h2 class="text-orange">Choose one picture from each category</h2>
 	
 <br><br> 
-	<body ng-controller="RegisterAnswerCtrl as answer">	
+	<body>	
 
 	<div class="btn-group" name='question1' value='1'>
 		<label>
-	    	<input type="radio" value="a" ng-model="formData.response" />
+	    	<input type="radio" value="a" ng-model="formData.response" required/>
 	    	<img ng-src="./images/{{nextQ}}a.png">
 
 	  	</label>
   		<container class="leftspace">
 	  	<label>
-    		<input type="radio" value="b" ng-model="formData.response" />
+    		<input type="radio" value="b" ng-model="formData.response" required/>
     		<img ng-src="./images/{{nextQ}}b.png">
   		</label>
   		</class>
@@ -31,9 +31,7 @@
 					
 		</label>
 		<br>
-
-			{{answeredQuestions}}
-			{{nextQ}}
+		{{nextQ}}
 	<br><br>
 	
 	<button class="btn btn-def-bouvet" name="registerButton" type="submit">
