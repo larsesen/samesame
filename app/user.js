@@ -51,8 +51,8 @@ Is called from the CREATE method of the Answers service.
 Converts the data values into a new 'values' object for easier naming, which is passed on to the database script.
 */
 function insertAnswer(req, res) {
-	var values = {
-		
+	console.log("\n Request body is: " + JSON.stringify(req.body) + "\n");
+	var values = {	
 		userid: req.body.userid,
 		questionid: req.body.questionid,
 		response: req.body.response

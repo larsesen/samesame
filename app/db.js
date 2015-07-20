@@ -53,14 +53,16 @@ also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
 	/*jshint multistr: true, laxbreak: true*/
+/*
 	query("INSERT INTO samesame.answers(response)" +
 		"VALUES ('" + values.response + "');", callback);
 }
-/*
+*/
+
 	query("INSERT INTO samesame.answers(userid, questionid, response)" +
 		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "');", callback);
 }
-*/
+
 
 //delete all answers
 function deleteAnswers(callback) {

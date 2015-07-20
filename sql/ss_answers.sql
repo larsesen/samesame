@@ -6,7 +6,7 @@ USE 'samesame';
 DROP TABLE IF EXISTS 'answers';
 
 CREATE TABLE answers (
-	userid integer,
+	userid BigInt,
 	questionid integer,
 	response varchar(1),
 	primary key (userid, questionid)

@@ -46,12 +46,7 @@ supports GET, PUT, DELETE
 		//used to delete the answer with the specified id
 		.delete(user.deleteAnswer);
 
-/*
-route for locking the answer with the specified id, changes the 'locked' field of the answer with the specified id.
-could perhaps used the put option of /answers/:id for both toggling the 'processed' and the 'locked' field for a cleaner REST API,
-but this is the solution used as of now.
-*/
-	
+
 /*
 route for accessing multiple participants
 supports GET, POST, DELETE

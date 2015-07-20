@@ -96,7 +96,7 @@ angular.module("samesameApp.services", [])
 					}
 					],
 				}
-				/*
+				
 				,
 				question2: {
 					questionid: '2',
@@ -127,7 +127,7 @@ angular.module("samesameApp.services", [])
 					}
 					]
 				}
-				*/
+				
 			}
 		};
 	})
@@ -148,4 +148,39 @@ angular.module("samesameApp.services", [])
 				return answer;
 			}
 		};
+	})
+
+
+
+	.factory("QuestionData", function($http) {
+		var QuestionData = {};
+				
+		return {
+			initQuestionData : function(data) {
+				QuestionData = {
+					userid : data
+				};
+				console.log("initQuestionData: " + JSON.stringify(QuestionData.userid));
+			},
+
+			setQuestionData: function(data) {
+				QuestionData = {
+					userid : data.userid,
+					questionid : "heihei",
+					response : data.response
+				};
+				console.log("setQuestionData: " + JSON.stringify(data));
+			},
+
+			getInitQuestionData : function(data) {
+				return QuestionData.userid;
+			},
+
+			getQuestionData : function() {
+				return QuestionData;
+			}
+	};
+
+	
+
 	});

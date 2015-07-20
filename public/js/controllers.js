@@ -280,7 +280,7 @@ angular.module("samesameApp.controllers", [])
 	}])
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", function($scope, $location, Answers, Questions, RecentAnswer) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", "QuestionData", function($scope, $location, Answers, Questions, RecentAnswer, QuestionData) {
 
 		//initial object of form data
 		$scope.formData = {};
@@ -291,22 +291,46 @@ angular.module("samesameApp.controllers", [])
 		if the answer is valid, the formData object is passed on for creation, and we are redirected to the next page
 		if not, the submitted variable is simply set to true
 		*/
+		var id = JSON.stringify(QuestionData.getInitQuestionData());
+		console.log("current user id: " + id);
 
 
-		/*
-		$scope.submitAnswer = function(isValid) {
-			if (isValid) {
-				Answers.create($scope.formData).success(function(data) {
-					RecentAnswer.setAnswer($scope.formData);
-					$location.path("/partial-register-participant");
-				});
-			}
+
+
+		$scope.nextQuestion = function() {
+			
+		//	$scope.submitAnswer = function(isValid) {
+		//	if (isValid) {
+
+			//http://stackoverflow.com/questions/20181323/passing-data-between-controllers-in-angular-js?rq=1
+		
+
+//extract $scope.formData (response), og putt inn i setQuestionData. Send så getQuestionData inn i Answers.create
+
+
+			$scope.formData.userid = id;
+			$scope.formData.questionid = 3;
+
+			QuestionData.setQuestionData($scope.formData);
+
+
+
+			Answers.create($scope.formData)
+			
+			.success(function(data) {
+				console.log("answer registered" + JSON.stringify($scope.formData));
+				RecentAnswer.setAnswer($scope.formData);
+				$location.path("/partial-register-answer");
+			});
+			/*
+			});
 			else
 			{
 				$scope.submitted = true;
 			}
+			*/
 		};
-		*/
+
 
 
 		$scope.processForm = function() {
@@ -317,9 +341,6 @@ angular.module("samesameApp.controllers", [])
 				$location.path("/partial-register-participant");
 			});
 		};
-
-
-
 
 
 		$scope.questions = Questions.questions;
@@ -389,3 +410,26 @@ angular.module("samesameApp.controllers", [])
 		$scope.getAnswers();
 
 	}])
+
+
+
+
+
+
+
+
+
+
+	// Inits a unique user id. Used for db interaction for a single user
+	.controller("InitUserCtrl", ["$scope", "$location", "QuestionData", function($scope, $location, QuestionData) {	
+		var d = new Date();
+		var id = d.getTime();
+
+		QuestionData.initQuestionData(id);
+		$location.path("/partial-start");
+	}])
+
+
+
+
+

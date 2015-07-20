@@ -20,7 +20,7 @@ config(["$routeProvider", function($routeProvider) {
 		});
 	$routeProvider.when("/partial-start", 
 		{
-			templateUrl: "views/new_partial-start.html"
+			templateUrl: "views/new_partial-start.html", controller: "InitUserCtrl"
 		});
 	$routeProvider.when("/partial-register-answer", 
 		{
