@@ -297,13 +297,17 @@ angular.module("samesameApp.controllers", [])
 		$scope.userid = id; //only used for logging out to view
 
 
-		//$scope.nextQ = 1;
 		
-		/*
-		var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions); //list given is never empty
-		AnsweredQuestions.removeIndex(answeredQuestions,$scope.nextQ);
-		$scope.nextQ = nextQ;
+		
+		/* 
+		Needed for retrieving images correctly at init stage
 		*/
+		$scope.init = 1;
+		var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
+		//console.log("init question is question: " + nextQ);
+		AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
+		$scope.nextQ = nextQ;
+		$scope.answeredQuestions = answeredQuestions;
 
 
 
@@ -313,32 +317,34 @@ angular.module("samesameApp.controllers", [])
 
 			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 			var listEmpty = isListEmpty(answeredQuestions);
-	
-
-
-			//if there still is unanswered questions, randomly select one. 
-			if (!listEmpty) {
-				var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions); //list given is never empty
-				AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
-				$scope.nextQ = nextQ; 
-			}
-			
-
 			$scope.answeredQuestions = answeredQuestions; //only used for printing to view
-
-
 
 			//Checks how many elements left. Used for routing request correctly
 			var elementsLeft = elementsLeftInList(answeredQuestions);
 
+
+			//Forming request:
 			$scope.formData.userid = id;
 			$scope.formData.questionid = $scope.nextQ;
-			
 			Answers.create($scope.formData)
 			
+
+			//Sending request:
 			.success(function(data) {
 				console.log("answer registered" + JSON.stringify($scope.formData));
 				RecentAnswer.setAnswer($scope.formData);
+
+				/*
+				Updating with next image, if there are more images.
+				*/
+				if (!listEmpty) {
+					var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
+					//console.log("question number: " + nextQ); 
+					AnsweredQuestions.removeIndex(answeredQuestions,nextQ);	
+					$scope.nextQ = nextQ; 
+				}
+				$scope.init = 0;
+
 
 				if (elementsLeft > 0) {
 					$location.path("/partial-register-answer");				
@@ -356,8 +362,6 @@ angular.module("samesameApp.controllers", [])
 			}
 			*/
 		};
-
-
 
 
 		$scope.questions = Questions.questions;
