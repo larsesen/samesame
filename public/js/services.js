@@ -85,7 +85,6 @@ angular.module("samesameApp.services", [])
 				questionid: '1',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/1a.png"
 				}, {
@@ -95,18 +94,15 @@ angular.module("samesameApp.services", [])
 				}
 				],
 			}
-			
 			,
 			question2: {
 				questionid: '2',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/2a.png"
 
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/2a.png"
 				}
@@ -116,11 +112,9 @@ angular.module("samesameApp.services", [])
 				questionid: '3',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/3a.png"
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/3b.png"
 				}
@@ -130,11 +124,9 @@ angular.module("samesameApp.services", [])
 				questionid: '4',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/4a.png"
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/4b.png"
 				}
@@ -144,11 +136,9 @@ angular.module("samesameApp.services", [])
 				questionid: '5',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/5a.png"
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/5b.png"
 				}
@@ -158,11 +148,9 @@ angular.module("samesameApp.services", [])
 				questionid: '6',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/6a.png"
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/6b.png"
 				}
@@ -172,11 +160,9 @@ angular.module("samesameApp.services", [])
 				questionid: '7',
 				options : [
 				{
-					output : 'A',
 					value : 'a',
 					imageURL : "./images/7a.png"
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/7b.png"
 				}
