@@ -276,7 +276,6 @@ angular.module("samesameApp.services", [])
 				else {
 					while (questionNumber == null) {
 						questionNumber = answeredQuestions[Math.floor(Math.random() * answeredQuestions.length)];
-						console.log("random number is: " + questionNumber);
 					}
 				}
 				return questionNumber;

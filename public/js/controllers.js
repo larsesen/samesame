@@ -291,59 +291,36 @@ angular.module("samesameApp.controllers", [])
 		$scope.numberOfQuestions = Object.keys(Questions).length;
 		//$scope.answeredQuestions = new Array ($scope.numberOfQuestions);
 
-		console.log("number of questions: " + $scope.numberOfQuestions);
-
-
-
-
-		//holds number of already answered questions
-
-		//var answeredQuestions = answeredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
-		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions(7);
-		console.log("Answered questions: " + answeredQuestions);
-
-
+		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
 		var id = JSON.stringify(QuestionData.getInitQuestionData());
+		
+		$scope.userid = id; //only used for logging out to view
+
+		/*
+		console.log("number of questions: " + $scope.numberOfQuestions);
+		console.log("Answered questions: " + answeredQuestions);
 		console.log("current user id: " + id);
+		*/
 
-
-		
-
-	
-
-
-
-		
-		
 
 		$scope.nextQuestion = function() {
 		//	$scope.submitAnswer = function(isValid) {
 		//	if (isValid) {
 
-
-			//randomly draws next question
-
 			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
-			console.log("answered before: " + answeredQuestions);
+			//console.log("answered before: " + answeredQuestions);
 
 
 			var listEmpty = isListEmpty(answeredQuestions);
 
-			if (!listEmpty) {
-				var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);	
-			}
-			
-			else {
-				$location.path("/partial-register-participant");
-			}
-			
+			var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions); //list given is never empty
 
 			$scope.nextQ = nextQ; //only used for printing to view
 
 				
 
 			AnsweredQuestions.removeIndex(answeredQuestions,$scope.nextQ);
-			console.log("answered after: " + answeredQuestions);
+			//console.log("answered after: " + answeredQuestions);
 
 			//$scope.initAnsweredQuestions();
 			//$scope.deleteIndexFromArray($scope.nextQ);
@@ -353,8 +330,8 @@ angular.module("samesameApp.controllers", [])
 
 
 
-
-
+			var elementsLeft = elementsLeftInList(answeredQuestions);
+			//console.log("ELEMEMEEMEME: " + elementsLeft);
 
 
 			$scope.formData.userid = id;
@@ -365,7 +342,14 @@ angular.module("samesameApp.controllers", [])
 			.success(function(data) {
 				console.log("answer registered" + JSON.stringify($scope.formData));
 				RecentAnswer.setAnswer($scope.formData);
-				$location.path("/partial-register-answer");
+
+				if (elementsLeft > 0) {
+					$location.path("/partial-register-answer");				
+				}
+				else {
+					$location.path("/partial-register-participant");
+				}
+
 			});
 			/*
 			});
@@ -471,3 +455,17 @@ function isListEmpty(list) {
 		}
 		return true;
 	}
+
+
+function elementsLeftInList(list) {
+	var counter = 0;
+	var i;
+
+	for (i = 0 ; i < list.length ; i++) {
+		if (list[i] == null) {
+			counter++;
+		}
+	}
+	console.log("elements left: " + (list.length - counter));
+	return (list.length - counter);
+}
