@@ -296,11 +296,15 @@ angular.module("samesameApp.controllers", [])
 		
 		$scope.userid = id; //only used for logging out to view
 
+
+		//$scope.nextQ = 1;
+		
 		/*
-		console.log("number of questions: " + $scope.numberOfQuestions);
-		console.log("Answered questions: " + answeredQuestions);
-		console.log("current user id: " + id);
+		var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions); //list given is never empty
+		AnsweredQuestions.removeIndex(answeredQuestions,$scope.nextQ);
+		$scope.nextQ = nextQ;
 		*/
+
 
 
 		$scope.nextQuestion = function() {
@@ -308,31 +312,24 @@ angular.module("samesameApp.controllers", [])
 		//	if (isValid) {
 
 			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
-			//console.log("answered before: " + answeredQuestions);
-
-
 			var listEmpty = isListEmpty(answeredQuestions);
+	
 
-			var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions); //list given is never empty
 
-			$scope.nextQ = nextQ; //only used for printing to view
-
-				
-
-			AnsweredQuestions.removeIndex(answeredQuestions,$scope.nextQ);
-			//console.log("answered after: " + answeredQuestions);
-
-			//$scope.initAnsweredQuestions();
-			//$scope.deleteIndexFromArray($scope.nextQ);
+			//if there still is unanswered questions, randomly select one. 
+			if (!listEmpty) {
+				var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions); //list given is never empty
+				AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
+				$scope.nextQ = nextQ; 
+			}
+			
 
 			$scope.answeredQuestions = answeredQuestions; //only used for printing to view
 
 
 
-
+			//Checks how many elements left. Used for routing request correctly
 			var elementsLeft = elementsLeftInList(answeredQuestions);
-			//console.log("ELEMEMEEMEME: " + elementsLeft);
-
 
 			$scope.formData.userid = id;
 			$scope.formData.questionid = $scope.nextQ;
@@ -466,6 +463,5 @@ function elementsLeftInList(list) {
 			counter++;
 		}
 	}
-	console.log("elements left: " + (list.length - counter));
 	return (list.length - counter);
 }
