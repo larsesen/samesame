@@ -233,40 +233,66 @@ angular.module("samesameApp.services", [])
 				//console.log("initQuestionData: " + JSON.stringify(QuestionData.userid));
 			},
 
-			setQuestionData: function(data) {
-				QuestionData = {
-					userid : data.userid,
-					questionid : "heihei",
-					response : data.response
-				};
-				//console.log("setQuestionData: " + JSON.stringify(data));
-			},
-
 			getInitQuestionData : function(data) {
 				return QuestionData.userid;
-			},
-
-			getQuestionData : function() {
-				return QuestionData;
 			}
-	};
 
-	
 
-	/*
-	.factory("AnsweredQuestions", function($http) {
-		var AnsweredQuestions = new Array(7);
-
-		return {
-			updateAnsweredQuestions : function(data) {
-
-			}
-		}
+		};
 	})
 
-*/
+	
+
+
+	.factory("AnsweredQuestions", function($http) {
+		var answeredQuestions = {};
+		
+		return {
+			
+
+			initAnsweredQuestions : function(length) {
+				answeredQuestions = new Array(length);
+				var i;
+				for (i = 1 ; i < length+1 ; i++) {
+					answeredQuestions[i] = i;
+				}
+				return answeredQuestions;
+			},
+
+			removeIndex : function(answeredQuestions, index) {
+				delete answeredQuestions[index];
+				return answeredQuestions;
+			},
+
+
+			getNextQuestion : function(answeredQuestions) {
+				var questionNumber = null;
+
+				while (questionNumber == null) {
+					questionNumber = answeredQuestions[Math.floor(Math.random() * answeredQuestions.length)];
+					console.log("random number is: " + questionNumber);
+				}
+				return questionNumber;
+			},
+
+
+
+			getAnsweredQuestions : function() {
+				return answeredQuestions;
+			}
+
+
+			
+
+
+
+			};
+
+	
+	})
+
+
 
 
 
 	
-	});

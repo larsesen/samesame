@@ -53,12 +53,6 @@ also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
 	/*jshint multistr: true, laxbreak: true*/
-/*
-	query("INSERT INTO samesame.answers(response)" +
-		"VALUES ('" + values.response + "');", callback);
-}
-*/
-
 	query("INSERT INTO samesame.answers(userid, questionid, response)" +
 		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "');", callback);
 }
@@ -73,7 +67,7 @@ function deleteAnswers(callback) {
 
 //delete a specific answer
 function deleteAnswer(id, callback) {
-	query("delete from samesame.answers where id_answers = " + id, callback);
+	query("delete from samesame.answers where answerid = " + id, callback);
 }
 
 //select all participants

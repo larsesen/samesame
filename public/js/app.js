@@ -38,6 +38,10 @@ config(["$routeProvider", function($routeProvider) {
 			templateUrl: "views/new_partial-participant-registered.html", controller: "RegisterParticipantCtrl"
 		});
 
+	$routeProvider.when("/partial-view-statistics",
+	{
+		templateUrl: "views/partial-view-statistics.html"
+	});
 
 
 

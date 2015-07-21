@@ -280,7 +280,7 @@ angular.module("samesameApp.controllers", [])
 	}])
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", "QuestionData", function($scope, $location, Answers, Questions, RecentAnswer, QuestionData) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", "QuestionData","AnsweredQuestions", function($scope, $location, Answers, Questions, RecentAnswer, QuestionData, AnsweredQuestions) {
 
 		//initial object of form data
 		$scope.formData = {};
@@ -291,15 +291,16 @@ angular.module("samesameApp.controllers", [])
 		$scope.numberOfQuestions = Object.keys(Questions).length;
 		//$scope.answeredQuestions = new Array ($scope.numberOfQuestions);
 
-
-		
-
 		console.log("number of questions: " + $scope.numberOfQuestions);
+
 
 
 
 		//holds number of already answered questions
 
+		//var answeredQuestions = answeredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
+		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions(7);
+		console.log("Answered questions: " + answeredQuestions);
 
 
 		var id = JSON.stringify(QuestionData.getInitQuestionData());
@@ -314,20 +315,11 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.getNextQ = function() {
 			$scope.nextQ = getRandomInt(1,$scope.numberOfQuestions);
-			//$scope.nextQ = getRandomInt(1,100);
 		}
 
-		$scope.deleteIndexFromArray = function(index) {
-			delete $scope.answeredQuestions[index];
-		}
 
-		$scope.initAnsweredQuestions = function() {
-				$scope.answeredQuestions = new Array($scope.numberOfQuestions);
-				var i;
-				for (i = 1 ; i < $scope.numberOfQuestions+1 ; i++) {
-					$scope.answeredQuestions[i] = i;
-				}
-			}
+
+		
 		
 
 		$scope.nextQuestion = function() {
@@ -335,15 +327,37 @@ angular.module("samesameApp.controllers", [])
 		//	if (isValid) {
 
 
-			$scope.getNextQ();
+			//randomly draws next question
 
-			//if nextQ not in alreadyAskedQuestions
-			//Implement this feature here...
+			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
+			console.log("answered before: " + answeredQuestions);
+
+
+			var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
 			
+
+			$scope.nextQ = nextQ; //only used for printing to view
+
+				
+
+			AnsweredQuestions.removeIndex(answeredQuestions,$scope.nextQ);
+			console.log("answered after: " + answeredQuestions);
+
+			//$scope.initAnsweredQuestions();
+			//$scope.deleteIndexFromArray($scope.nextQ);
+
+			$scope.answeredQuestions = answeredQuestions; //only used for printing to view
+
+
+
+
+
+
+
+
 			$scope.formData.userid = id;
 			$scope.formData.questionid = $scope.nextQ;
-			QuestionData.setQuestionData($scope.formData);
-
+			
 			Answers.create($scope.formData)
 			
 			.success(function(data) {
@@ -430,11 +444,6 @@ angular.module("samesameApp.controllers", [])
 		$scope.getAnswers();
 
 	}])
-
-
-
-
-
 
 
 
