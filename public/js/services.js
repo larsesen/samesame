@@ -268,29 +268,31 @@ angular.module("samesameApp.services", [])
 			getNextQuestion : function(answeredQuestions) {
 				var questionNumber = null;
 
-				while (questionNumber == null) {
-					questionNumber = answeredQuestions[Math.floor(Math.random() * answeredQuestions.length)];
-					console.log("random number is: " + questionNumber);
+
+				if (isListEmpty(answeredQuestions)) {
+					return "tomt";
+				}
+
+				else {
+					while (questionNumber == null) {
+						questionNumber = answeredQuestions[Math.floor(Math.random() * answeredQuestions.length)];
+						console.log("random number is: " + questionNumber);
+					}
 				}
 				return questionNumber;
 			},
 
-
-
 			getAnsweredQuestions : function() {
 				return answeredQuestions;
-			}
+			},
 
 
-			
-
-
-
-			};
-
-	
+		};
 	})
 
+
+
+	
 
 
 

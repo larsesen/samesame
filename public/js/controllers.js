@@ -307,15 +307,9 @@ angular.module("samesameApp.controllers", [])
 		console.log("current user id: " + id);
 
 
-		$scope.setQuestionsSize = function() {
-			$scope.setQuestionsSize = Object.keys(Questions).length;
-		};
+		
 
 	
-
-		$scope.getNextQ = function() {
-			$scope.nextQ = getRandomInt(1,$scope.numberOfQuestions);
-		}
 
 
 
@@ -333,7 +327,15 @@ angular.module("samesameApp.controllers", [])
 			console.log("answered before: " + answeredQuestions);
 
 
-			var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
+			var listEmpty = isListEmpty(answeredQuestions);
+
+			if (!listEmpty) {
+				var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);	
+			}
+			
+			else {
+				$location.path("/partial-register-participant");
+			}
 			
 
 			$scope.nextQ = nextQ; //only used for printing to view
@@ -460,8 +462,12 @@ angular.module("samesameApp.controllers", [])
 
 
 
-
-
-function getRandomInt(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}	
+function isListEmpty(list) {
+		var i;
+		for (i = 0; i < list.length; i++) {
+			if (list[i] != null) {
+				return false;
+			}	
+		}
+		return true;
+	}
