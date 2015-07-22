@@ -449,6 +449,45 @@ angular.module("samesameApp.controllers", [])
 
 
 
+
+
+
+// =======================================================================================
+
+
+	.controller("StatisticsController", ["$scope", function($scope) {
+
+	}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// =======================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
 function isListEmpty(list) {
 		var i;
 		for (i = 0; i < list.length; i++) {

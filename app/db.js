@@ -118,20 +118,23 @@ function exportParticipants(callback) {
 
 
 
+// =======================================================================================
+
+
+function getStatistics(callback) {
+	query("SELECT * FROM samesame.answers", callback);
+}
 
 
 
 
 
-/*
-TO BE DELETED:
-*/
-
-/*
-END DELETING HERE
-*/
+exports.getStatistics = getStatistics;
 
 
+
+
+// =======================================================================================
 
 
 

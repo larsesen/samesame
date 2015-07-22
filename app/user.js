@@ -257,16 +257,41 @@ function convertToCSV(objArray) {
 
 
 
+// =======================================================================================
 
 
-/*
-TO BE DELETED
-*/
 
 
-/*
-END DELETING
-*/
+function getStatistics(req, res) {
+	db.getStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
+}
+
+
+
+
+
+exports.getStatistics = getStatistics;
+
+
+// =======================================================================================
+
+
+
+
+
+
+
+
+
+
+
 
 
 
