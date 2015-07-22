@@ -51,7 +51,7 @@ Is called from the CREATE method of the Answers service.
 Converts the data values into a new 'values' object for easier naming, which is passed on to the database script.
 */
 function insertAnswer(req, res) {
-	console.log("\n Request body is: " + JSON.stringify(req.body) + "\n");
+	//console.log("\n Request body is: " + JSON.stringify(req.body) + "\n");
 	var values = {	
 		userid: req.body.userid,
 		questionid: req.body.questionid,
@@ -62,7 +62,7 @@ function insertAnswer(req, res) {
 			errorHandler(err, res);
 		}
 		else {
-			res.send("Successfully registered the answer");
+			res.send("Successfully registered the answer \n");
 			}
 	});
 }

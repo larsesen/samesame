@@ -280,7 +280,7 @@ angular.module("samesameApp.controllers", [])
 	}])
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", "QuestionData","AnsweredQuestions", function($scope, $location, Answers, Questions, RecentAnswer, QuestionData, AnsweredQuestions) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", "QuestionData","AnsweredQuestions", "UserService", function($scope, $location, Answers, Questions, RecentAnswer, QuestionData, AnsweredQuestions, UserService) {
 
 		//initial object of form data
 		$scope.formData = {};
@@ -292,12 +292,17 @@ angular.module("samesameApp.controllers", [])
 		//$scope.answeredQuestions = new Array ($scope.numberOfQuestions);
 
 		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
-		var id = JSON.stringify(QuestionData.getInitQuestionData());
+		var id = JSON.stringify(QuestionData.getUserID());
+		
 		
 		$scope.userid = id; //only used for logging out to view
 
 
-		
+
+		//Setting userid to be retrieved from register-participant-module
+		UserService.setUserID(id);
+
+
 		
 		/* 
 		Needed for retrieving images correctly at init stage
@@ -312,8 +317,6 @@ angular.module("samesameApp.controllers", [])
 
 
 		$scope.nextQuestion = function() {
-		//	$scope.submitAnswer = function(isValid) {
-		//	if (isValid) {
 
 			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 			var listEmpty = isListEmpty(answeredQuestions);
@@ -321,7 +324,6 @@ angular.module("samesameApp.controllers", [])
 
 			//Checks how many elements left. Used for routing request correctly
 			var elementsLeft = elementsLeftInList(answeredQuestions);
-
 
 			//Forming request:
 			$scope.formData.userid = id;
@@ -345,7 +347,6 @@ angular.module("samesameApp.controllers", [])
 				}
 				$scope.init = 0;
 
-
 				if (elementsLeft > 0) {
 					$location.path("/partial-register-answer");				
 				}
@@ -354,26 +355,21 @@ angular.module("samesameApp.controllers", [])
 				}
 
 			});
-			/*
-			});
-			else
-			{
-				$scope.submitted = true;
-			}
-			*/
 		};
-
-
 		$scope.questions = Questions.questions;
 	}])
 
+
 	//the controller used on the page where the user registers the contact info
-	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", function($scope, $location, Participants) {
+	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserService", function($scope, $location, Participants, UserService) {
 
 		//initial object of participant
 		$scope.participant = {};
 		//the initial field of duplicate contact info
 		$scope.duplicateEmail = "";
+	
+		//retrieving userid to insert to db, so that answer is linked to specific person
+		$scope.userid = UserService.getUserID();
 
 		//a setter for the duplicate email field
 		$scope.setDuplicateEmail = function() {
@@ -399,6 +395,11 @@ angular.module("samesameApp.controllers", [])
 		};
 	}])
 	
+
+
+
+
+
 	.controller("VisualizeCtrl", ["$scope", "Answers", "Questions", function($scope, Answers, Questions) {
 		/*
 		get all answers from the server,

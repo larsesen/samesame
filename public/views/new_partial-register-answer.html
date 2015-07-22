@@ -4,19 +4,19 @@
 
 <div class="container middle-pos">
 
-
-
-
 <form name="answerForm" ng-submit="nextQuestion()" novalidate> 
 
-	<h2 class="text-orange">Choose one picture from each category</h2>
+<h2 class="text-orange">Choose one picture from each category</h2>
 	
 <br><br> 
 	<body>	
 
-	<div class="btn-group" name='question1' value='1'>
+	<div class="btn-group">
 		<label>
-	    	<input type="radio" value="a" ng-model="formData.response" required/>
+
+			<input type="radio" value="a" ng-model="formData.response" required/>
+
+<!--	    	<input type="radio" onclick="alert('hello')" value="a" ng-model="formData.response" required/> -->
 	    	<img ng-src="./images/{{nextQ}}a.png">
 
 	  	</label>
@@ -34,7 +34,7 @@
 		<div class="text-white text-medium">
 			
 			<!--
-			{{nextQ}} || {{answeredQuestions}} 
+			{{nextQ}} || {{answeredQuestions}} || {{userid}}
 			 -->
 		</div>
 	
@@ -63,44 +63,3 @@
 
 
 
-
-<!--
-	<div class="btn-group" name='question1' value='1' ng-model="formdata.questionid">
-		<label>
-	    	<input type="radio" name="q1" value="a" ng-model="formData.response" />
-	    	<img src="./images/01a.png">
-	  	</label>
-  		<container class="leftspace">
-	  	<label>
-    		<input type="radio" name="q1" value="b" ng-model="formData.response" />
-    		<img src="./images/01b.png">
-  		</label>
-  		</class>
-  	</div>
-  	<br>
--->
-
-
-<!--
-	<div ng-repeat="question in questions" ng-model="question.questionid">
-			
-			<div id="{{question.questionid}}"  data-toggle="buttons">
-				<label ng-repeat="option in question.options" class="btn" ng-model="formData.questionid">
-					
-					
-					<input type="radio" name="{{question.questionid}}"  value="{{option.value}}" ng-model="formData.response" make-radio-button-detect-change required><br>
-					
-					
-					<input type="radio" name="{{question.questionid}}" value="{{option.value}}" ng-model="formData[question.questionid]" make-radio-button-detect-change required><br>
-					
-
-					<img src="{{option.imageURL}}" style="width:250px; height:250px">		
-					<br><br>		
-
-					
-					{{formData[question.questionid]}} ||
-					
-					{{question.questionid}}
-					; 
-					{{option.value}}
-					-->

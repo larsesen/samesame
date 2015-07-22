@@ -168,25 +168,10 @@ angular.module("samesameApp.services", [])
 				}
 				]
 			}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		};
 	})
+
+
 
 
 
@@ -219,11 +204,10 @@ angular.module("samesameApp.services", [])
 				//console.log("initQuestionData: " + JSON.stringify(QuestionData.userid));
 			},
 
-			getInitQuestionData : function(data) {
+			//rename this to "getUserId"
+			getUserID : function(data) {
 				return QuestionData.userid;
 			}
-
-
 		};
 	})
 
@@ -235,7 +219,6 @@ angular.module("samesameApp.services", [])
 		
 		return {
 			
-
 			initAnsweredQuestions : function(length) {
 				answeredQuestions = new Array(length);
 				var i;
@@ -250,13 +233,11 @@ angular.module("samesameApp.services", [])
 				return answeredQuestions;
 			},
 
-
 			getNextQuestion : function(answeredQuestions) {
 				var questionNumber = null;
 
 				while (questionNumber == null) {
 					questionNumber = answeredQuestions[Math.floor(Math.random() * answeredQuestions.length)];
-					//console.log("Question generated: " + questionNumber);
 				}
 				return questionNumber;
 			},
@@ -264,17 +245,28 @@ angular.module("samesameApp.services", [])
 			getAnsweredQuestions : function() {
 				return answeredQuestions;
 			}
-
-
-			
-
-
-
-			};
-
-	
+		};
 	})
 
+
+/* */
+
+	.service("UserService", function() {
+		var userid;
+
+		var setUserID = function(id) {
+			userid = id;
+		};
+
+		var getUserID = function() {
+			return userid;
+		};
+
+		return {
+			setUserID: setUserID,
+			getUserID: getUserID
+		};
+	})
 
 
 
