@@ -280,7 +280,7 @@ angular.module("samesameApp.controllers", [])
 	}])
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer", "QuestionData","AnsweredQuestions", "UserService", function($scope, $location, Answers, Questions, RecentAnswer, QuestionData, AnsweredQuestions, UserService) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
 
 		//initial object of form data
 		$scope.formData = {};
@@ -292,7 +292,7 @@ angular.module("samesameApp.controllers", [])
 		//$scope.answeredQuestions = new Array ($scope.numberOfQuestions);
 
 		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
-		var id = JSON.stringify(QuestionData.getUserID());
+		var id = JSON.stringify(UserIDService.getUserID());
 		
 		
 		$scope.userid = id; //only used for logging out to view
@@ -300,7 +300,7 @@ angular.module("samesameApp.controllers", [])
 
 
 		//Setting userid to be retrieved from register-participant-module
-		UserService.setUserID(id);
+		UserIDService.setUserID(id);
 
 
 		
@@ -361,7 +361,7 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers the contact info
-	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserService", function($scope, $location, Participants, UserService) {
+	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", function($scope, $location, Participants, UserIDService) {
 
 		//initial object of participant
 		$scope.participant = {};
@@ -369,8 +369,8 @@ angular.module("samesameApp.controllers", [])
 		$scope.duplicateEmail = "";
 	
 		//retrieving userid to insert to db, so that answer is linked to specific person
-		$scope.userid = UserService.getUserID();
-
+		$scope.userid = UserIDService.getUserID();
+		$scope.participant.userid = $scope.userid;
 		//a setter for the duplicate email field
 		$scope.setDuplicateEmail = function() {
 			$scope.duplicateEmail = $scope.participant.email;
@@ -383,6 +383,7 @@ angular.module("samesameApp.controllers", [])
 		Sets the attempted email as duplicated, which in turn is used to inform the user
 		*/
 		$scope.submitParticipant = function() {
+			console.log(JSON.stringify($scope.participant));
 			Participants.create($scope.participant)
 			.success(function(data){
 				$location.path("/partial-participant-registered");
@@ -438,11 +439,11 @@ angular.module("samesameApp.controllers", [])
 
 
 	// Inits a unique user id. Used for db interaction for a single user
-	.controller("InitUserCtrl", ["$scope", "$location", "QuestionData", function($scope, $location, QuestionData) {	
+	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", function($scope, $location, UserIDService) {	
 		var d = new Date();
 		var id = d.getTime();
 
-		QuestionData.initQuestionData(id);
+		UserIDService.setUserID(id);
 		$location.path("/partial-start");
 	}])
 

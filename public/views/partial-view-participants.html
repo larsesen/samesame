@@ -30,6 +30,7 @@
 				<thead>
 					<tr>
 						<th class="middle-pos">Navn</th>
+						<th class="middle-pos">UserID</th>
 						<th class="middle-pos">Kontaktinfo</th>
 					</tr>
 				</thead>
@@ -37,6 +38,7 @@
 					<tr ng-repeat="participant in participants | 
 					answersFromTo:startParticipants:startParticipants + limitParticipants">
 						<td>{{participant.name}}</td>
+						<td>{{participant.userid}}</td>
 						<td>{{participant.email}}</td>
 					</tr>
 				</tbody>

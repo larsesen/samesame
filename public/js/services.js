@@ -193,27 +193,6 @@ angular.module("samesameApp.services", [])
 
 
 
-	.factory("QuestionData", function($http) {
-		var QuestionData = {};
-				
-		return {
-			initQuestionData : function(data) {
-				QuestionData = {
-					userid : data
-				};
-				//console.log("initQuestionData: " + JSON.stringify(QuestionData.userid));
-			},
-
-			//rename this to "getUserId"
-			getUserID : function(data) {
-				return QuestionData.userid;
-			}
-		};
-	})
-
-	
-
-
 	.factory("AnsweredQuestions", function($http) {
 		var answeredQuestions = {};
 		
@@ -249,9 +228,9 @@ angular.module("samesameApp.services", [])
 	})
 
 
-/* */
 
-	.service("UserService", function() {
+	//Used to propagate userid throughout application
+	.service("UserIDService", function() {
 		var userid;
 
 		var setUserID = function(id) {

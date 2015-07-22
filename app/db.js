@@ -80,8 +80,8 @@ insert a new participant
 values is an array containing the values to be inserted
 */
 function insertParticipant(values, callback) {
-	query("insert into samesame.participants(email, name)" + 
-		"values ('" + values.email + "', '" + values.name + "');", callback);
+	query("insert into samesame.participants(email, userid, name)" + 
+		"values ('" + values.email + "', '" + values.userid + "', '" + values.name + "');", callback);
 }
 
 
