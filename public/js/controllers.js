@@ -452,52 +452,19 @@ angular.module("samesameApp.controllers", [])
 
 
 
-// =======================================================================================
-
-
 	.controller("StatisticsController", ["$scope", "Statistics", function($scope, Statistics) {
 
 		//initial call to fetch answers
 		Statistics.retrieveStatistics().success(function(data) {
 			$scope.statistics = data;
-			//console.log("retrieved to controller: " + JSON.stringify($scope.statistics));
-		
-			Statistics.setStatistics($scope.statistics); //returns prettier object
-			$scope.data = Statistics.getStatistics();
 			
-			console.log($scope.data);
+			// sets objectlist
+			Statistics.setStatistics($scope.statistics);
 			
-
+			//retrieves list of questionObjects to be used for view (partial-view-statistics)
+			$scope.dataList = Statistics.getStatistics();
 		});
-		
-
 	}])
-
-
-/*
-	
-*/
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// =======================================================================================
-
-
-
-
 
 
 

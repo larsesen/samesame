@@ -259,8 +259,8 @@ angular.module("samesameApp.services", [])
 
 	//service that communicates with the REST API for answers
 	.factory("Statistics", function($http) {
+		var statList = [];
 		var statObject = {};
-
 
 		return {
 
@@ -271,51 +271,29 @@ angular.module("samesameApp.services", [])
 
 			
 			getStatistics : function() {
-				return statObject;
+				return statList;
 			},
 
+			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
 			setStatistics : function(currObject) {
-				console.log("services: " + JSON.stringify(currObject));
 
-				console.log(JSON.stringify(currObject[0]["questionid"]));
-				console.log(JSON.stringify(currObject[0]["a"]));
-				console.log(JSON.stringify(currObject[0]["b"]));
-				console.log(JSON.stringify(currObject[0]["total"]));
-				console.log(JSON.stringify(currObject[0]["a_"]));
-				console.log(JSON.stringify(currObject[0]["b_"]));
+				var i;			
+				for (i = 0 ; i < currObject.length ; i++) {
 
-
-				statObject = {
-					questionid : currObject[0]["questionid"],
-					responseA : currObject[1]["a"],
-					responseB : currObject[2]["b"],
-					total : currObject[3]["total"],
-					percentageA : currObject[4]["a_"],
-					percentageB : currObject[5]["b_"]
-				};
-			},
-
-
-/*
-			getQuestionid : function(id) {
-				return $http.get("/answers" );
-			},
-
-
-
-
-			getAll : function(viewAllArg) {
-				return $http.get("/answers", {
-					params : {
-						viewAll : viewAllArg
+					statObject = {
+						questionid : currObject[i]["questionid"],
+						responseA : currObject[i]["a"],
+						percentageA : currObject[i]["a_"],
+						responseB : currObject[i]["b"],
+						percentageB : currObject[i]["b_"],
+						total : currObject[i]["total"]
 					}
-				});
-			},
+					//console.log("object " + i + " has following data: " + JSON.stringify(statObject));
 
-			get : function(id) {
-				return $http.get("/answers/" + id);
+					statList.push(statObject);
+				}
 			}
-*/
+
 		}
 	})
 
@@ -325,7 +303,3 @@ angular.module("samesameApp.services", [])
 
 
 
-
-
-
-// =======================================================================================
