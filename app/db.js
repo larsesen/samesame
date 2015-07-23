@@ -38,20 +38,6 @@ function query(queryStr, callback) {
 }
 
 
-/*
-function multipleQuery(query1, query2, query3, query4, callback) {
-	connection.query("?; ?; ?; ?", [query1,query2,query3,query4],  function(err, results) {
-		if (err) {
-			callback(err);
-		}
-		else {
-			callback(null, rows);
-		}
-	});
-}
-*/
-
-
 //select all answers
 function readAnswers(callback) {
 	//console.log("db.readAnswers");
@@ -146,26 +132,24 @@ function getAllAnswers(callback) {
 	query("SELECT * FROM samesame.answers", callback);
 }
 
+
 /*
+working multiQuery function
 function getStatistics(id, callback) {
-	var q1 = "select distinct questionid from samesame.answers where questionid=1";
-	var q2 = "select count(response) as a from samesame.answers where questionid=1 and response='a'";
-	var q3 = "select count(response) as b from samesame.answers where questionid=1 and response='b'";
-	var q4 = "select count(response) totalAnswers from samesame.answers where questionid=1";
+	id = 1;
+	var q1 = "select distinct questionid from samesame.answers where questionid=" + id;
+	var q2 = "select count(response) as a from samesame.answers where questionid=" + id + " and response='a'";
+	var q3 = "select count(response) as b from samesame.answers where questionid=" + id + " and response='b'";
+	var q4 = "select count(response) totalAnswers from samesame.answers where questionid=" + id;
 	connection.query(q1 + ";" + q2 + ";" + q3 + ";" + q4 ,callback);
 }
 */
 
-function getStatistics(id, callback) {
-	var q1 = "select distinct questionid from samesame.answers where questionid=" + id;
-	var q2 = "select count(response) as a from samesame.answers where questionid=" + id + " and response='a'";
-	var q3 = "select count(response) as b from samesame.answers where questionid=" + id + " and response='b'";
-	var q4 = "select count(response) totalAnswers from samesame.answers where questionid=1";
-	connection.query(q1 + ";" + q2 + ";" + q3 + ";" + q4 ,callback);
-
-
-
-
+function getStatistics(callback) {
+	query("select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
+		"sum(case when response='b' then 1 else 0 end) b, count(*) as totalAnswers from samesame.answers group by questionid", callback);
+}
+//"select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b, count(*) from samesame.answers group by questionid;"
 
 
 

@@ -265,19 +265,19 @@ function getAllAnswers(req, res) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
 }
 
 function getStatistics(req, res) {
+
 	db.getStatistics(function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});

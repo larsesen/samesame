@@ -93,6 +93,10 @@ route for deleting all winners, sets the 'winner' field of all participants to 0
 		.get(user.getStatistics);
 		
 /*
+	app.route("/statistics/:id")
+		//used to get the answer with the specified id
+		.get(user.getStatistics);
+
 		.get(user.getAllAnswers);
 */
 
