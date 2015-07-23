@@ -470,7 +470,7 @@ angular.module("samesameApp.controllers", [])
 			Statistics.setStatistics($scope.statistics); 
 			
 			$scope.data = Statistics.getStatistics();
-			console.log("JSON data: " + JSON.stringify(data));
+			//console.log("JSON data: " + JSON.stringify(data));
 			
 
 		});

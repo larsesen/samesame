@@ -146,7 +146,7 @@ function getAllAnswers(callback) {
 	query("SELECT * FROM samesame.answers", callback);
 }
 
-
+/*
 function getStatistics(id, callback) {
 	var q1 = "select distinct questionid from samesame.answers where questionid=1";
 	var q2 = "select count(response) as a from samesame.answers where questionid=1 and response='a'";
@@ -154,54 +154,19 @@ function getStatistics(id, callback) {
 	var q4 = "select count(response) totalAnswers from samesame.answers where questionid=1";
 	connection.query(q1 + ";" + q2 + ";" + q3 + ";" + q4 ,callback);
 }
+*/
 
-/*
-
+function getStatistics(id, callback) {
 	var q1 = "select distinct questionid from samesame.answers where questionid=" + id;
 	var q2 = "select count(response) as a from samesame.answers where questionid=" + id + " and response='a'";
 	var q3 = "select count(response) as b from samesame.answers where questionid=" + id + " and response='b'";
 	var q4 = "select count(response) totalAnswers from samesame.answers where questionid=1";
-
-*/
-
+	connection.query(q1 + ";" + q2 + ";" + q3 + ";" + q4 ,callback);
 
 
 
 
 
-
-
-
-
-function getNumber(id, callback) {
-	query("select questionid from answers where questionid = 1", callback);
-}
-
-
-function getNumberofResponses(id, callback) {
-	query("SELECT COUNT(response) FROM answers WHERE questionid = " + id, callback);
-}
-
-
-function getSpecificResponse(questionid, response, callback) {
-	query("SELECT COUNT(response) FROM answers WHERE questionid = " + questionid + " and response = " + id, callback);
-}
-
-
-/* 
-		$scope.statData.questionid = ;
-		select questionid from answers where questionid=1
-
-		$scope.statData.responseA = ;
-		select count(response) from answers where questionid=1 and response='a';
-
-		$scope.statData.responseB = ;
-		select count(response) from answers where questionid=1 and response='b';
-
-		$scope.statData.totalanswered = ;
-		select count(response) from answers where questionid=1;
-
-*/
 
 
 exports.getStatistics = getStatistics;

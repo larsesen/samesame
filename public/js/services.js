@@ -276,21 +276,13 @@ angular.module("samesameApp.services", [])
 
 			setStatistics : function(currObject) {
 				
-				console.log(JSON.stringify(currObject));
+				console.log("Before: " + JSON.stringify(currObject));
 				statObject = {
-					questionid : currObject[0][0],
-					responseA : currObject[1][0],
-					responseB : currObject[2][0],
-					totalAnswered : currObject[3][0]
-
-
+					questionid : currObject[0][0]["questionid"],
+					responseA : currObject[1][0]["a"],
+					responseB : currObject[2][0]["b"],
+					totalAnswered : currObject[3][0]["totalAnswers"]
 				};
-
-				console.log(JSON.stringify(statObject.questionid));
-				console.log(JSON.stringify(statObject.responseA));
-				console.log(JSON.stringify(statObject.responseB));
-				console.log(JSON.stringify(statObject.totalAnswered));
-				//console.log(JSON.stringify(statObject));
 			},
 
 
