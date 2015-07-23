@@ -145,11 +145,21 @@ function getStatistics(id, callback) {
 }
 */
 
+/*
 function getStatistics(callback) {
 	query("select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
 		"sum(case when response='b' then 1 else 0 end) b, count(*) as totalAnswers from samesame.answers group by questionid", callback);
 }
-//"select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b, count(*) from samesame.answers group by questionid;"
+*/
+
+//Magic retrieving all sorts of data in single table
+function getStatistics(callback) {
+query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
+	" from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
+		"sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
+ }
+
+//select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
 
 

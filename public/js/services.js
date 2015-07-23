@@ -280,15 +280,18 @@ angular.module("samesameApp.services", [])
 				console.log(JSON.stringify(currObject[0]["questionid"]));
 				console.log(JSON.stringify(currObject[0]["a"]));
 				console.log(JSON.stringify(currObject[0]["b"]));
-				console.log(JSON.stringify(currObject[0]["totalAnswers"]));
-
+				console.log(JSON.stringify(currObject[0]["total"]));
+				console.log(JSON.stringify(currObject[0]["a_"]));
+				console.log(JSON.stringify(currObject[0]["b_"]));
 
 
 				statObject = {
 					questionid : currObject[0]["questionid"],
 					responseA : currObject[1]["a"],
 					responseB : currObject[2]["b"],
-					totalAnswered : currObject[3]["totalAnswers"]
+					total : currObject[3]["total"],
+					percentageA : currObject[4]["a_"],
+					percentageB : currObject[5]["b_"]
 				};
 			},
 
