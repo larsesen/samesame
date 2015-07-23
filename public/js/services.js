@@ -264,10 +264,20 @@ angular.module("samesameApp.services", [])
 
 		return {
 
+			//retrieves statistics from db
 			retrieveStatistics : function() {
 				return $http.get("/statistics");
 			},
 
+			//deletes all statistics 
+			deleteAll : function() {
+				return $http.delete("/participants");
+			},
+
+
+			resetStatistics : function() {
+				statList = [];
+			},
 
 			
 			getStatistics : function() {
@@ -276,10 +286,8 @@ angular.module("samesameApp.services", [])
 
 			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
 			setStatistics : function(currObject) {
-
 				var i;			
 				for (i = 0 ; i < currObject.length ; i++) {
-
 					statObject = {
 						questionid : currObject[i]["questionid"],
 						responseA : currObject[i]["a"],
@@ -289,7 +297,6 @@ angular.module("samesameApp.services", [])
 						total : currObject[i]["total"]
 					}
 					//console.log("object " + i + " has following data: " + JSON.stringify(statObject));
-
 					statList.push(statObject);
 				}
 			}
@@ -303,3 +310,33 @@ angular.module("samesameApp.services", [])
 
 
 
+/*
+	//service that communicates with the REST API for participants
+	.factory("Participants", function($http) {
+		return {
+			//gets all participants
+			getAll : function() {
+				return $http.get("/participants");
+			},
+			//deletes all participants
+			deleteAll : function() {
+				return $http.delete("/participants");
+			},
+			//creates a new participant based on the participant object passed in
+			create : function(participant) {
+				return $http.post("/participants", participant);
+			},
+			//marks the participant with that email as winner
+			updateWinner: function(email) {
+				return $http.post("/winners/" + email);
+			},
+			//deletes all winners (sets the 'winner' field of all participants to 0)
+			deleteWinners: function() {
+				return $http.delete("/winners");
+			},
+			export : function() {
+				return $http.get("/exportParticipants");
+			}
+		};
+	})
+*/

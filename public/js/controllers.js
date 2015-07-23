@@ -454,16 +454,56 @@ angular.module("samesameApp.controllers", [])
 
 	.controller("StatisticsController", ["$scope", "Statistics", function($scope, Statistics) {
 
+
+/*
+		$scope.getAnswers = function() {
+			Answers.getAll($scope.viewAll).success(function (data) {
+				$scope.answers = data;
+			});
+		};
 		//initial call to fetch answers
-		Statistics.retrieveStatistics().success(function(data) {
-			$scope.statistics = data;
+		$scope.getAnswers();
+
+*/
+
+
+		$scope.retrieveStatistics = function() {
+			Statistics.resetStatistics();
+			//initial call to fetch answers
+			Statistics.retrieveStatistics().success(function(data) {
+				$scope.statistics = data;
 			
-			// sets objectlist
-			Statistics.setStatistics($scope.statistics);
+				// sets objectlist
+				Statistics.setStatistics($scope.statistics);
 			
-			//retrieves list of questionObjects to be used for view (partial-view-statistics)
-			$scope.dataList = Statistics.getStatistics();
-		});
+				//retrieves list of questionObjects to be used for view (partial-view-statistics)
+				$scope.dataList = Statistics.getStatistics();
+			});
+		}
+
+
+		$scope.retrieveStatistics();
+/*
+		$scope.deleteParticipants = function() {
+			Participants.deleteAll().success(function () {
+				Participants.getAll().success(function (data) {
+					$scope.participants = data;
+				});
+			});
+		};
+*/
+
+
+
+
+
+
+
+
+
+
+
+		
 	}])
 
 
