@@ -38,11 +38,6 @@ config(["$routeProvider", function($routeProvider) {
 			templateUrl: "views/new_partial-participant-registered.html", controller: "RegisterParticipantCtrl"
 		});
 
-	$routeProvider.when("/partial-view-statistics",
-	{
-		templateUrl: "views/partial-view-statistics.html", controller: "StatisticsController"
-	});
-
 	$routeProvider.when("/partial-view-answers", 
 		{
 			templateUrl: "views/new_partial-view-answers.html", controller: "AnswerCtrl"
@@ -53,9 +48,31 @@ config(["$routeProvider", function($routeProvider) {
 			templateUrl: "views/partial-view-participants.html", controller: "ParticipantsCtrl"
 		});
 
+/* ============================================================
+Stats views
+=============================================================*/
+
+	$routeProvider.when("/partial-stat-overview", 
+		{
+			templateUrl: "views/partial-stat-overview.html"
+		});
+
+	$routeProvider.when("/partial-stat-table",
+		{
+			templateUrl: "views/partial-stat-table.html", controller: "StatisticsController"
+		});
 
 
 
+	$routeProvider.when("/partial-view-carousel",
+		{
+			templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsController"
+		});
+
+	$routeProvider.when("/partial-view-comparisons",
+		{
+			templateUrl: "views/partial-stat-comparisons.html", controller: "StatisticsController"
+		});
 
 
 

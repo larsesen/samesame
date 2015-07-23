@@ -123,9 +123,6 @@ function exportParticipants(callback) {
 
 // =======================================================================================
 
-//http://stackoverflow.com/questions/23266854/nodejs-mysql-multiple-delete-queries-in-1-statement
-//http://stackoverflow.com/questions/6622746/approach-to-multiple-mysql-queries-with-node-js
-
 
 function getAllAnswers(callback) {
 	//console.log("db calling getStats");
@@ -133,17 +130,6 @@ function getAllAnswers(callback) {
 }
 
 
-/*
-working multiQuery function
-function getStatistics(id, callback) {
-	id = 1;
-	var q1 = "select distinct questionid from samesame.answers where questionid=" + id;
-	var q2 = "select count(response) as a from samesame.answers where questionid=" + id + " and response='a'";
-	var q3 = "select count(response) as b from samesame.answers where questionid=" + id + " and response='b'";
-	var q4 = "select count(response) totalAnswers from samesame.answers where questionid=" + id;
-	connection.query(q1 + ";" + q2 + ";" + q3 + ";" + q4 ,callback);
-}
-*/
 
 /*
 function getStatistics(callback) {
@@ -152,7 +138,7 @@ function getStatistics(callback) {
 }
 */
 
-//Magic retrieving all sorts of data in single table
+//Magic retrieving all sorts of data used for statistics in single table
 function getStatistics(callback) {
 query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
 	" from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
