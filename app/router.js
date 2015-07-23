@@ -91,10 +91,9 @@ route for deleting all winners, sets the 'winner' field of all participants to 0
 
 	app.route("/statistics")
 		.get(user.getStatistics);
+		
 /*
-	app.route("/statistics")
-	console.log("router.js about to get statistics")
-		.get(user.getStatistics);
+		.get(user.getAllAnswers);
 */
 
 

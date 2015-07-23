@@ -40,7 +40,7 @@ config(["$routeProvider", function($routeProvider) {
 
 	$routeProvider.when("/partial-view-statistics",
 	{
-		templateUrl: "views/partial-view-statistics.html"
+		templateUrl: "views/partial-view-statistics.html", controller: "StatisticsController"
 	});
 
 	$routeProvider.when("/partial-view-answers", 

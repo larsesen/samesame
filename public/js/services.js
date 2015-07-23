@@ -259,8 +259,49 @@ angular.module("samesameApp.services", [])
 
 	//service that communicates with the REST API for answers
 	.factory("Statistics", function($http) {
+		var statObject = {};
+
+
 		return {
-			//gets all answers with a boolean parameter to determine whether all answers or only unprocessed should be fetched
+
+			retrieveStatistics : function() {
+				return $http.get("/statistics");
+			},
+
+
+			
+			getStatistics : function() {
+				return statObject;
+			},
+
+			setStatistics : function(currObject) {
+				
+				console.log(JSON.stringify(currObject));
+				statObject = {
+					questionid : currObject[0][0],
+					responseA : currObject[1][0],
+					responseB : currObject[2][0],
+					totalAnswered : currObject[3][0]
+
+
+				};
+
+				console.log(JSON.stringify(statObject.questionid));
+				console.log(JSON.stringify(statObject.responseA));
+				console.log(JSON.stringify(statObject.responseB));
+				console.log(JSON.stringify(statObject.totalAnswered));
+				//console.log(JSON.stringify(statObject));
+			},
+
+
+/*
+			getQuestionid : function(id) {
+				return $http.get("/answers" );
+			},
+
+
+
+
 			getAll : function(viewAllArg) {
 				return $http.get("/answers", {
 					params : {
@@ -268,36 +309,20 @@ angular.module("samesameApp.services", [])
 					}
 				});
 			},
-			//get the answer with the specified id
+
 			get : function(id) {
 				return $http.get("/answers/" + id);
-			},
-			//locks the answer with the specified id
-			toggleLock : function(id) {
-				return $http.put("/toggleLockAnswer/" + id);
-			},
-			//updates the processed status of the answer with the specified id
-			update : function(id) {
-				return $http.put("/answers/" + id);
-			},
-			//deletes all answers
-			deleteAll : function() {
-				return $http.delete("/answers");
-			},
-			//creates a new answer based on the answer object passed in
-			create : function(answer) {
-				return $http.post("/answers", answer);
-			},
-			//deletes the answer with the specified id
-			delete : function(id) {
-				return $http.delete(/answers/ + id);
-			},
-			export : function() {
-				return $http.get("/exportAnswers");
 			}
-		};
+*/
+		}
 	})
+
+
 	
+		
+
+
+
 
 
 

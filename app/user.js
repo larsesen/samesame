@@ -18,7 +18,6 @@ Get all answers from the database and return them as an array of JSON objects.
 The parameter 'viewAll' determines whether all answers or only unprocessed are fetched
 */
 function getAnswers(req, res) {
-	
 	db.readAnswers(function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
@@ -260,7 +259,17 @@ function convertToCSV(objArray) {
 // =======================================================================================
 
 
-
+function getAllAnswers(req, res) {
+	db.getAllAnswers(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
 
 function getStatistics(req, res) {
 	db.getStatistics(function(err, rows) {
@@ -268,15 +277,20 @@ function getStatistics(req, res) {
 			errorHandler(err, res);
 		}
 		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
+
 }
 
 
 
 
 
+
+
+exports.getAllAnswers = getAllAnswers;
 exports.getStatistics = getStatistics;
 
 

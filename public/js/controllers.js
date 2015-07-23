@@ -455,10 +455,41 @@ angular.module("samesameApp.controllers", [])
 // =======================================================================================
 
 
-	.controller("StatisticsController", ["$scope", function($scope) {
+	.controller("StatisticsController", ["$scope", "Statistics", function($scope, Statistics) {
 
+		//initial call to fetch answers
+		Statistics.retrieveStatistics().success(function(data) {
+			$scope.statistics = data;
+		/*
+			console.log("Whole: " + JSON.stringify($scope.statistics));
+			console.log("First: " + JSON.stringify($scope.statistics[0].length));
+			console.log("Second: " + JSON.stringify($scope.statistics[1]));
+			console.log("Third: " + JSON.stringify($scope.statistics[2]));
+			console.log("Fourth: " + JSON.stringify($scope.statistics[3]));
+		*/
+			Statistics.setStatistics($scope.statistics); 
+			
+			$scope.data = Statistics.getStatistics();
+			console.log("JSON data: " + JSON.stringify(data));
+			
+
+		});
+		
+
+
+/* 
+		$scope.statData.questionid = ;
+		$scope.statData.responseA = ;
+		$scope.statData.responseB = ;
+		$scope.statData.totalanswered = ;
+*/
 	}])
 
+
+/*
+	
+*/
+	
 
 
 
