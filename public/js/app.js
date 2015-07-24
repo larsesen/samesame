@@ -59,11 +59,15 @@ Stats views
 
 	$routeProvider.when("/partial-stat-table",
 		{
-			templateUrl: "views/partial-stat-table.html", controller: "StatisticsController"
+			templateUrl: "views/partial-stat-table.html", controller: "StatTableCtrl"
 		});
 
 
 
+	$routeProvider.when("/partial-stat-average",
+		{
+			templateUrl: "views/partial-stat-average.html", controller: "StatAverageCtrl"
+		});
 
 
 /*
@@ -73,10 +77,7 @@ Stats views
 			templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsController"
 		});
 
-	$routeProvider.when("/partial-view-comparisons",
-		{
-			templateUrl: "views/partial-stat-comparisons.html", controller: "StatisticsController"
-		});
+	
 
 
 */

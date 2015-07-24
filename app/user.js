@@ -285,13 +285,24 @@ function getStatistics(req, res) {
 }
 
 
+function getAveragePerson(req,res) {
+
+	db.getAveragePerson(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
 
 
 
 
 
-exports.getAllAnswers = getAllAnswers;
-exports.getStatistics = getStatistics;
+
 
 
 // =======================================================================================
@@ -332,3 +343,7 @@ exports.deleteWinners         = deleteWinners;
 exports.updateWinner          = updateWinner;
 exports.exportAnswers         = exportAnswers;
 exports.exportParticipants    = exportParticipants;
+
+exports.getAllAnswers = getAllAnswers;
+exports.getStatistics = getStatistics;
+exports.getAveragePerson = getAveragePerson;

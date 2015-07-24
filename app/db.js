@@ -120,10 +120,6 @@ function exportParticipants(callback) {
 
 
 
-
-// =======================================================================================
-
-
 function getAllAnswers(callback) {
 	//console.log("db calling getStats");
 	query("SELECT * FROM samesame.answers", callback);
@@ -131,35 +127,31 @@ function getAllAnswers(callback) {
 
 
 
-/*
-function getStatistics(callback) {
-	query("select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
-		"sum(case when response='b' then 1 else 0 end) b, count(*) as totalAnswers from samesame.answers group by questionid", callback);
-}
-*/
-
 //Magic retrieving all sorts of data used for statistics in single table
 function getStatistics(callback) {
 query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
 	" from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
 		"sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
- }
+}
 
-//select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
+function getAveragePerson(callback) {
+	query("select *, greatest(a,b) as greatest from (select questionid, sum(case when response='a' then 1 else 0 end) a," +
+		" sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
+}
 
-
-
-exports.getStatistics = getStatistics;
-exports.getAllAnswers = getAllAnswers;
-
-
-
-// =======================================================================================
+/*
+select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
 
+select *, greatest(a,b) as greatest from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
+
+*/
 
 
+// select * from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x ;
 
+//select * from (select quest)
+ 
 
 
 
@@ -181,3 +173,8 @@ exports.updateWinner           = updateWinner;
 exports.deleteWinners          = deleteWinners;
 exports.exportAnswers          = exportAnswers;
 exports.exportParticipants     = exportParticipants;
+
+exports.getStatistics = getStatistics;
+exports.getAllAnswers = getAllAnswers;
+exports.getAveragePerson = getAveragePerson;
+

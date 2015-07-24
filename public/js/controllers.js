@@ -452,29 +452,49 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsController", ["$scope", "Statistics", function($scope, Statistics) {
+	.controller("StatTableCtrl", ["$scope", "StatTable", function($scope, Statistics) {
 
 
-		$scope.retrieveStatistics = function() {
-			Statistics.resetStatistics();
+		$scope.retrieveTableStatistics = function() {
+			Statistics.resetTableStatistics();
+			
 			//initial call to fetch answers
-			Statistics.retrieveStatistics().success(function(data) {
+			Statistics.retrieveTableStatistics().success(function(data) {
 				$scope.statistics = data;
 			
 				// sets objectlist
-				Statistics.setStatistics($scope.statistics);
+				Statistics.setTableStatistics($scope.statistics);
 			
-				//retrieves list of questionObjects to be used for view (partial-view-statistics)
-				$scope.dataList = Statistics.getStatistics();
+				//retrieves list of questionObjects to be used for view (partial-stat-table)
+				$scope.dataList = Statistics.getTableStatistics();
 			});
 		}
-
-
-		$scope.retrieveStatistics();
-		
+		$scope.retrieveTableStatistics();
 	}])
 
 
+
+
+	.controller("StatAverageCtrl", ["$scope", "StatAveragePerson", function($scope, Statistics) {
+
+
+		$scope.retrieveAverageStatistics = function() {
+			Statistics.resetAverageStatistics();
+
+			//initial call to fetch average stats
+			Statistics.retrieveAverageStatistics().success(function(data) {
+				$scope.statistics = data;
+
+				//sets objectlist
+				Statistics.setAverageStatistics($scope.statistics);
+
+				//retrieves list of questionObjects to be used for view (partial-stat-average)
+				$scope.dataList = Statistics.getAverageStatistics();
+			})
+		}
+		//initial call to fetch average person
+		$scope.retrieveAverageStatistics();
+	}])
 
 
 
