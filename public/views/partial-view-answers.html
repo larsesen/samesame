@@ -9,21 +9,26 @@
 					Tilbake til meny
 				</a>
 			</div>
-						
-			<div class="col-sm-5 col-sm-offset-2 text-smaller text-white top-pad-small" ng-show="viewAll">
-				Totalt antall svar: {{answers.length}}
-			</div>
 
-			<div class="col-sm-4" ng-hide="viewAll"></div>
-
-		
-
-			<div class="col-sm-2 text-smaller text-white top-pad-small">
-				Index: {{startAnswers + 1}} - {{startAnswers + 10}}
-			</div>
 	</div>
 
+
+	
+
+
+			
+	
+
 	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+
+		<div class="col-sm-4 col-sm-offset-5 text-smaller text-white top-pad-small">
+			Totalt antall svar: {{answers.length}}
+		<br><br>
+				Index: {{startAnswers + 1}} - {{startAnswers + 10}}
+		<br><br>
+		</div>
+
 		<!-- table displaying the contents of the database -->
 		<table class="table table-hover bg-white">
 			<thead>
@@ -46,7 +51,7 @@
 					<td>{{answer.userid}}</td>
 					<td>{{answer.questionid}}</td>
 					<td>{{answer.response}}</td>
-					<td>
+		</div>
 						
 						
 
