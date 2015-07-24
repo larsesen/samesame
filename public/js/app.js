@@ -16,31 +16,31 @@ angular.module("samesameApp", [
 config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/partial-index", 
 		{
-			templateUrl: "views/new_partial-index.html"
+			templateUrl: "views/partial-index.html"
 		});
 	$routeProvider.when("/partial-start", 
 		{
-			templateUrl: "views/new_partial-start.html", controller: "InitUserCtrl"
+			templateUrl: "views/partial-start.html", controller: "InitUserCtrl"
 		});
 	$routeProvider.when("/partial-register-answer", 
 		{
-			templateUrl: "views/new_partial-register-answer.html", controller: "RegisterAnswerCtrl"
+			templateUrl: "views/partial-register-answer.html", controller: "RegisterAnswerCtrl"
 		});
 
 
 	$routeProvider.when("/partial-register-participant", 
 		{
-			templateUrl: "views/new_partial-register-participant.html", controller: "RegisterParticipantCtrl"
+			templateUrl: "views/partial-register-participant.html", controller: "RegisterParticipantCtrl"
 		});
 
 	$routeProvider.when("/partial-participant-registered", 
 		{
-			templateUrl: "views/new_partial-participant-registered.html", controller: "RegisterParticipantCtrl"
+			templateUrl: "views/partial-participant-registered.html", controller: "RegisterParticipantCtrl"
 		});
 
 	$routeProvider.when("/partial-view-answers", 
 		{
-			templateUrl: "views/new_partial-view-answers.html", controller: "AnswerCtrl"
+			templateUrl: "views/partial-view-answers.html", controller: "AnswerCtrl"
 		});
 
 	$routeProvider.when("/partial-view-participants", 
@@ -64,6 +64,10 @@ Stats views
 
 
 
+
+
+/*
+
 	$routeProvider.when("/partial-view-carousel",
 		{
 			templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsController"
@@ -75,7 +79,7 @@ Stats views
 		});
 
 
-
+*/
 
 
 	

@@ -455,18 +455,6 @@ angular.module("samesameApp.controllers", [])
 	.controller("StatisticsController", ["$scope", "Statistics", function($scope, Statistics) {
 
 
-/*
-		$scope.getAnswers = function() {
-			Answers.getAll($scope.viewAll).success(function (data) {
-				$scope.answers = data;
-			});
-		};
-		//initial call to fetch answers
-		$scope.getAnswers();
-
-*/
-
-
 		$scope.retrieveStatistics = function() {
 			Statistics.resetStatistics();
 			//initial call to fetch answers
@@ -483,26 +471,6 @@ angular.module("samesameApp.controllers", [])
 
 
 		$scope.retrieveStatistics();
-/*
-		$scope.deleteParticipants = function() {
-			Participants.deleteAll().success(function () {
-				Participants.getAll().success(function (data) {
-					$scope.participants = data;
-				});
-			});
-		};
-*/
-
-
-
-
-
-
-
-
-
-
-
 		
 	}])
 
