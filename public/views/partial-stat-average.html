@@ -1,0 +1,132 @@
+<div class="container-fluid">
+    
+    <div class="row top-pad-medium">
+        <!--a button that takes you back to the main menu -->
+        <div class="col-sm-2 col-sm-offset-1">
+           
+            <a href="#/partial-stat-overview" name="menuButton" class="btn btn-def-bouvet">
+                <span class="glyphicon glyphicon-stats">
+                </span>
+                Tilbake til statistikk
+            </a>
+            <br><br>
+            <a href="#/partial-index" name="menuButton" class="btn btn-def-bouvet">
+                <span class="glyphicon glyphicon-home">
+                </span>
+                Tilbake til meny
+            </a>
+        </div>
+<!--
+        <div class="col-sm-5 col-sm-offset-2 text-white text-smallest">
+            Totalt antall spørsmål: {{dataList.length}}
+        </div>
+-->
+    </div>
+    <br><br><br>
+
+
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-2">
+            <div class="row text-orange text-medium middle-pos top-pad-small">
+                Statistikk - Gjennomsnittsperson
+            </div>
+            <table class="table table-hover middle-pos bg-white">
+                <thead>
+                    <tr>
+                        <th class="middle-pos">Question</th>
+                        <th class="middle-pos">a</th>
+                        <th class="middle-pos">b</th>
+                        <th class="middle-pos">Mest valgte alternativ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in dataList">                                       
+                        <td>{{data.questionid}}</td>
+                        <td>{{data.responseA}}</td>
+                        <td>{{data.responseB}}</td>
+                        <td>{{data.greatest}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-3 col-sm-offset-2">
+            <div class="row text-orange text-medium middle-pos top-pad-small">
+                Statistikk - GjennomsnittsBouvet
+            </div>
+            <table class="table table-hover middle-pos bg-white">
+                <thead>
+                    <tr>
+                        <th class="middle-pos">Question</th>
+                        <th class="middle-pos">a</th>
+                        <th class="middle-pos">b</th>
+                        <th class="middle-pos">Mest valgte alternativ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in dataList">                                       
+                        <td>{{data.questionid}}</td>
+                        <td>{{data.responseA}}</td>
+                        <td>{{data.responseB}}</td>
+                        <td>{{data.greatest}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-2">
+            <div class="row text-orange text-medium middle-pos top-pad-small">
+                Statistikk - Gjennomsnittsmann
+            </div>
+            <table class="table table-hover middle-pos bg-white">
+                <thead>
+                    <tr>
+                        <th class="middle-pos">Question</th>
+                        <th class="middle-pos">a</th>
+                        <th class="middle-pos">b</th>
+                        <th class="middle-pos">Mest valgte alternativ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in dataList">                                       
+                        <td>{{data.questionid}}</td>
+                        <td>{{data.responseA}}</td>
+                        <td>{{data.responseB}}</td>
+                        <td>{{data.greatest}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-sm-3 col-sm-offset-2">
+            <div class="row text-orange text-medium middle-pos top-pad-small">
+                Statistikk - Gjennomsnittskvinne
+            </div>
+            <table class="table table-hover middle-pos bg-white">
+                <thead>
+                    <tr>
+                        <th class="middle-pos">Question</th>
+                        <th class="middle-pos">a</th>
+                        <th class="middle-pos">b</th>
+                        <th class="middle-pos">Mest valgte alternativ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in dataList">                                       
+                        <td>{{data.questionid}}</td>
+                        <td>{{data.responseA}}</td>
+                        <td>{{data.responseB}}</td>
+                        <td>{{data.greatest}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
