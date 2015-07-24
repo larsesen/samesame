@@ -132,26 +132,55 @@ function getStatistics(callback) {
 query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
 	" from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
 		"sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
+//select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 }
 
 function getAveragePerson(callback) {
-	query("select *, greatest(a,b) as greatest from (select questionid, sum(case when response='a' then 1 else 0 end) a," +
+	query("select *, greatest(a,b) as greatest, if(a>b, 'a','b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a," +
 		" sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
+//select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 }
 
+
+
+
+
+
+
+
+
 /*
+
 select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
-
 select *, greatest(a,b) as greatest from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
+
+select * from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x ;
 
 */
 
 
-// select * from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x ;
 
-//select * from (select quest)
- 
+
+function getAverageBouvet(callback) {
+//same as averagePerson, but with where clause checking column bouvet (not yet implemented)
+//This requires linking between the two database tables. Bouvet needs to be stored with email (or at least use email to determine field value)
+}
+
+function getAverageMale(callback) {
+//same as averagePerson, but with where clause checking column sex (not yet implemented)
+}
+
+function getAverageFemale(callback) {
+//same as averagePerson, but with where clause checking column sex (not yet implemented)
+}
+
+
+
+exports.getAverageBouvet = getAverageBouvet;
+exports.getAverageMale = getAverageMale;
+exports.getAverageFemale = getAverageFemale;
+
 
 
 
@@ -173,7 +202,6 @@ exports.updateWinner           = updateWinner;
 exports.deleteWinners          = deleteWinners;
 exports.exportAnswers          = exportAnswers;
 exports.exportParticipants     = exportParticipants;
-
 exports.getStatistics = getStatistics;
 exports.getAllAnswers = getAllAnswers;
 exports.getAveragePerson = getAveragePerson;

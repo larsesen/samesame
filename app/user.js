@@ -301,12 +301,51 @@ function getAveragePerson(req,res) {
 
 
 
-
-
-
-
 // =======================================================================================
 
+
+
+
+function getAverageBouvet(req,res) {
+	db.getAverageBouvet(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
+
+function getAverageMale(req,res) {
+	db.getAverageMale(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
+
+function getAverageFemale(req,res) {
+	db.getAverageFemale(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
+
+
+exports.getAverageBouvet = getAverageBouvet;
+exports.getAverageMale = getAverageMale;
+exports.getAverageFemale = getAverageFemale;
 
 
 

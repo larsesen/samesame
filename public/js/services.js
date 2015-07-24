@@ -284,7 +284,6 @@ angular.module("samesameApp.services", [])
 						percentageB : currObject[i]["b_"],
 						total : currObject[i]["total"]
 					}
-					//console.log("object " + i + " has following data: " + JSON.stringify(statObject));
 					statList.push(statObject);
 				}
 			}
@@ -315,18 +314,20 @@ angular.module("samesameApp.services", [])
 			},
 
 			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
+			//commented out some variables retrieved from database. Not currently used, but might be good to have later
 			setAverageStatistics : function(currObject) {
 				var i;			
 				for (i = 0 ; i < currObject.length ; i++) {
 					statObject = {
 						questionid : currObject[i]["questionid"],
-						
+						mostFreq : currObject[i]["mostFreq"],
+
+					/*
 						responseA : currObject[i]["a"],
 						responseB : currObject[i]["b"],
-
 						greatest : currObject[i]["greatest"]
+					*/
 					}
-					//console.log("object " + i + " has following data: " + JSON.stringify(statObject));
 					statList.push(statObject);
 				}
 			}
