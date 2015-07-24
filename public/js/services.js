@@ -298,43 +298,59 @@ angular.module("samesameApp.services", [])
 		var statAverageList = [];
 		var statBouvetList = [];
 		
-		var statAverageObject = {};
-		var statBouvetObject = {};
+		var statObject = {};
 
 		return {
 
-			//retrieves statistics from db
-			retrieveAverageStatistics : function() {
-				return $http.get("/statsAverage");
+			/*
+			The type variable is used to differentiate between the different kinds of average persons we want to obtain values from.
+			type = 1 --> Average
+			type = 2 --> Bouvet
+			type = 3 --> Male
+			type = 4 --> Female
+			*/
+
+			retrieveStatistics : function(type) {
+				if (type === 1) {
+					return $http.get("/statsAverage");
+				}
+				else if (type === 2) {
+					return $http.get("/statsAverageBouvet");
+				}			
 			},
 
-			retrieveBouvetStatistics : function() {
-				return $http.get("/statsAverageBouvet");
-			},
+
 
 			//resets before retrieving to avoid duplication
-			resetAverageStatistics : function() {
-				statAverageList = [];
+			resetStatistics : function(type) {
+				if (type === 1) {
+					statAverageList = [];
+				}
+				else if (type === 2) {
+					statBouvetList = [];
+				}
 			},
 			
-			resetBouvetStatistics : function() {
-				statBouvetList = [];
+			getStatistics : function(type) {
+				
+				if (type === 1) {
+					return statAverageList;
+				}
+				else if (type === 2) {
+					return statBouvetList;
+				}
 			},
 
-			getAverageStatistics : function() {
-				return statAverageList;
-			},
 
-			getBouvetStatistics : function() {
-				return statBouvetList;
-			},
+			
+
 
 			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
 			//commented out some variables retrieved from database. Not currently used, but might be good to have later
-			setAverageStatistics : function(currObject) {
+			setStatistics : function(currObject, type) {
 				var i;			
 				for (i = 0 ; i < currObject.length ; i++) {
-					statAverageObject = {
+					statObject = {
 						questionid : currObject[i]["questionid"],
 						mostFreq : currObject[i]["mostFreq"],
 
@@ -344,26 +360,18 @@ angular.module("samesameApp.services", [])
 						greatest : currObject[i]["greatest"]
 					
 					}
-					statAverageList.push(statAverageObject);
-				}
-			},
 
-			setBouvetStatistics : function(currObject) {
-				var i;			
-				for (i = 0 ; i < currObject.length ; i++) {
-					statBouvetObject = {
-						questionid : currObject[i]["questionid"],
-						mostFreq : currObject[i]["mostFreq"],
-
-					/* */
-						responseA : currObject[i]["a"],
-						responseB : currObject[i]["b"],
-						greatest : currObject[i]["greatest"]
-					
+					//Type value is used to determine which list to push object to
+					if (type === 1) {
+						statAverageList.push(statObject);	
 					}
-					statBouvetList.push(statBouvetObject);
+					else if (type === 2) {
+						statBouvetList.push(statObject);
+					}
 				}
 			}
+
+			
 
 		}
 	})

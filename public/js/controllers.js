@@ -479,35 +479,35 @@ angular.module("samesameApp.controllers", [])
 
 
 		$scope.retrieveAverageStatistics = function() {
-			Statistics.resetAverageStatistics();
+			var type = 1;
+
+			Statistics.resetStatistics(type);
 
 			//initial call to fetch average stats
-			Statistics.retrieveAverageStatistics().success(function(data) {
+			Statistics.retrieveStatistics(type).success(function(data) {
 				$scope.statistics = data;
-				console.log("average: " + JSON.stringify(data.length));
-				console.log("average: " + JSON.stringify(data));
+				
 				//sets objectlist
-				Statistics.setAverageStatistics($scope.statistics);
+				Statistics.setStatistics($scope.statistics,type);
 
 				//retrieves list of questionObjects to be used for view (partial-stat-average)
-				$scope.dataListAverage = Statistics.getAverageStatistics();
+				$scope.dataListAverage = Statistics.getStatistics(type);
 			})
 		}
 
 		
 		$scope.retrieveBouvetStatistics = function() {
-			Statistics.resetBouvetStatistics();
+			var type = 2;
+			Statistics.resetStatistics(type);
 
-			Statistics.retrieveBouvetStatistics().success(function(data){
+			Statistics.retrieveStatistics(type).success(function(data){
 				$scope.statistics = data;
-				console.log("bouvet: " + JSON.stringify(data.length));
-				console.log("bouvet: " + JSON.stringify(data));
 
 				//sets objectlist
-				Statistics.setBouvetStatistics($scope.statistics);
+				Statistics.setStatistics($scope.statistics,type);
 
 				//retrieves list of questionObjects to be used for view (partial-stat-average)
-				$scope.dataListBouvet = Statistics.getBouvetStatistics();
+				$scope.dataListBouvet = Statistics.getStatistics(type);
 			});
 		}
 
