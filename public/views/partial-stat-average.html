@@ -23,7 +23,7 @@
 
 
     <div class="row">
-        <div class="col-sm-3 col-sm-offset-2">
+        <div class="col-sm-4 col-sm-offset-1">
             <div class="row text-orange text-medium middle-pos top-pad-small">
                 Statistikk - Gjennomsnittsperson
             </div>
@@ -34,29 +34,29 @@
                     <tr>
                         <th class="middle-pos">Question</th>
                         <th class="middle-pos">Mest valgte alternativ</th>
-                        <!--
+                        <!-- -->
                         <th class="middle-pos">Antall ganger valgt</th>
                         <th class="middle-pos">a</th>
                         <th class="middle-pos">b</th>
-                        -->
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="data in dataList">                                       
+                    <tr ng-repeat="data in dataListAverage">                                       
                         <td>{{data.questionid}}</td>
                         <td>{{data.mostFreq}}</td>
-                        <!--
+                        <!-- -->
                         <td>{{data.greatest}}</td>
                         <td>{{data.responseA}}</td>
                         <td>{{data.responseB}}</td>
-                        -->
+                        
                         
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="col-sm-3 col-sm-offset-2">
+        <div class="col-sm-4 col-sm-offset-1">
             <div class="row text-orange text-medium middle-pos top-pad-small">
                 Statistikk - GjennomsnittsBouvet
             </div>
@@ -65,22 +65,22 @@
                     <tr>
                         <th class="middle-pos">Question</th>
                         <th class="middle-pos">Mest valgte alternativ</th>
-                        <!--
+                        <!-- -->
                         <th class="middle-pos">Antall ganger valgt</th>
                         <th class="middle-pos">a</th>
                         <th class="middle-pos">b</th>
-                        -->
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="data in dataList">                                       
+                    <tr ng-repeat="data in dataListBouvet">                                       
                         <td>{{data.questionid}}</td>
                         <td>{{data.mostFreq}}</td>
-                        <!--
+                        <!-- -->
                         <td>{{data.greatest}}</td>
                         <td>{{data.responseA}}</td>
                         <td>{{data.responseB}}</td>
-                        -->
+                        
                     </tr>
                 </tbody>
             </table>
@@ -88,6 +88,8 @@
     </div>
 
     <br><br><br>
+
+
 
     <div class="row">
         <div class="col-sm-3 col-sm-offset-2">

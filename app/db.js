@@ -132,40 +132,58 @@ function getStatistics(callback) {
 query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
 	" from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
 		"sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
-//select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
+/*
+select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
+sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
+
+
+
+bouvet: 
+
+select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
+sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid= participants.userid and bouvet=1 group by questionid) x;
+
+
+*/
 }
 
 function getAveragePerson(callback) {
 	query("select *, greatest(a,b) as greatest, if(a>b, 'a','b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a," +
 		" sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x", callback);
-//select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
-}
-
-
-
-
-
-
-
-
-
 /*
+select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
-select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
-select *, greatest(a,b) as greatest from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
-select * from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x ;
 
+//simplified version:
+select questionid, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
+sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 */
+}
 
 
 
 
 function getAverageBouvet(callback) {
-//same as averagePerson, but with where clause checking column bouvet (not yet implemented)
-//This requires linking between the two database tables. Bouvet needs to be stored with email (or at least use email to determine field value)
+
+	query("select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a," +
+		" sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and bouvet=1 group by questionid) x", callback);
+/*
+select *, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and bouvet=1 group by questionid) x;
+*/
 }
+
+
+
+
+
+
+
+
+
+
+
 
 function getAverageMale(callback) {
 //same as averagePerson, but with where clause checking column sex (not yet implemented)

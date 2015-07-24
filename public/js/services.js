@@ -295,8 +295,11 @@ angular.module("samesameApp.services", [])
 		
 
 	.factory("StatAveragePerson", function($http) {
-		var statList = [];
-		var statObject = {};
+		var statAverageList = [];
+		var statBouvetList = [];
+		
+		var statAverageObject = {};
+		var statBouvetObject = {};
 
 		return {
 
@@ -304,13 +307,26 @@ angular.module("samesameApp.services", [])
 			retrieveAverageStatistics : function() {
 				return $http.get("/statsAverage");
 			},
+
+			retrieveBouvetStatistics : function() {
+				return $http.get("/statsAverageBouvet");
+			},
+
 			//resets before retrieving to avoid duplication
 			resetAverageStatistics : function() {
-				statList = [];
+				statAverageList = [];
 			},
 			
+			resetBouvetStatistics : function() {
+				statBouvetList = [];
+			},
+
 			getAverageStatistics : function() {
-				return statList;
+				return statAverageList;
+			},
+
+			getBouvetStatistics : function() {
+				return statBouvetList;
 			},
 
 			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
@@ -318,18 +334,36 @@ angular.module("samesameApp.services", [])
 			setAverageStatistics : function(currObject) {
 				var i;			
 				for (i = 0 ; i < currObject.length ; i++) {
-					statObject = {
+					statAverageObject = {
 						questionid : currObject[i]["questionid"],
 						mostFreq : currObject[i]["mostFreq"],
 
-					/*
+					/* */
 						responseA : currObject[i]["a"],
 						responseB : currObject[i]["b"],
 						greatest : currObject[i]["greatest"]
-					*/
+					
 					}
-					statList.push(statObject);
+					statAverageList.push(statAverageObject);
+				}
+			},
+
+			setBouvetStatistics : function(currObject) {
+				var i;			
+				for (i = 0 ; i < currObject.length ; i++) {
+					statBouvetObject = {
+						questionid : currObject[i]["questionid"],
+						mostFreq : currObject[i]["mostFreq"],
+
+					/* */
+						responseA : currObject[i]["a"],
+						responseB : currObject[i]["b"],
+						greatest : currObject[i]["greatest"]
+					
+					}
+					statBouvetList.push(statBouvetObject);
 				}
 			}
+
 		}
 	})

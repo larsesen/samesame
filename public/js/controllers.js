@@ -484,20 +484,31 @@ angular.module("samesameApp.controllers", [])
 			//initial call to fetch average stats
 			Statistics.retrieveAverageStatistics().success(function(data) {
 				$scope.statistics = data;
-
+				console.log("average: " + JSON.stringify(data.length));
+				console.log("average: " + JSON.stringify(data));
 				//sets objectlist
 				Statistics.setAverageStatistics($scope.statistics);
 
 				//retrieves list of questionObjects to be used for view (partial-stat-average)
-				$scope.dataList = Statistics.getAverageStatistics();
+				$scope.dataListAverage = Statistics.getAverageStatistics();
 			})
 		}
 
-
+		
 		$scope.retrieveBouvetStatistics = function() {
-			Statistics.resetAverageStatistics();
+			Statistics.resetBouvetStatistics();
 
-			Statistics.retrieveBouvetStatistics().success(function(data))
+			Statistics.retrieveBouvetStatistics().success(function(data){
+				$scope.statistics = data;
+				console.log("bouvet: " + JSON.stringify(data.length));
+				console.log("bouvet: " + JSON.stringify(data));
+
+				//sets objectlist
+				Statistics.setBouvetStatistics($scope.statistics);
+
+				//retrieves list of questionObjects to be used for view (partial-stat-average)
+				$scope.dataListBouvet = Statistics.getBouvetStatistics();
+			});
 		}
 
 
@@ -505,6 +516,8 @@ angular.module("samesameApp.controllers", [])
 
 		//initial call to fetch average person
 		$scope.retrieveAverageStatistics();
+
+		$scope.retrieveBouvetStatistics();
 	}])
 
 
