@@ -1,0 +1,72 @@
+<div class="text-large text-orange">
+	 &nbsp <img src="./photos/logo_medium.png">
+</div>
+
+<div class="container middle-pos">
+
+<form name="answerForm" ng-submit="nextQuestion()" novalidate> 
+
+<h2 class="text-orange">Choose one picture from each category</h2>
+	
+<br><br> 
+	<body>	
+
+	<div class="btn-group">
+		<label>
+
+			<input type="radio" value="a" ng-model="formData.response" required/>
+
+<!--	    	<input type="radio" onclick="alert('hello')" value="a" ng-model="formData.response" required/> -->
+	    	<img ng-src="./images/{{nextQ}}a.png">
+
+	  	</label>
+  		<container class="leftspace">
+	  	<label>
+    		<input type="radio" value="b" ng-model="formData.response" required/>
+    		<img ng-src="./images/{{nextQ}}b.png">
+  		</label>
+  		</class>
+  		</div>
+  		<br>
+					
+		</label>
+		<br>
+		<div class="text-white text-medium">
+			
+			<!--
+			{{nextQ}} || {{answeredQuestions}} || {{userid}}
+			 -->
+		</div>
+	
+	<br><br>
+	
+	<button class="btn btn-def-bouvet" name="registerButton" type="submit">
+			Neste spørsmål
+	</button>
+	</div>
+
+</form>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+	<div class="middle-pos">
+		<a href="#/partial-start" class="btn btn-def-bouvet btn-front-large">
+			<span class="glyphicon glyphicon-repeat"></span>
+			Start på nytt
+		</a>
+	</div>
+
+<!--
+<pre>
+    {{ formData }} 
+</pre>
+ -->
+
+
+	
+
+	
+	</body>
+
+
+
