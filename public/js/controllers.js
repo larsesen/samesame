@@ -478,8 +478,8 @@ angular.module("samesameApp.controllers", [])
 	.controller("StatAverageCtrl", ["$scope", "StatAveragePerson", function($scope, Statistics) {
 
 
-		$scope.retrieveAverageStatistics = function() {
-			var type = 1;
+
+		$scope.retrieveStatistics = function(type) {
 
 			Statistics.resetStatistics(type);
 
@@ -490,34 +490,20 @@ angular.module("samesameApp.controllers", [])
 				//sets objectlist
 				Statistics.setStatistics($scope.statistics,type);
 
-				//retrieves list of questionObjects to be used for view (partial-stat-average)
-				$scope.dataListAverage = Statistics.getStatistics(type);
+				if (type === 1) {
+					$scope.dataListAverage = Statistics.getStatistics(type);
+				}
+				else if (type === 2) {
+					$scope.dataListBouvet = Statistics.getStatistics(type);
+				}
 			})
 		}
 
-		
-		$scope.retrieveBouvetStatistics = function() {
-			var type = 2;
-			Statistics.resetStatistics(type);
 
-			Statistics.retrieveStatistics(type).success(function(data){
-				$scope.statistics = data;
-
-				//sets objectlist
-				Statistics.setStatistics($scope.statistics,type);
-
-				//retrieves list of questionObjects to be used for view (partial-stat-average)
-				$scope.dataListBouvet = Statistics.getStatistics(type);
-			});
-		}
+		$scope.retrieveStatistics(1); // Manages everything with average person
+		$scope.retrieveStatistics(2); // Manages everything with average bouvet person
 
 
-
-
-		//initial call to fetch average person
-		$scope.retrieveAverageStatistics();
-
-		$scope.retrieveBouvetStatistics();
 	}])
 
 
