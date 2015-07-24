@@ -365,12 +365,15 @@ angular.module("samesameApp.controllers", [])
 
 		//initial object of participant
 		$scope.participant = {};
-		//the initial field of duplicate contact info
+		//the initial field of duplicate contact info0
 		$scope.duplicateEmail = "";
 	
 		//retrieving userid to insert to db, so that answer is linked to specific person
 		$scope.userid = UserIDService.getUserID();
 		$scope.participant.userid = $scope.userid;
+
+
+
 		//a setter for the duplicate email field
 		$scope.setDuplicateEmail = function() {
 			$scope.duplicateEmail = $scope.participant.email;
@@ -384,6 +387,17 @@ angular.module("samesameApp.controllers", [])
 		*/
 		$scope.submitParticipant = function() {
 			console.log(JSON.stringify($scope.participant));
+
+
+			//extract to be separate method at the bottom of this file!!!!
+			if (isBouvetEmployee($scope.participant.email)) {
+				$scope.participant.bouvet = 1;
+			}
+			else {
+				$scope.participant.bouvet = 0;
+			}
+
+
 			Participants.create($scope.participant)
 			.success(function(data){
 				$location.path("/partial-participant-registered");
@@ -534,3 +548,12 @@ function elementsLeftInList(list) {
 	}
 	return (list.length - counter);
 }
+
+
+
+function isBouvetEmployee(email) {
+	var mail = email.split("@");
+	var domain = mail[1];
+	return (domain === "bouvet.no");
+}
+
