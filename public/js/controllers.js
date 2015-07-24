@@ -492,6 +492,17 @@ angular.module("samesameApp.controllers", [])
 				$scope.dataList = Statistics.getAverageStatistics();
 			})
 		}
+
+
+		$scope.retrieveBouvetStatistics = function() {
+			Statistics.resetAverageStatistics();
+
+			Statistics.retrieveBouvetStatistics().success(function(data))
+		}
+
+
+
+
 		//initial call to fetch average person
 		$scope.retrieveAverageStatistics();
 	}])

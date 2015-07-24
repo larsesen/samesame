@@ -115,7 +115,7 @@ Insert the participant object received as data of the POST request.
 Converts the data values into a new 'values' object for easier naming, which is passed on to the database script.
 */
 function insertParticipant(req, res) {
-	var values = {email: req.body.email, userid: req.body.userid, name: req.body.name};
+	var values = {email: req.body.email, userid: req.body.userid, name: req.body.name, bouvet: req.body.bouvet};
 	db.insertParticipant(values, function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
