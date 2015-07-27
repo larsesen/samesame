@@ -477,82 +477,42 @@ angular.module("samesameApp.controllers", [])
 
 
 
+	.controller("StatisticsCtrl", ["$scope", "Statistics", function($scope, Statistics) {
 
 
-	.controller("StatTableCtrl", ["$scope", "StatTable", function($scope, Statistics) {
-
-
-		$scope.retrieveTableStatistics = function(type) {
-			Statistics.resetTableStatistics(type);
+		$scope.retrieveStatistics = function(type) {
+			Statistics.resetStatistics(type);
 			
 			//initial call to fetch answers
-			Statistics.retrieveTableStatistics(type).success(function(data) {
+			Statistics.retrieveStatistics(type).success(function(data) {
 				$scope.statistics = data;
 			
 				// sets objectlist
-				Statistics.setTableStatistics($scope.statistics,type);
+				Statistics.setStatistics($scope.statistics,type);
 			
 				//retrieves list of questionObjects to be used for view (partial-stat-table)
 				if (type === 1) {
-					$scope.dataTableAverage = Statistics.getTableStatistics(type);
+					$scope.dataAverage = Statistics.getStatistics(type);
 				}
 				else if (type === 2) {
-					$scope.dataTableBouvet = Statistics.getTableStatistics(type)
+					$scope.dataBouvet = Statistics.getStatistics(type)
 				}
 				else if (type === 3) {
-					$scope.dataTableMale = Statistics.getTableStatistics(type)
+					$scope.dataMale = Statistics.getStatistics(type)
 				}
 				else if (type === 4) {
-					$scope.dataTableFemale = Statistics.getTableStatistics(type)
+					$scope.dataFemale = Statistics.getStatistics(type)
 				}
 			});
 		}
 
-		$scope.retrieveTableStatistics(1);
-		$scope.retrieveTableStatistics(2);
-		$scope.retrieveTableStatistics(3);
-		$scope.retrieveTableStatistics(4);
+		$scope.retrieveStatistics(1);
+		$scope.retrieveStatistics(2);
+		$scope.retrieveStatistics(3);
+		$scope.retrieveStatistics(4);
 	}])
 
-
-
-	.controller("StatAverageCtrl", ["$scope", "StatAveragePerson", function($scope, Statistics) {
-
-
-		$scope.retrieveStatistics = function(type) {
-
-			Statistics.resetStatistics(type);
-
-			//initial call to fetch average stats
-			Statistics.retrieveStatistics(type).success(function(data) {
-				$scope.statistics = data;
-				
-				//sets objectlist
-				Statistics.setStatistics($scope.statistics,type);
-
-				if (type === 1) {
-					$scope.dataListAverage = Statistics.getStatistics(type);
-				}
-				else if (type === 2) {
-					$scope.dataListBouvet = Statistics.getStatistics(type);
-				}
-				else if (type === 3) {
-					$scope.dataListMale = Statistics.getStatistics(type);
-				}
-				else if (type === 4) {
-					$scope.dataListFemale = Statistics.getStatistics(type);
-				}
-			})
-		}
-
-
-		$scope.retrieveStatistics(1); // Manages everything with average person
-		$scope.retrieveStatistics(2); // Manages everything with average bouvet person
-		$scope.retrieveStatistics(3); // Manages everything with average male person
-		$scope.retrieveStatistics(4); // Manages everything with average female person
-
-	}])
-
+	
 
 
 

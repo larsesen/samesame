@@ -59,14 +59,14 @@ Stats views
 
 	$routeProvider.when("/partial-stat-table",
 		{
-			templateUrl: "views/partial-stat-table.html", controller: "StatTableCtrl"
+			templateUrl: "views/partial-stat-table.html", controller: "StatisticsCtrl"
 		});
 
 
 
 	$routeProvider.when("/partial-stat-average",
 		{
-			templateUrl: "views/partial-stat-average.html", controller: "StatAverageCtrl"
+			templateUrl: "views/partial-stat-average.html", controller: "StatisticsCtrl"
 		});
 
 

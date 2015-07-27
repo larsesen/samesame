@@ -262,113 +262,14 @@ angular.module("samesameApp.services", [])
 
 
 
-
-
-	.factory("StatTable", function($http) {
-		var statTableAverage = [];
-		var statTableBouvet = [];
-		var statTableMale = [];
-		var statTableFemale = [];
+	.factory("Statistics", function($http) {
+		var statAverage = [];
+		var statBouvet = [];
+		var statMale = [];
+		var statFemale = [];
 
 		var statObject = {};
-
-		return {
-
-			//retrieves statistics from db
-			retrieveTableStatistics : function(type) {
-				if (type === 1) {
-					return $http.get("/statsAverage");
-				}
-				else if (type === 2) {
-					return $http.get("/statsBouvet");
-				}
-				else if (type === 3) {
-					return $http.get("/statsMale");
-				}
-				else if (type === 4) {
-					return $http.get("/statsFemale");
-				}
-			},
-
-			//resets before retrieving to avoid duplication
-			resetTableStatistics : function(type) {
-				if (type === 1) {
-					statTableAverage = [];
-				}
-				else if (type === 2) {
-					statTableBouvet = [];
-				}
-				else if (type === 3) {
-					statTableMale = [];
-				}
-				else if (type === 4) {
-					statTableFemale = [];
-				}
-			},
-			
-			getTableStatistics : function(type) {
-				if (type === 1 ) {
-					return statTableAverage;
-				}
-				else if (type === 2) {
-					return statTableBouvet;
-				}
-				else if (type === 3) {
-					return statTableMale;
-				}
-				else if (type === 4) {
-					return statTableFemale;
-				}
-			},
-
-			//creates one statObject per questionid, and pushes object to statTableAverage| which is used to retrieve data
-			setTableStatistics : function(currObject, type) {
-				var i;			
-				console.log("setting table: " + JSON.stringify(currObject));
-				for (i = 0 ; i < currObject.length ; i++) {
-					statObject = {
-						questionid : currObject[i]["questionid"],
-						responseA : currObject[i]["a"],
-						percentageA : currObject[i]["a_"],
-						responseB : currObject[i]["b"],
-						percentageB : currObject[i]["b_"],
-						total : currObject[i]["total"],
-
-						
-						mostFreq : currObject[i]["mostFreq"],
-						greatest : currObject[i]["greatest"]
-
-					}
-
-					if ( type === 1 ) {
-						statTableAverage.push(statObject);
-					}
-					else if (type === 2) {
-						statTableBouvet.push(statObject);
-					}
-					else if (type === 3) {
-						statTableMale.push(statObject);
-					}
-					else if (type === 4) {
-						statTableFemale.push(statObject);
-					}
-				}
-			}
-		}
-	})
-
-
-	
 		
-
-	.factory("StatAveragePerson", function($http) {
-		var statAverageList = [];
-		var statBouvetList = [];
-		var statMaleList = [];
-		var statFemaleList = [];
-
-		var statObject = {};
-
 		return {
 
 			/*
@@ -379,13 +280,14 @@ angular.module("samesameApp.services", [])
 			type = 4 --> Female
 			*/
 
+			//retrieves statistics from db
 			retrieveStatistics : function(type) {
 				if (type === 1) {
 					return $http.get("/statsAverage");
 				}
 				else if (type === 2) {
 					return $http.get("/statsBouvet");
-				}			
+				}
 				else if (type === 3) {
 					return $http.get("/statsMale");
 				}
@@ -394,84 +296,73 @@ angular.module("samesameApp.services", [])
 				}
 			},
 
-
-
 			//resets before retrieving to avoid duplication
 			resetStatistics : function(type) {
 				if (type === 1) {
-					statAverageList = [];
+					statAverage = [];
 				}
 				else if (type === 2) {
-					statBouvetList = [];
+					statBouvet = [];
 				}
 				else if (type === 3) {
-					statMaleList = [];
+					statMale = [];
 				}
 				else if (type === 4) {
-					statFemaleList = [];
+					statFemale = [];
 				}
 			},
 			
 			getStatistics : function(type) {
-				
-				if (type === 1) {
-					return statAverageList;
+				if (type === 1 ) {
+					return statAverage;
 				}
 				else if (type === 2) {
-					return statBouvetList;
+					return statBouvet;
 				}
 				else if (type === 3) {
-					return statMaleList;
+					return statMale;
 				}
 				else if (type === 4) {
-					return statFemaleList;
+					return statFemale;
 				}
 			},
 
-
-			
-
-
-			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
-			//commented out some variables retrieved from database. Not currently used, but might be good to have later
+			//creates one statObject per questionid, and pushes object to respective statList which is used to retrieve data
 			setStatistics : function(currObject, type) {
 				var i;			
-				console.log("setting stats: " + JSON.stringify(currObject));
 				for (i = 0 ; i < currObject.length ; i++) {
 					statObject = {
+						
 						questionid : currObject[i]["questionid"],
-						mostFreq : currObject[i]["mostFreq"],
 						responseA : currObject[i]["a"],
 						percentageA : currObject[i]["a_"],
 						responseB : currObject[i]["b"],
 						percentageB : currObject[i]["b_"],
-						greatest : currObject[i]["greatest"],
-						total : currObject[i]["total"]
+						total : currObject[i]["total"],
+	
+						mostFreq : currObject[i]["mostFreq"],
+						greatest : currObject[i]["greatest"]
 
-						
-						
-						
-						
-					
 					}
 
-					//Type value is used to determine which list to push object to
-					if (type === 1) {
-						statAverageList.push(statObject);	
+					if ( type === 1 ) {
+						statAverage.push(statObject);
 					}
 					else if (type === 2) {
-						statBouvetList.push(statObject);
+						statBouvet.push(statObject);
 					}
 					else if (type === 3) {
-						statMaleList.push(statObject);
+						statMale.push(statObject);
 					}
 					else if (type === 4) {
-						statFemaleList.push(statObject);
+						statFemale.push(statObject);
 					}
 				}
 			}
-
-			
-
 		}
+
 	})
+
+
+
+	
