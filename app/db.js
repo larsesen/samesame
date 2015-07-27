@@ -132,8 +132,9 @@ function getAllAnswers(callback) {
 
 
 
-//===========================================================================
-
+/*===========================================================================
+Statistics
+===========================================================================*/
 
 
 function getAverageStatistics(callback) {
@@ -160,12 +161,12 @@ from samesame.answers, samesame.participants where answers.userid=participants.u
 
 function getMaleStatistics(callback) {
 	query("select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " +
-	"from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
-		"from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x", callback);
+		"from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
+			"from samesame.answers where sex='m' group by questionid) x", callback);
 /*
 select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ 
 from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b 
-from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x;
+from samesame.answers where sex='m' group by questionid) x;
 */
 }
 
@@ -173,81 +174,15 @@ from samesame.answers, samesame.participants where answers.userid=participants.u
 function getFemaleStatistics(callback) {
 	query("select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " +
 		"from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
-			"from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x", callback);
+			"from samesame.answers where sex='f' group by questionid) x", callback);
 /*
 select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ 
 from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b 
-from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x;
+from samesame.answers where sex='f' group by questionid) x;
 */
 }
 
 
-exports.getAverageStatistics = getAverageStatistics;
-exports.getBouvetStatistics = getBouvetStatistics;
-exports.getMaleStatistics = getMaleStatistics;
-exports.getFemaleStatistics = getFemaleStatistics;
-
-
-
-
-
-
-/*
-function getMaleTableStatistics(callback) {
-	query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
-		"from (select questionid, sum(case when response='a' then 1 else 0 end) a,sum(case when response='b' then 1 else 0 end) b " + 
-			"from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x", callback);
-/*
-select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
-sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x;
-
-}
-
-
-function getFemaleTableStatistics(callback) {
-	query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
-		"from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
-			"from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x", callback);
-/*
-select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
-sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x;
-*/
-
-
-
-
-
-// ===============================================================================
-
-/*
-function getAverageBouvet(callback) {
-
-	query("select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a," +
-		" sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and bouvet=1 group by questionid) x", callback);
-/*
-select *, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b 
-from samesame.answers, samesame.participants where answers.userid=participants.userid and bouvet=1 group by questionid) x;
-}
-*/
-
-/*
-function getAverageMale(callback) {
-	query("select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
-	"sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x", callback);
-/*
-select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
-sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x;
-
-}
-
-
-function getAverageFemale(callback) {
-	query("select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
-	"sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x", callback);
-/*
-select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
-sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x;
-*/
 
 
 
@@ -278,18 +213,7 @@ exports.exportParticipants     = exportParticipants;
 
 exports.getAllAnswers = getAllAnswers;
 
-
-
-
-
-
-//exports.getAverageTableStatistics = getAverageTableStatistics;
-//exports.getBouvetTableStatistics = getBouvetTableStatistics;
-//exports.getMaleTableStatistics = getMaleTableStatistics;
-//exports.getFemaleTableStatistics = getFemaleTableStatistics;
-
-//exports.getAveragePerson = getAveragePerson;
-//exports.getAverageBouvet = getAverageBouvet;
-//exports.getAverageMale = getAverageMale;
-//exports.getAverageFemale = getAverageFemale;
-
+exports.getAverageStatistics = getAverageStatistics;
+exports.getBouvetStatistics = getBouvetStatistics;
+exports.getMaleStatistics = getMaleStatistics;
+exports.getFemaleStatistics = getFemaleStatistics;

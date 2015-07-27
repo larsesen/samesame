@@ -272,108 +272,11 @@ function getAllAnswers(req, res) {
 }
 
 
-/* ========================
-Methods for module stat-table
-=========================*/
-function getAverageTableStatistics(req, res) {
-	db.getAverageTableStatistics(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send(rows);
-		}
-	});
-}
 
-function getBouvetTableStatistics(req, res) {
-	db.getBouvetTableStatistics(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send(rows);
-		}
-	});
-}
+/*=======================================
+Statistics
+=======================================*/
 
-function getMaleTableStatistics(req, res) {
-	db.getMaleTableStatistics(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send(rows);
-		}
-	});
-}
-
-function getFemaleTableStatistics(req, res) {
-	db.getFemaleTableStatistics(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send(rows);
-		}
-	});
-}
-
-
-/* ======================
-methods for module stat-average
-====================== */
-function getAveragePerson(req,res) {
-
-	db.getAveragePerson(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
-			res.send(rows);
-		}
-	});
-}
-
-function getAverageBouvet(req,res) {
-	db.getAverageBouvet(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
-			res.send(rows);
-		}
-	});
-}
-
-function getAverageMale(req,res) {
-	db.getAverageMale(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
-			res.send(rows);
-		}
-	});
-}
-
-function getAverageFemale(req,res) {
-	db.getAverageFemale(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
-			res.send(rows);
-		}
-	});
-}
-
-
-//=======================================
 
 function getAverageStatistics(req,res) {
 	db.getAverageStatistics(function(err, rows) {
@@ -386,7 +289,6 @@ function getAverageStatistics(req,res) {
 		}
 	});
 }
-
 
 function getBouvetStatistics(req,res) {
 	db.getBouvetStatistics(function(err, rows) {
@@ -424,10 +326,7 @@ function getFemaleStatistics(req,res) {
 	});
 }
 
-exports.getAverageStatistics = getAverageStatistics;
-exports.getBouvetStatistics = getBouvetStatistics;
-exports.getMaleStatistics = getMaleStatistics;
-exports.getFemaleStatistics = getFemaleStatistics;
+
 
 
 
@@ -454,14 +353,7 @@ exports.exportAnswers         = exportAnswers;
 exports.exportParticipants    = exportParticipants;
 
 exports.getAllAnswers = getAllAnswers;
-
-exports.getAverageTableStatistics = getAverageTableStatistics;
-exports.getBouvetTableStatistics = getBouvetTableStatistics;
-exports.getMaleTableStatistics = getMaleTableStatistics;
-exports.getFemaleTableStatistics = getFemaleTableStatistics;
-
-
-exports.getAveragePerson = getAveragePerson;
-exports.getAverageBouvet = getAverageBouvet;
-exports.getAverageMale = getAverageMale;
-exports.getAverageFemale = getAverageFemale;
+exports.getAverageStatistics = getAverageStatistics;
+exports.getBouvetStatistics = getBouvetStatistics;
+exports.getMaleStatistics = getMaleStatistics;
+exports.getFemaleStatistics = getFemaleStatistics;
