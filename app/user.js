@@ -271,18 +271,52 @@ function getAllAnswers(req, res) {
 	});
 }
 
-function getStatistics(req, res) {
 
-	db.getStatistics(function(err, rows) {
+/* ========================
+Methods for module stat-table
+=========================*/
+function getAverageTableStatistics(req, res) {
+	db.getAverageTableStatistics(function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
+}
 
+function getBouvetTableStatistics(req, res) {
+	db.getBouvetTableStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
+}
+
+function getMaleTableStatistics(req, res) {
+	db.getMaleTableStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
+}
+
+function getFemaleTableStatistics(req, res) {
+	db.getFemaleTableStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
 }
 
 
@@ -373,7 +407,13 @@ exports.exportAnswers         = exportAnswers;
 exports.exportParticipants    = exportParticipants;
 
 exports.getAllAnswers = getAllAnswers;
-exports.getStatistics = getStatistics;
+
+exports.getAverageTableStatistics = getAverageTableStatistics;
+exports.getBouvetTableStatistics = getBouvetTableStatistics;
+exports.getMaleTableStatistics = getMaleTableStatistics;
+exports.getFemaleTableStatistics = getFemaleTableStatistics;
+
+
 exports.getAveragePerson = getAveragePerson;
 exports.getAverageBouvet = getAverageBouvet;
 exports.getAverageMale = getAverageMale;

@@ -482,28 +482,41 @@ angular.module("samesameApp.controllers", [])
 	.controller("StatTableCtrl", ["$scope", "StatTable", function($scope, Statistics) {
 
 
-		$scope.retrieveTableStatistics = function() {
-			Statistics.resetTableStatistics();
+		$scope.retrieveTableStatistics = function(type) {
+			Statistics.resetTableStatistics(type);
 			
 			//initial call to fetch answers
-			Statistics.retrieveTableStatistics().success(function(data) {
+			Statistics.retrieveTableStatistics(type).success(function(data) {
 				$scope.statistics = data;
 			
 				// sets objectlist
-				Statistics.setTableStatistics($scope.statistics);
+				Statistics.setTableStatistics($scope.statistics,type);
 			
 				//retrieves list of questionObjects to be used for view (partial-stat-table)
-				$scope.dataList = Statistics.getTableStatistics();
+				if (type === 1) {
+					$scope.dataTableAverage = Statistics.getTableStatistics(type);
+				}
+				else if (type === 2) {
+					$scope.dataTableBouvet = Statistics.getTableStatistics(type)
+				}
+				else if (type === 3) {
+					$scope.dataTableMale = Statistics.getTableStatistics(type)
+				}
+				else if (type === 4) {
+					$scope.dataTableFemale = Statistics.getTableStatistics(type)
+				}
 			});
 		}
-		$scope.retrieveTableStatistics();
+
+		$scope.retrieveTableStatistics(1);
+		$scope.retrieveTableStatistics(2);
+		$scope.retrieveTableStatistics(3);
+		$scope.retrieveTableStatistics(4);
 	}])
 
 
 
-
 	.controller("StatAverageCtrl", ["$scope", "StatAveragePerson", function($scope, Statistics) {
-
 
 
 		$scope.retrieveStatistics = function(type) {

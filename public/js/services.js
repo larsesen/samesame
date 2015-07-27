@@ -265,26 +265,64 @@ angular.module("samesameApp.services", [])
 
 
 	.factory("StatTable", function($http) {
-		var statList = [];
+		var statTableAverage = [];
+		var statTableBouvet = [];
+		var statTableMale = [];
+		var statTableFemale = [];
+
 		var statObject = {};
 
 		return {
 
 			//retrieves statistics from db
-			retrieveTableStatistics : function() {
-				return $http.get("/statsTable");
-			},
-			//resets before retrieving to avoid duplication
-			resetTableStatistics : function() {
-				statList = [];
-			},
-			
-			getTableStatistics : function() {
-				return statList;
+			retrieveTableStatistics : function(type) {
+				if (type === 1) {
+					return $http.get("/statsTableAverage");
+				}
+				else if (type === 2) {
+					return $http.get("/statsTableBouvet");
+				}
+				else if (type === 3) {
+					return $http.get("/statsTableMale");
+				}
+				else if (type === 4) {
+					return $http.get("/statsTableFemale");
+				}
 			},
 
-			//creates one statObject per questionid, and pushes object to statList which is used to retrieve data
-			setTableStatistics : function(currObject) {
+			//resets before retrieving to avoid duplication
+			resetTableStatistics : function(type) {
+				if (type === 1) {
+					statTableAverage = [];
+				}
+				else if (type === 2) {
+					statTableBouvet = [];
+				}
+				else if (type === 3) {
+					statTableMale = [];
+				}
+				else if (type === 4) {
+					statTableFemale = [];
+				}
+			},
+			
+			getTableStatistics : function(type) {
+				if (type === 1 ) {
+					return statTableAverage;
+				}
+				else if (type === 2) {
+					return statTableBouvet;
+				}
+				else if (type === 3) {
+					return statTableMale;
+				}
+				else if (type === 4) {
+					return statTableFemale;
+				}
+			},
+
+			//creates one statObject per questionid, and pushes object to statTableAverage| which is used to retrieve data
+			setTableStatistics : function(currObject, type) {
 				var i;			
 				for (i = 0 ; i < currObject.length ; i++) {
 					statObject = {
@@ -295,7 +333,19 @@ angular.module("samesameApp.services", [])
 						percentageB : currObject[i]["b_"],
 						total : currObject[i]["total"]
 					}
-					statList.push(statObject);
+
+					if ( type === 1 ) {
+						statTableAverage.push(statObject);
+					}
+					else if (type === 2) {
+						statTableBouvet.push(statObject);
+					}
+					else if (type === 3) {
+						statTableMale.push(statObject);
+					}
+					else if (type === 4) {
+						statTableFemale.push(statObject);
+					}
 				}
 			}
 		}
