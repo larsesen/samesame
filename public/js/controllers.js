@@ -481,7 +481,9 @@ angular.module("samesameApp.controllers", [])
 
 
 		$scope.retrieveStatistics = function(type) {
-			Statistics.resetStatistics(type);
+			
+			$scope.allData = []; 
+			Statistics.resetStatistics();
 			
 			//initial call to fetch answers
 			Statistics.retrieveStatistics(type).success(function(data) {
@@ -489,27 +491,16 @@ angular.module("samesameApp.controllers", [])
 			
 				// sets objectlist
 				Statistics.setStatistics($scope.statistics,type);
-			
-				//retrieves list of questionObjects to be used for view (partial-stat-table)
-				if (type === 1) {
-					$scope.dataAverage = Statistics.getStatistics(type);
-				}
-				else if (type === 2) {
-					$scope.dataBouvet = Statistics.getStatistics(type)
-				}
-				else if (type === 3) {
-					$scope.dataMale = Statistics.getStatistics(type)
-				}
-				else if (type === 4) {
-					$scope.dataFemale = Statistics.getStatistics(type)
-				}
 			});
 		}
-
+		
+		//possible to easily add more type of users if necessary:
 		$scope.retrieveStatistics(1);
 		$scope.retrieveStatistics(2);
 		$scope.retrieveStatistics(3);
 		$scope.retrieveStatistics(4);
+
+		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 	}])
 
 	

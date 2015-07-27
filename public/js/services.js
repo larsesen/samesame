@@ -263,6 +263,8 @@ angular.module("samesameApp.services", [])
 
 
 	.factory("Statistics", function($http) {
+		var allStat = [];
+
 		var statAverage = [];
 		var statBouvet = [];
 		var statMale = [];
@@ -296,22 +298,21 @@ angular.module("samesameApp.services", [])
 				}
 			},
 
-			//resets before retrieving to avoid duplication
+
+			//resets data before retrieving to avoid duplication
 			resetStatistics : function(type) {
-				if (type === 1) {
-					statAverage = [];
-				}
-				else if (type === 2) {
-					statBouvet = [];
-				}
-				else if (type === 3) {
-					statMale = [];
-				}
-				else if (type === 4) {
-					statFemale = [];
-				}
+				statAverage = [];
+				statBouvet = [];
+				statMale = [];
+				statFemale = [];
+				allStat = [];
 			},
 			
+			getAllStats : function(type) {
+				return allStat;
+			},
+
+
 			getStatistics : function(type) {
 				if (type === 1 ) {
 					return statAverage;
@@ -357,6 +358,24 @@ angular.module("samesameApp.services", [])
 					else if (type === 4) {
 						statFemale.push(statObject);
 					}
+
+					
+				}
+				if ( type === 1 ) {
+					statAverage.name = "Average";
+					allStat.push(statAverage);
+				}
+				else if (type === 2) {
+					statBouvet.name = "Bouvet";
+					allStat.push(statBouvet);
+				}
+				else if (type === 3) {
+					statMale.name = "Male";
+					allStat.push(statMale);
+				}
+				else if (type === 4) {
+					statFemale.name = "Female";
+					allStat.push(statFemale);
 				}
 			}
 		}
