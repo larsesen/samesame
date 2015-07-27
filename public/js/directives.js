@@ -5,6 +5,41 @@
 
 angular.module("samesameApp.directives", [])
 
+
+/*
+	.directive("smallImageSize", function() {
+	
+	   return {
+	    restrict: 'A',
+	    link: function(scope, elem, attr) {
+	        elem.on('load', function() {
+	            var w = $(this).width(),
+	                h = $(this).height();
+
+	            var div = elem.parent();
+
+            //check width and height and apply styling to parent here.
+         		});
+		    }
+		};
+	}) 
+
+	.directive('imageonload', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                $(this).width=50px;
+                $(this).height=50px;
+                width:50px;
+                height:50px;
+            });
+        }
+    };
+})
+*/
+
+
     /*
     A custom directive partly based on a fix found on github, modified to work in our case
     We had a problem with combining a component of twitter bootstrap radio buttons and angular js forms with radio buttons,
@@ -26,6 +61,8 @@ angular.module("samesameApp.directives", [])
                 }
             };
     }])
+
+
 	.directive('drawing', function() {
 	 	return {
             replace: false,

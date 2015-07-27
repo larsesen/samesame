@@ -493,13 +493,14 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setStatistics($scope.statistics,type);
 			});
 		}
-		
+
 		//possible to easily add more type of users if necessary:
 		$scope.retrieveStatistics(1);
 		$scope.retrieveStatistics(2);
 		$scope.retrieveStatistics(3);
 		$scope.retrieveStatistics(4);
 
+		$scope.averageData = Statistics.getStatistics(1);
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 	}])
 
