@@ -277,16 +277,16 @@ angular.module("samesameApp.services", [])
 			//retrieves statistics from db
 			retrieveTableStatistics : function(type) {
 				if (type === 1) {
-					return $http.get("/statsTableAverage");
+					return $http.get("/statsAverage");
 				}
 				else if (type === 2) {
-					return $http.get("/statsTableBouvet");
+					return $http.get("/statsBouvet");
 				}
 				else if (type === 3) {
-					return $http.get("/statsTableMale");
+					return $http.get("/statsMale");
 				}
 				else if (type === 4) {
-					return $http.get("/statsTableFemale");
+					return $http.get("/statsFemale");
 				}
 			},
 
@@ -324,6 +324,7 @@ angular.module("samesameApp.services", [])
 			//creates one statObject per questionid, and pushes object to statTableAverage| which is used to retrieve data
 			setTableStatistics : function(currObject, type) {
 				var i;			
+				console.log("setting table: " + JSON.stringify(currObject));
 				for (i = 0 ; i < currObject.length ; i++) {
 					statObject = {
 						questionid : currObject[i]["questionid"],
@@ -331,7 +332,12 @@ angular.module("samesameApp.services", [])
 						percentageA : currObject[i]["a_"],
 						responseB : currObject[i]["b"],
 						percentageB : currObject[i]["b_"],
-						total : currObject[i]["total"]
+						total : currObject[i]["total"],
+
+						
+						mostFreq : currObject[i]["mostFreq"],
+						greatest : currObject[i]["greatest"]
+
 					}
 
 					if ( type === 1 ) {
@@ -378,13 +384,13 @@ angular.module("samesameApp.services", [])
 					return $http.get("/statsAverage");
 				}
 				else if (type === 2) {
-					return $http.get("/statsAverageBouvet");
+					return $http.get("/statsBouvet");
 				}			
 				else if (type === 3) {
-					return $http.get("/statsAverageMale");
+					return $http.get("/statsMale");
 				}
 				else if (type === 4) {
-					return $http.get("/statsAverageFemale");
+					return $http.get("/statsFemale");
 				}
 			},
 
@@ -430,15 +436,22 @@ angular.module("samesameApp.services", [])
 			//commented out some variables retrieved from database. Not currently used, but might be good to have later
 			setStatistics : function(currObject, type) {
 				var i;			
+				console.log("setting stats: " + JSON.stringify(currObject));
 				for (i = 0 ; i < currObject.length ; i++) {
 					statObject = {
 						questionid : currObject[i]["questionid"],
 						mostFreq : currObject[i]["mostFreq"],
-
-					/* */
 						responseA : currObject[i]["a"],
+						percentageA : currObject[i]["a_"],
 						responseB : currObject[i]["b"],
-						greatest : currObject[i]["greatest"]
+						percentageB : currObject[i]["b_"],
+						greatest : currObject[i]["greatest"],
+						total : currObject[i]["total"]
+
+						
+						
+						
+						
 					
 					}
 

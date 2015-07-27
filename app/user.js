@@ -373,14 +373,61 @@ function getAverageFemale(req,res) {
 }
 
 
+//=======================================
+
+function getAverageStatistics(req,res) {
+	db.getAverageStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
 
 
+function getBouvetStatistics(req,res) {
+	db.getBouvetStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
 
+function getMaleStatistics(req,res) {
+	db.getMaleStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
 
+function getFemaleStatistics(req,res) {
+	db.getFemaleStatistics(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
 
-
-
-
+exports.getAverageStatistics = getAverageStatistics;
+exports.getBouvetStatistics = getBouvetStatistics;
+exports.getMaleStatistics = getMaleStatistics;
+exports.getFemaleStatistics = getFemaleStatistics;
 
 
 
