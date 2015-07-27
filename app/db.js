@@ -56,8 +56,8 @@ also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
 	/*jshint multistr: true, laxbreak: true*/
-	query("INSERT INTO samesame.answers(userid, questionid, response)" +
-		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "');", callback);
+	query("INSERT INTO samesame.answers(userid, questionid, response, sex)" +
+		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "', '" + values.sex + "');", callback);
 }
 
 
@@ -135,15 +135,6 @@ query("select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*10
 /*
 select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
 sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
-
-
-
-bouvet: 
-
-select *, (a+b) as total, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
-sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid= participants.userid and bouvet=1 group by questionid) x;
-
-
 */
 }
 
@@ -153,16 +144,11 @@ function getAveragePerson(callback) {
 /*
 select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 
-
-
-
 //simplified version:
 select questionid, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
 sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
 */
 }
-
-
 
 
 function getAverageBouvet(callback) {
@@ -175,29 +161,25 @@ select *, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when r
 }
 
 
-
-
-
-
-
-
-
-
-
-
 function getAverageMale(callback) {
-//same as averagePerson, but with where clause checking column sex (not yet implemented)
+	query("select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
+	"sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x", callback);
+/*
+select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='m' group by questionid) x;
+*/
 }
+
 
 function getAverageFemale(callback) {
-//same as averagePerson, but with where clause checking column sex (not yet implemented)
+	query("select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, " + 
+	"sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x", callback);
+/*
+select *, greatest(a,b) as greatest, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and sex='f' group by questionid) x;
+*/
 }
 
 
 
-exports.getAverageBouvet = getAverageBouvet;
-exports.getAverageMale = getAverageMale;
-exports.getAverageFemale = getAverageFemale;
 
 
 
@@ -220,7 +202,11 @@ exports.updateWinner           = updateWinner;
 exports.deleteWinners          = deleteWinners;
 exports.exportAnswers          = exportAnswers;
 exports.exportParticipants     = exportParticipants;
+
 exports.getStatistics = getStatistics;
 exports.getAllAnswers = getAllAnswers;
 exports.getAveragePerson = getAveragePerson;
+exports.getAverageBouvet = getAverageBouvet;
+exports.getAverageMale = getAverageMale;
+exports.getAverageFemale = getAverageFemale;
 

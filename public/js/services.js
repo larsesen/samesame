@@ -88,7 +88,6 @@ angular.module("samesameApp.services", [])
 					value : 'a',
 					imageURL : "./images/1a.png"
 				}, {
-					output : 'B',
 					value : 'b',
 					imageURL : "./images/1b.png",
 				}
@@ -165,6 +164,18 @@ angular.module("samesameApp.services", [])
 				}, {
 					value : 'b',
 					imageURL : "./images/7b.png"
+				}
+				]
+			},
+			question8: {
+				questionid: '8',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/8a.jpg"
+				}, {
+					value : 'b',
+					imageURL : "./images/8b.jpg"
 				}
 				]
 			}
@@ -297,7 +308,9 @@ angular.module("samesameApp.services", [])
 	.factory("StatAveragePerson", function($http) {
 		var statAverageList = [];
 		var statBouvetList = [];
-		
+		var statMaleList = [];
+		var statFemaleList = [];
+
 		var statObject = {};
 
 		return {
@@ -317,6 +330,12 @@ angular.module("samesameApp.services", [])
 				else if (type === 2) {
 					return $http.get("/statsAverageBouvet");
 				}			
+				else if (type === 3) {
+					return $http.get("/statsAverageMale");
+				}
+				else if (type === 4) {
+					return $http.get("/statsAverageFemale");
+				}
 			},
 
 
@@ -329,6 +348,12 @@ angular.module("samesameApp.services", [])
 				else if (type === 2) {
 					statBouvetList = [];
 				}
+				else if (type === 3) {
+					statMaleList = [];
+				}
+				else if (type === 4) {
+					statFemaleList = [];
+				}
 			},
 			
 			getStatistics : function(type) {
@@ -338,6 +363,12 @@ angular.module("samesameApp.services", [])
 				}
 				else if (type === 2) {
 					return statBouvetList;
+				}
+				else if (type === 3) {
+					return statMaleList;
+				}
+				else if (type === 4) {
+					return statFemaleList;
 				}
 			},
 
@@ -367,6 +398,12 @@ angular.module("samesameApp.services", [])
 					}
 					else if (type === 2) {
 						statBouvetList.push(statObject);
+					}
+					else if (type === 3) {
+						statMaleList.push(statObject);
+					}
+					else if (type === 4) {
+						statFemaleList.push(statObject);
 					}
 				}
 			}

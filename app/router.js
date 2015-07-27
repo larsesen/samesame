@@ -98,11 +98,15 @@ route for deleting all winners, sets the 'winner' field of all participants to 0
 	app.route("/statsAverageBouvet")
 		.get(user.getAverageBouvet);	
 
+	app.route("/statsAverageMale")
+		.get(user.getAverageMale);
+
+	app.route("/statsAverageFemale")
+		.get(user.getAverageFemale);
 /*
 	app.route("/statsBouvet")
 		.get(user.getAverageBouvet);
-	app.route("/statsMale")
-		.get(user.getAverageMale);
+	
 	app.route("/statsFemale")
 		.get(user.getAverageFemale);
 */

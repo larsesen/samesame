@@ -308,8 +308,7 @@ angular.module("samesameApp.controllers", [])
 		Needed for retrieving images correctly at init stage
 		*/
 		$scope.init = 1;
-		var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
-		//console.log("init question is question: " + nextQ);
+		var nextQ = 1;
 		AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
 		$scope.nextQ = nextQ;
 		$scope.answeredQuestions = answeredQuestions;
@@ -328,8 +327,24 @@ angular.module("samesameApp.controllers", [])
 			//Forming request:
 			$scope.formData.userid = id;
 			$scope.formData.questionid = $scope.nextQ;
+			
+
+			if ($scope.formData.questionid == 1) {
+				if ($scope.formData.response === 'a') {
+					$scope.formData.sex = 'm';
+				}
+				else if ($scope.formData.response === 'b') {
+					$scope.formData.sex = 'f'; 	
+				}
+			}
+
+			//console.log("formdata: " + JSON.stringify($scope.formData));
+
 			Answers.create($scope.formData)
 			
+
+			
+
 
 			//Sending request:
 			.success(function(data) {
@@ -388,8 +403,6 @@ angular.module("samesameApp.controllers", [])
 		$scope.submitParticipant = function() {
 			console.log(JSON.stringify($scope.participant));
 
-
-			//extract to be separate method at the bottom of this file!!!!
 			if (isBouvetEmployee($scope.participant.email)) {
 				$scope.participant.bouvet = 1;
 			}
@@ -510,13 +523,20 @@ angular.module("samesameApp.controllers", [])
 				else if (type === 2) {
 					$scope.dataListBouvet = Statistics.getStatistics(type);
 				}
+				else if (type === 3) {
+					$scope.dataListMale = Statistics.getStatistics(type);
+				}
+				else if (type === 4) {
+					$scope.dataListFemale = Statistics.getStatistics(type);
+				}
 			})
 		}
 
 
 		$scope.retrieveStatistics(1); // Manages everything with average person
 		$scope.retrieveStatistics(2); // Manages everything with average bouvet person
-
+		$scope.retrieveStatistics(3); // Manages everything with average male person
+		$scope.retrieveStatistics(4); // Manages everything with average female person
 
 	}])
 

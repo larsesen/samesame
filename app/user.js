@@ -54,7 +54,8 @@ function insertAnswer(req, res) {
 	var values = {	
 		userid: req.body.userid,
 		questionid: req.body.questionid,
-		response: req.body.response
+		response: req.body.response,
+		sex: req.body.sex
 	};
 	db.insertAnswer(values, function(err, rows) {
 		if (err) {
@@ -285,6 +286,9 @@ function getStatistics(req, res) {
 }
 
 
+/* ======================
+methods for module stat-average
+====================== */
 function getAveragePerson(req,res) {
 
 	db.getAveragePerson(function(err, rows) {
@@ -297,14 +301,6 @@ function getAveragePerson(req,res) {
 		}
 	});
 }
-
-
-
-
-// =======================================================================================
-
-
-
 
 function getAverageBouvet(req,res) {
 	db.getAverageBouvet(function(err, rows) {
@@ -343,13 +339,6 @@ function getAverageFemale(req,res) {
 }
 
 
-exports.getAverageBouvet = getAverageBouvet;
-exports.getAverageMale = getAverageMale;
-exports.getAverageFemale = getAverageFemale;
-
-
-
-
 
 
 
@@ -386,3 +375,6 @@ exports.exportParticipants    = exportParticipants;
 exports.getAllAnswers = getAllAnswers;
 exports.getStatistics = getStatistics;
 exports.getAveragePerson = getAveragePerson;
+exports.getAverageBouvet = getAverageBouvet;
+exports.getAverageMale = getAverageMale;
+exports.getAverageFemale = getAverageFemale;
