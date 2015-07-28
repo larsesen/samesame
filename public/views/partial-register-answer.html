@@ -4,8 +4,6 @@
 
 <div class="container middle-pos">
 
-<form name="answerForm" ng-submit="nextQuestion()" novalidate> 
-
 <h2 class="text-orange">Choose one picture from each category</h2>
 	
 <br><br> 
@@ -14,28 +12,24 @@
 	<div class="btn-group">
 		<label>
 
-			<input type="radio" value="a" ng-model="formData.response" ng-click="nextQuestion()" required/>
-
-<!--	    	<input type="radio" onclick="alert('hello')" value="a" ng-model="formData.response" required/> -->
-	    	<img ng-src="./images/{{nextQ}}a.png">
-
+			<input type="radio" value="a" ng-model="formData.response" ng-click="nextQuestion()" required checked="false"/>
+	    	<img ng-src="./images/{{nextQ}}a.png" name="{{nextQ}}a">
 	  	</label>
   		<container class="leftspace">
 	  	<label>
-    		<input type="radio" value="b" ng-model="formData.response" ng-click="nextQuestion()" required/>
-    		<img ng-src="./images/{{nextQ}}b.png">
+    		<input type="radio" value="b" ng-model="formData.response" ng-click="nextQuestion()" required checked="false"/>
+    		<img ng-src="./images/{{nextQ}}b.png" name="{{nextQ}}b">
   		</label>
   		</class>
   		</div>
   		<br>
 					
-		</label>
 		<br>
 		<div class="text-white text-medium">
 			
 			<!--
-			{{nextQ}} || {{answeredQuestions}} || {{userid}}
-			 -->
+			{{nextQ}} || {{questionid}} || {{response}}
+			-->
 		</div>
 	
 	<br><br>
@@ -46,7 +40,7 @@
 	-->
 	</div>
 
-</form>
+
 
 <br><br><br><br><br><br><br><br><br><br>
 

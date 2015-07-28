@@ -25,7 +25,7 @@
 		<div class="col-sm-4 col-sm-offset-5 text-smaller text-white top-pad-small">
 			Totalt antall svar: {{answers.length}}
 		<br><br>
-				Index: {{startAnswers + 1}} - {{startAnswers + 20}}
+				Index: {{startAnswers + 1}} - {{startAnswers + 10}}
 		<br><br>
 		</div>
 
@@ -42,12 +42,8 @@
 				<!--the ng-class is used for dynamically assigning classes to the rows to give them different colors -->
 				<tr ng-repeat="answer in answers 
 				| answersFromTo:startAnswers:startAnswers +  limitAnswers 
-				| orderBy:['userid']"
-				ng-class="{
-				warning: answer.locked === 1, 
-				danger : answer.processed === 0 && answer.locked === 0, 
-				success : answer.processed === 1 && answer.locked === 0
-				}">
+				| orderBy:['userid']">
+			
 					<td>{{answer.userid}}</td>
 					<td>{{answer.questionid}}</td>
 					<td>{{answer.response}}</td>

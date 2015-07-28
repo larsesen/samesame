@@ -85,6 +85,7 @@ angular.module("samesameApp.services", [])
 				questionid: '1',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/1a.png"
 				}, {
@@ -98,6 +99,7 @@ angular.module("samesameApp.services", [])
 				questionid: '2',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/2a.png"
 
@@ -111,6 +113,7 @@ angular.module("samesameApp.services", [])
 				questionid: '3',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/3a.png"
 				}, {
@@ -123,6 +126,7 @@ angular.module("samesameApp.services", [])
 				questionid: '4',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/4a.png"
 				}, {
@@ -135,6 +139,7 @@ angular.module("samesameApp.services", [])
 				questionid: '5',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/5a.png"
 				}, {
@@ -147,6 +152,7 @@ angular.module("samesameApp.services", [])
 				questionid: '6',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/6a.png"
 				}, {
@@ -159,6 +165,7 @@ angular.module("samesameApp.services", [])
 				questionid: '7',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/7a.png"
 				}, {
@@ -171,6 +178,7 @@ angular.module("samesameApp.services", [])
 				questionid: '8',
 				options : [
 				{
+					name: 'a',
 					value : 'a',
 					imageURL : "./images/8a.jpg"
 				}, {
@@ -183,6 +191,24 @@ angular.module("samesameApp.services", [])
 	})
 
 
+	.factory("Prize", function() {
+
+		return {
+			question1: {
+				questionid: '1',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/prize/1a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/prize/1b.png",
+				}
+				],
+			}
+
+		};
+	})
 
 
 
@@ -394,22 +420,17 @@ angular.module("samesameApp.services", [])
 			},
 
 			setCounts : function(currObject) {
-				//console.log("*** " + JSON.stringify(currObject));
-				//console.log(currObject.length);
-
 				var i;			
 				for (i = 0 ; i < currObject.length ; i++) {
-									
+
 					statObject = {	
 						total : currObject[i][0]["total"],
 						bouvet : currObject[i][0]["bouvet"],
 						male : currObject[i][0]["male"],
 						female : currObject[i][0]["female"]
-					}
-					
+					}			
 					counts.push(statObject);					
 				}
-				console.log(JSON.stringify(counts));
 			}
 		}
 
