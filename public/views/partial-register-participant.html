@@ -49,6 +49,24 @@
 		</p>
 		
 		<br>
+		
+
+		<div class="btn-group" required>
+			<label>
+				<input type="radio" value="a" ng-model="participant.prize"/>
+		    	<img ng-src="./images/prize/1a.png" name="1a">
+		  	</label>
+
+	  		<container class="leftspace">
+		  	<label>
+
+	    		<input type="radio" value="b" ng-model="participant.prize"/>
+	    		<img ng-src="./images/prize/1b.png" name="1b">
+	  		</label>
+  		</div>
+  		<br><br><br>
+					
+		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8">
 				<button type="submit" name="submitButton" class="btn btn-def-bouvet" ng-disabled="
@@ -59,6 +77,23 @@
 				">Submit info</button>
 			</div>
 		</div>
+
+
+		<br>
+		<div class="text-white text-medium">
+			
+			<!--
+			{{nextQ}} || {{questionid}} || {{response}}
+			-->
+		</div>
+	
+	<br><br>
+	<!--
+	<button class="btn btn-def-bouvet" name="registerButton" type="submit">
+			Neste spørsmål
+	</button>
+	-->
+	
 	</form>
 
 	<br>

@@ -83,8 +83,8 @@ insert a new participant
 values is an array containing the values to be inserted
 */
 function insertParticipant(values, callback) {
-	query("insert into samesame.participants(email, userid, name, bouvet)" + 
-		"values ('" + values.email + "', '" + values.userid + "', '" + values.name + "', '" + values.bouvet + "');", callback);
+	query("insert into samesame.participants(email, userid, name, prize, bouvet)" + 
+		"values ('" + values.email + "', '" + values.userid + "', '" + values.name + "', '" + values.prize + "', '" + values.bouvet + "');", callback);
 }
 
 
@@ -187,8 +187,8 @@ from samesame.answers where sex='f' group by questionid) x;
 function getCounts(callback) {
 	query("select count(*) as total from samesame.answers;" + 
 		"select count(*) as bouvet from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and bouvet=1;"+
-		"select count(*) as male from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and sex='m';" +
-		"select count(*) as female from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and sex='f'", callback);
+		"select count(*) as male from samesame.answers where sex='m';" +
+		"select count(*) as female from samesame.answers where sex='f'", callback);
 }
 
 exports.getCounts = getCounts;

@@ -8,7 +8,7 @@ angular.module("samesameApp.controllers", [])
 	.controller("AnswerCtrl", ["$scope", "filterFilter", "Answers", function($scope, filterFilter, Answers) {
 
 		//the number of answers showed in one view
-		$scope.limitAnswers = 20;
+		$scope.limitAnswers = 10;
 		//the starting index of the view
 		$scope.startAnswers = 0;
 		//a boolean deciding whether to view all answers or only unprocessed
@@ -297,7 +297,6 @@ angular.module("samesameApp.controllers", [])
 		
 		$scope.userid = id; //only used for logging out to view
 
-		console.log("controller inited");
 
 		//Setting userid to be retrieved from register-participant-module
 		UserIDService.setUserID(id);
@@ -328,18 +327,22 @@ angular.module("samesameApp.controllers", [])
 			$scope.formData.userid = id;
 			$scope.formData.questionid = $scope.nextQ;
 			
-
+			console.log("questionid: " + $scope.formData.questionid);
+			console.log("response: " + $scope.formData.response);
 			if ($scope.formData.questionid == 1) {
 				if ($scope.formData.response === 'a') {
 					$scope.formData.sex = 'm';
 				}
 				else if ($scope.formData.response === 'b') {
-					$scope.formData.sex = 'f'; 	
+					$scope.formData.sex = 'f';
 				}
 			}
+			console.log("FormData: " + JSON.stringify($scope.formData));
+
 
 			//console.log("formdata: " + JSON.stringify($scope.formData));
-
+			console.log("*** " + JSON.stringify($scope.formData));
+			console.log("before creating");
 			Answers.create($scope.formData)
 			
 
@@ -409,7 +412,6 @@ angular.module("samesameApp.controllers", [])
 			else {
 				$scope.participant.bouvet = 0;
 			}
-
 
 			Participants.create($scope.participant)
 			.success(function(data){
