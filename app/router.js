@@ -103,7 +103,8 @@ Routes for retrieving statistics
 		.get(user.getFemaleStatistics);
 
 
-
+	app.route("/statsCount")
+		.get(user.getCounts);
 
 
 

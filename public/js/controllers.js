@@ -8,7 +8,7 @@ angular.module("samesameApp.controllers", [])
 	.controller("AnswerCtrl", ["$scope", "filterFilter", "Answers", function($scope, filterFilter, Answers) {
 
 		//the number of answers showed in one view
-		$scope.limitAnswers = 10;
+		$scope.limitAnswers = 20;
 		//the starting index of the view
 		$scope.startAnswers = 0;
 		//a boolean deciding whether to view all answers or only unprocessed
@@ -297,7 +297,7 @@ angular.module("samesameApp.controllers", [])
 		
 		$scope.userid = id; //only used for logging out to view
 
-
+		console.log("controller inited");
 
 		//Setting userid to be retrieved from register-participant-module
 		UserIDService.setUserID(id);
@@ -494,14 +494,28 @@ angular.module("samesameApp.controllers", [])
 			});
 		}
 
+		$scope.retrieveCounts = function() {
+			$scope.counts = [];
+			Statistics.resetCounts;
+
+			Statistics.retrieveCounts().success(function(data) {
+				$scope.statistics = data;
+
+				Statistics.setCounts($scope.statistics);
+			});
+		}
+
+
 		//possible to easily add more type of users if necessary:
 		$scope.retrieveStatistics(1);
 		$scope.retrieveStatistics(2);
 		$scope.retrieveStatistics(3);
 		$scope.retrieveStatistics(4);
 
-		$scope.averageData = Statistics.getStatistics(1);
+		$scope.retrieveCounts();
+
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
+		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 	}])
 
 	

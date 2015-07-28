@@ -184,6 +184,18 @@ from samesame.answers where sex='f' group by questionid) x;
 
 
 
+function getCounts(callback) {
+	query("select count(*) as total from samesame.answers;" + 
+		"select count(*) as bouvet from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and bouvet=1;"+
+		"select count(*) as male from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and sex='m';" +
+		"select count(*) as female from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and sex='f'", callback);
+}
+
+exports.getCounts = getCounts;
+
+
+
+
 
 
 

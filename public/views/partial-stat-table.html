@@ -16,12 +16,16 @@
                 Tilbake til meny
             </a>
         </div>
+
+
         <div class="col-sm-5 col-sm-offset-2 text-white text-smallest">
-            Totalt antall spørsmål besvart: {{dataList.length}} <br>
-            Totalt antall spørsmål besvart av Bouvet: <br>
-            Totalt antall spørsmål besvart av menn: <br>
-            Totalt antall spørsmål besvart av kvinner: <br>
+            Totalt antall spørsmål besvart: {{counts[0]["total"]}} <br>
+            Totalt antall spørsmål besvart av Bouvet: {{counts[1]["bouvet"]}}<br>
+            Totalt antall spørsmål besvart av menn: {{counts[2]["male"]}}<br>
+            Totalt antall spørsmål besvart av kvinner: {{counts[3]["female"]}}<br>
         </div>
+
+
     </div>
     <br><br>
     <div class="row text-orange text-medium middle-pos top-pad-small">

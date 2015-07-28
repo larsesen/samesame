@@ -263,15 +263,15 @@ angular.module("samesameApp.services", [])
 
 
 	.factory("Statistics", function($http) {
-		var allStat = [];
-
-		var statAverage = [];
-		var statBouvet = [];
-		var statMale = [];
-		var statFemale = [];
-
-		var statObject = {};
+		var allStat = [],
+			statAverage = [],
+			statBouvet = [],
+			statMale = [],
+			statFemale = [],
+			statObject = {};
 		
+		var counts = [];
+
 		return {
 
 			/*
@@ -343,7 +343,6 @@ angular.module("samesameApp.services", [])
 	
 						mostFreq : currObject[i]["mostFreq"],
 						greatest : currObject[i]["greatest"]
-
 					}
 
 					if ( type === 1 ) {
@@ -377,6 +376,40 @@ angular.module("samesameApp.services", [])
 					statFemale.name = "Female";
 					allStat.push(statFemale);
 				}
+				//console.log(JSON.stringify(allStat));
+			},
+
+
+
+			retrieveCounts : function() {
+				return $http.get("/statsCount");
+			},
+			
+			resetCounts : function() {
+				counts = [];
+			},
+
+			getCounts : function() {
+				return counts;
+			},
+
+			setCounts : function(currObject) {
+				//console.log("*** " + JSON.stringify(currObject));
+				//console.log(currObject.length);
+
+				var i;			
+				for (i = 0 ; i < currObject.length ; i++) {
+									
+					statObject = {	
+						total : currObject[i][0]["total"],
+						bouvet : currObject[i][0]["bouvet"],
+						male : currObject[i][0]["male"],
+						female : currObject[i][0]["female"]
+					}
+					
+					counts.push(statObject);					
+				}
+				console.log(JSON.stringify(counts));
 			}
 		}
 

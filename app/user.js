@@ -327,8 +327,18 @@ function getFemaleStatistics(req,res) {
 }
 
 
-
-
+function getCounts(req,res) {
+	db.getCounts(function(err, rows) {
+		if (err) {
+			errorHandler(err, res);
+		}
+		else {
+			//console.log("Rows returned from db: " + JSON.stringify(rows));
+			res.send(rows);
+		}
+	});
+}
+exports.getCounts = getCounts;
 
 
 

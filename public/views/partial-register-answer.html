@@ -14,7 +14,7 @@
 	<div class="btn-group">
 		<label>
 
-			<input type="radio" value="a" ng-model="formData.response" required/>
+			<input type="radio" value="a" ng-model="formData.response" ng-click="nextQuestion()" required/>
 
 <!--	    	<input type="radio" onclick="alert('hello')" value="a" ng-model="formData.response" required/> -->
 	    	<img ng-src="./images/{{nextQ}}a.png">
@@ -22,7 +22,7 @@
 	  	</label>
   		<container class="leftspace">
 	  	<label>
-    		<input type="radio" value="b" ng-model="formData.response" required/>
+    		<input type="radio" value="b" ng-model="formData.response" ng-click="nextQuestion()" required/>
     		<img ng-src="./images/{{nextQ}}b.png">
   		</label>
   		</class>
@@ -39,10 +39,11 @@
 		</div>
 	
 	<br><br>
-	
+	<!--
 	<button class="btn btn-def-bouvet" name="registerButton" type="submit">
 			Neste spørsmål
 	</button>
+	-->
 	</div>
 
 </form>
