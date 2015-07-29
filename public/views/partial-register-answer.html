@@ -11,27 +11,27 @@
 
 	<div class="btn-group">
 		<label>
-
-			<input type="radio" value="a" ng-model="formData.response" ng-click="nextQuestion()" required checked="false"/>
-	    	<img ng-src="./images/{{nextQ}}a.png" name="{{nextQ}}a">
+			<input type="radio" />
+	    	<img ng-src="./images/{{nextQ}}a.png" name="{{nextQ}}a" ng-click="nextQuestion('a')">
 	  	</label>
+
   		<container class="leftspace">
+	  	
 	  	<label>
-    		<input type="radio" value="b" ng-model="formData.response" ng-click="nextQuestion()" required checked="false"/>
-    		<img ng-src="./images/{{nextQ}}b.png" name="{{nextQ}}b">
+    		<input type="radio"/>
+    		<img ng-src="./images/{{nextQ}}b.png" name="{{nextQ}}b" ng-click="nextQuestion('b')">
   		</label>
   		</class>
   		</div>
-  		<br>
-					
-		<br>
-		<div class="text-white text-medium">
-			
-			<!--
-			{{nextQ}} || {{questionid}} || {{response}}
-			-->
+  		
+  		<br><br>
+
+		<!--
+		<div class="text-white text-medium">			
+			{{nextQ}} || {{questionid}} || {{response}}		
 		</div>
-	
+		-->
+
 	<br><br>
 	<!--
 	<button class="btn btn-def-bouvet" name="registerButton" type="submit">

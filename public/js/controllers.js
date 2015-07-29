@@ -279,80 +279,74 @@ angular.module("samesameApp.controllers", [])
 
 	}])
 
+
+
 	//the controller used on the page where the user registers answers
 	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
 
-		//initial object of form data
-		$scope.formData = {};
 		//boolean determining whether the user has already attempted to submit
 		$scope.submitted = false;
 
 		//maintains total number of questions
 		$scope.numberOfQuestions = Object.keys(Questions).length;
-		//$scope.answeredQuestions = new Array ($scope.numberOfQuestions);
 
 		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
-		var id = JSON.stringify(UserIDService.getUserID());
+		var userid = JSON.stringify(UserIDService.getUserID());
 		
-		
-		$scope.userid = id; //only used for logging out to view
-
+	
 
 		//Setting userid to be retrieved from register-participant-module
-		UserIDService.setUserID(id);
+		UserIDService.setUserID(userid);
 
 
 		
-		/* 
-		Needed for retrieving images correctly at init stage
-		*/
-		$scope.init = 1;
+		 
+		//Needed for retrieving images correctly at init stage
 		var nextQ = 1;
+		var sex;
 		AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
 		$scope.nextQ = nextQ;
+
+
+		//Setting default response to avoid undefined property from beginning. Will be changed to correct before answer is submitted through the scope
+		//$scope.formData.response = 'b';
+
 		$scope.answeredQuestions = answeredQuestions;
 
 
 
-		$scope.nextQuestion = function() {
+
+		$scope.nextQuestion = function(response) {
 
 			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 			var listEmpty = isListEmpty(answeredQuestions);
-			$scope.answeredQuestions = answeredQuestions; //only used for printing to view
+			$scope.answeredQuestions = answeredQuestions; // used for printing to view
 
 			//Checks how many elements left. Used for routing request correctly
 			var elementsLeft = elementsLeftInList(answeredQuestions);
+			var questionid = $scope.nextQ;
 
-			//Forming request:
-			$scope.formData.userid = id;
-			$scope.formData.questionid = $scope.nextQ;
-			
-			console.log("questionid: " + $scope.formData.questionid);
-			console.log("response: " + $scope.formData.response);
-			if ($scope.formData.questionid == 1) {
-				if ($scope.formData.response === 'a') {
-					$scope.formData.sex = 'm';
+
+			if (questionid == 1) {
+				if (response === 'a') {
+					sex = 'm';
 				}
-				else if ($scope.formData.response === 'b') {
-					$scope.formData.sex = 'f';
+				else if (response === 'b') {
+					sex = 'f';
 				}
 			}
-			console.log("FormData: " + JSON.stringify($scope.formData));
+		
 
-
-			//console.log("formdata: " + JSON.stringify($scope.formData));
-			console.log("*** " + JSON.stringify($scope.formData));
-			console.log("before creating");
-			Answers.create($scope.formData)
-			
+			//Creating JSON object used to send to db
+			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "sex": sex  };
+			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
 			
 
-
-			//Sending request:
+			Answers.create(dataJSON)
 			.success(function(data) {
-				console.log("answer registered" + JSON.stringify($scope.formData));
-				RecentAnswer.setAnswer($scope.formData);
+				console.log("answer registered" + JSON.stringify(dataJSON));
+				RecentAnswer.setAnswer(dataJSON);
 
 				/*
 				Updating with next image, if there are more images.
@@ -363,7 +357,6 @@ angular.module("samesameApp.controllers", [])
 					AnsweredQuestions.removeIndex(answeredQuestions,nextQ);	
 					$scope.nextQ = nextQ; 
 				}
-				$scope.init = 0;
 
 				if (elementsLeft > 0) {
 					$location.path("/partial-register-answer");				
@@ -376,6 +369,10 @@ angular.module("samesameApp.controllers", [])
 		};
 		$scope.questions = Questions.questions;
 	}])
+
+
+
+
 
 
 	//the controller used on the page where the user registers the contact info
