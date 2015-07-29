@@ -74,22 +74,12 @@ Stats views
 			templateUrl: "views/partial-stat-generateAverage.html", controller: "StatisticsCtrl",
 		});
 
-/*
 
-	$routeProvider.when("/partial-view-carousel",
+
+	$routeProvider.when("/partial-stat-imagepairs",
 		{
-			templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsController"
+			templateUrl: "views/partial-stat-imagepairs.html", controller: "StatisticsCtrl"
 		});
-
-	
-
-
-*/
-
-
-	
-
-
 
 	
 	$routeProvider.when("/visualize", 

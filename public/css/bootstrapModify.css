@@ -232,7 +232,7 @@ Radio button with images functionality
 */
 
 
-input{ /* HIDE RADIO */
+input { /* HIDE RADIO */
   display:none;
 }
 
@@ -242,6 +242,7 @@ input + img{ /* IMAGE STYLES */
   height: 300px;
   width: 300px;
 }
+
 
 
 label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
@@ -269,18 +270,25 @@ style btn-size {
 */
 
 
+button + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:4px solid transparent;
+  height: 300px;
+  width: 300px;
+}
 
 
 
 
+/*
+=============================
+*/
 
 
-
-
-
-
-
-
+style img-small {
+	height:50px;
+	width: 50px;
+}
 
 
 
