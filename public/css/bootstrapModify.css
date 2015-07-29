@@ -241,13 +241,7 @@ label > input + img{ /* IMAGE STYLES */
   height: 300px;
   width: 300px;
 }
-label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
-  border:5px solid #FF6400;
-}
 
-input:checked + img{ /* (CHECKED) IMAGE STYLES */
-  border:5px solid #FF6400;
-}
 
 .leftspace {
 	padding-left: 3em
