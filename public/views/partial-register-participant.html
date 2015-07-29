@@ -51,17 +51,17 @@
 		<br>
 		
 
-		<div class="btn-group" required>
+		<div class="btn-group" name="participantPrize">
 			<label>
-				<input type="radio" value="a" ng-model="participant.prize"/>
-		    	<img ng-src="./images/prize/1a.png" name="1a">
+				<input type="radio" value="a" ng-model="participant.prize" required/>
+		    	<img ng-src="./images/prize/1a.png" name="participantPrizeA">
 		  	</label>
 
 	  		<container class="leftspace">
 		  	<label>
 
-	    		<input type="radio" value="b" ng-model="participant.prize"/>
-	    		<img ng-src="./images/prize/1b.png" name="1b">
+	    		<input type="radio" value="b" ng-model="participant.prize" required/>
+	    		<img ng-src="./images/prize/1b.png" name="participantPrizeB" >
 	  		</label>
   		</div>
   		<br><br><br>
@@ -73,7 +73,8 @@
 				(userForm.participantName.$invalid 
 				|| duplicateEmail === participant.email 
 				|| userForm.participantEmail.$error.pattern 
-				|| userForm.participantEmail.$error.required)
+				|| userForm.participantEmail.$error.required
+				|| userForm.$invalid)
 				">Submit info</button>
 			</div>
 		</div>
