@@ -16,8 +16,6 @@ CREATE TABLE answers (
 	primary key (userid, questionid),
 	key (answerid)
 	);
--- NB! Must hide next-question-button by validation. Otherwise, counter in db updates wrongly
--- An alternative may be to make answerid PK, and make combination (user,question) a unique index
 
 
 INSERT INTO answers VALUES (1,1,'a'),(1,2,'b'),(1,3,'a'),(1,4,'a'),(1,5,'b'),(1,6,'a'),(1,7,'a');

@@ -345,7 +345,7 @@ function getCounts(req,res) {
 		}
 	});
 }
-exports.getCounts = getCounts;
+
 
 
 
@@ -374,3 +374,5 @@ exports.getAverageStatistics = getAverageStatistics;
 exports.getBouvetStatistics = getBouvetStatistics;
 exports.getMaleStatistics = getMaleStatistics;
 exports.getFemaleStatistics = getFemaleStatistics;
+exports.getCounts = getCounts;
+

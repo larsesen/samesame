@@ -284,36 +284,25 @@ angular.module("samesameApp.controllers", [])
 	//the controller used on the page where the user registers answers
 	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
 
+		var nextQ = 1;
+		var sex;
+
 		//boolean determining whether the user has already attempted to submit
 		$scope.submitted = false;
 
 		//maintains total number of questions
 		$scope.numberOfQuestions = Object.keys(Questions).length;
 
+		//Setting variables used throughout questionnaire
 		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
 		var userid = JSON.stringify(UserIDService.getUserID());
 		
 	
-
-		//Setting userid to be retrieved from register-participant-module
-		UserIDService.setUserID(userid);
-
-
-		
 		 
 		//Needed for retrieving images correctly at init stage
-		var nextQ = 1;
-		var sex;
 		AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
 		$scope.nextQ = nextQ;
-
-
-		//Setting default response to avoid undefined property from beginning. Will be changed to correct before answer is submitted through the scope
-		//$scope.formData.response = 'b';
-
 		$scope.answeredQuestions = answeredQuestions;
-
-
 
 
 		$scope.nextQuestion = function(response) {
@@ -341,9 +330,7 @@ angular.module("samesameApp.controllers", [])
 			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "sex": sex  };
 			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
-			
-
-			Answers.create(dataJSON)
+			 Answers.create(dataJSON)
 			.success(function(data) {
 				console.log("answer registered" + JSON.stringify(dataJSON));
 				RecentAnswer.setAnswer(dataJSON);

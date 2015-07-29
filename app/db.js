@@ -134,6 +134,7 @@ function getAllAnswers(callback) {
 
 /*===========================================================================
 Statistics
+SQL queries returns a lot of information, where a single view does not necessarily use all data, but all data is used somewhere.
 ===========================================================================*/
 
 
@@ -183,7 +184,7 @@ from samesame.answers where sex='f' group by questionid) x;
 }
 
 
-
+//Retrieving the four different counts
 function getCounts(callback) {
 	query("select count(*) as total from samesame.answers;" + 
 		"select count(*) as bouvet from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and bouvet=1;"+
@@ -191,7 +192,7 @@ function getCounts(callback) {
 		"select count(*) as female from samesame.answers where sex='f'", callback);
 }
 
-exports.getCounts = getCounts;
+
 
 
 
@@ -229,3 +230,5 @@ exports.getAverageStatistics = getAverageStatistics;
 exports.getBouvetStatistics = getBouvetStatistics;
 exports.getMaleStatistics = getMaleStatistics;
 exports.getFemaleStatistics = getFemaleStatistics;
+exports.getCounts = getCounts;
+
