@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('testing draw winner functionality within participants:', function() {
+describe('drawWinner.js, testing draw winner functionality within participants:', function() {
 
   var timestamp = (new Date).getTime();
 

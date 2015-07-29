@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('adding new answer to database table:', function() {
+describe('submittedAnswer.js, adding new answer to database table:', function() {
   
 
   it("should verify that answer table is truncated", function(){

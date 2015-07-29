@@ -1,16 +1,16 @@
 var util = require("./utilities");
 
-xdescribe('test title of pages:', function() {
+describe('verifyTitles.js, test title of pages:', function() {
   
     var timestamp = (new Date).getTime();
     var correctTitle = "Same same, but different";
 
-  xit('should confirm correct title on all pages', function() {
+  it('should confirm correct title on all pages', function() {
     
     util.directToIndex(browser);
     expect(browser.getTitle()).toEqual(correctTitle);
 
-    util.seeAllAnswers(browser);
+    util.clickSeeAllAnswers(browser);
     expect(browser.getTitle()).toEqual(correctTitle)
   
     util.clickMenuButton(browser);
@@ -20,8 +20,7 @@ xdescribe('test title of pages:', function() {
     util.clickStartButton(browser);
     expect(browser.getTitle()).toEqual(correctTitle)
 
-    util.fillAnswer(browser);
-    util.submitAnswers(browser);
+    util.fillAnswerRandomly(browser);
     expect(browser.getTitle()).toEqual(correctTitle)
 
     util.registerParticipant(browser, timestamp);

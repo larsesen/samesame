@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('test redirection and Urls:', function() {
+describe('redirecting.js, test redirection and Urls:', function() {
   
   var baseURL = "http://localhost:3000";
 

@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('adding new participant to database table:', function() {
+describe('submittedParticipant.js, adding new participant to database table:', function() {
   
   var timestamp = (new Date).getTime();
 

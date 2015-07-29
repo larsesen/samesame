@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('happy flow of application:', function() {
+describe('generateRandomEntry.js, happy flow of application:', function() {
 
     var baseURL = "http://localhost:3000";
     var timestamp = (new Date).getTime();

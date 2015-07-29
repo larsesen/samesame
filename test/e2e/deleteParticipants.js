@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('participants database:', function() {
+describe('deleteParticipants.js, participants database:', function() {
   
   it('should delete participants in table', function() {
     

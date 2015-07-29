@@ -1,6 +1,6 @@
 var util = require("./utilities");
 
-describe('answer database:', function() {
+describe('deleteAnswers.js, answer database:', function() {
   
   it('should delete answers in table', function() {
     

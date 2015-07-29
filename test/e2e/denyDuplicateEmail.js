@@ -1,7 +1,7 @@
 
 var util = require("./utilities");
 
-describe('should test restrictions towards submitting already registered email:', function() {
+describe('denyDuplicateEmail.js, should test restrictions towards submitting already registered email:', function() {
   
   var baseURL = "http://localhost:3000";
   var timestamp = (new Date).getTime();
