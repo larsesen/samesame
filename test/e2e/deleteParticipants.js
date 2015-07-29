@@ -6,8 +6,7 @@ describe('participants database:', function() {
     
     //partial-index
     util.directToIndex(browser);
-    util.directToViewParticipants(browser);
-
+    util.clickSeeAllParticipants(browser);
     util.deleteParticipants(browser);
 
 	//Checks that no elements with binding exist --> There are no entries in the participants table

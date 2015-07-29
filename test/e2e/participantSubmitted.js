@@ -5,10 +5,8 @@ describe('adding new participant to database table:', function() {
   var timestamp = (new Date).getTime();
 
   it("should verify that the participant table is truncated", function(){
-
     util.directToIndex(browser);
-    util.seeAllParticipants(browser);
-
+    util.clickSeeAllParticipants(browser);
     util.deleteParticipants(browser);
     
     //Checks that no elements with binding exist --> There are no entries in the answers table
@@ -17,15 +15,13 @@ describe('adding new participant to database table:', function() {
 
 
   it("should add a new answer", function() {
-  	
-    util.directToRegisterAnswer(browser);
-    util.fillAnswer(browser);
-    util.submitAnswers(browser);
+    util.directToIndex(browser);
+    util.clickToAnswerPage(browser);
+    util.fillAnswerRandomly(browser);
   });
 
 
   it('should register participant', function() {
-    
     util.registerParticipant(browser, timestamp);
     util.submitParticipant(browser);
   });

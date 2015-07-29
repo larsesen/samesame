@@ -1,22 +1,25 @@
 var util = require("./utilities");
 
-describe('testing draw winner:', function() {
+describe('testing draw winner functionality within participants:', function() {
 
   var timestamp = (new Date).getTime();
 
-  it("should draw a winner from participant table", function(){
+  it("should draw winner from participant table", function(){
 
     util.directToIndex(browser);
    
-    util.seeAllParticipants(browser);
+    //Deleting all entries in participants table
+    util.clickSeeAllParticipants(browser);
     util.deleteParticipants(browser);
 
-    util.directToRegisterAnswer(browser);
-    util.fillAnswer(browser);
-    util.submitAnswers(browser);
-      
+    util.clickMenuButton(browser);
+    util.clickToAnswerPage(browser);
+
+    util.fillAnswerRandomly(browser);
+  
     util.registerParticipant(browser, timestamp);
     util.submitParticipant(browser);
+
 
   	util.directToViewParticipants(browser);
 

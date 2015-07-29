@@ -1,17 +1,18 @@
+
 var util = require("./utilities");
 
-describe('should test restrictions towards email database:', function() {
+describe('should test restrictions towards submitting already registered email:', function() {
   
   var baseURL = "http://localhost:3000";
   var timestamp = (new Date).getTime();
 
-  it('should allow entry of email', function() {    
+
+  it('should allow entry of new email', function() {    
     util.directToIndex(browser);
     util.clickRegisterAnswerButton(browser);
     util.clickStartButton(browser);
-    util.fillAnswer(browser);
-    util.submitAnswers(browser);
 
+    util.fillAnswerRandomly(browser);
     util.registerParticipant(browser, timestamp);
     util.submitParticipant(browser);
 
@@ -23,15 +24,13 @@ describe('should test restrictions towards email database:', function() {
 
     util.clickMenuButton(browser);
     util.clickStartButton(browser);
-    util.fillAnswer(browser);
-    util.submitAnswers(browser);
 
+    util.fillAnswerRandomly(browser);
     util.registerParticipant(browser, timestamp);
     util.submitParticipant(browser)
 
     //Won't be submitted because email already exists
     expect(browser.getCurrentUrl()).toEqual(baseURL + "/public/index.html#/partial-register-participant");
   });
-
 
 });
