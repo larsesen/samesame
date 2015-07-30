@@ -258,6 +258,9 @@ label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
 	padding-top: 6em
 }
 
+.topspace-small {
+	padding-top: 3em
+}
 
 style btn-size {
 	height:250px;
@@ -284,11 +287,40 @@ button + img{ /* IMAGE STYLES */
 =============================
 */
 
-
-style img-small {
-	height:50px;
-	width: 50px;
+/*
+td > img {
+	height:400px;
+	width: 400px;
 }
+*/
+
+/*
+Following used for partial-stat-carousel
+*/
+
+td > img {
+	height:95%;
+	width: 95%;
+}
+
+#slides_control > div{
+  	height: 200px;
+}
+
+#slides_control {
+	width: 100%;
+	margin-left:20px;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

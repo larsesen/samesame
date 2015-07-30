@@ -503,10 +503,12 @@ angular.module("samesameApp.controllers", [])
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
-		//$scope.retrieveStatistics(1);
+		
+		//Following variables used for stat-carousel
 		$scope.imagePairs = Statistics.getStatistics(1);
 		$scope.imagePairsBouvet = Statistics.getStatistics(2);
-
+		$scope.imagePairsMale = Statistics.getStatistics(3);
+		$scope.imagePairsFemale = Statistics.getStatistics(4);
 	}])
 
 	

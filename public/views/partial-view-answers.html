@@ -47,31 +47,8 @@
 					<td>{{answer.userid}}</td>
 					<td>{{answer.questionid}}</td>
 					<td>{{answer.response}}</td>
-		</div>
-						
-						
-
-		<!-- a modal that wants the user to confirm the  -->
-		<div class="modal" id="confirmDeleteSingleModal" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class ="modal-header modal-confirm-delete">
-						<h4 class="modal-title">Bekreft sletting</h4>
-					</div>
-					<div ng-class="modal-body">
-						Er du sikker på at du vil slette dette svaret?
-					</div>
-					<div class="modal-footer">
-						<button class="btn modal-confirm-delete" name="confirmDeleteSingle" ng-click="deleteAnswer(oneAnswer.id_answers)" data-dismiss="modal">Slett</button>
-						<button class="btn btn-primary" data-dismiss="modal" ng-click="closeAndUnlock(oneAnswer.id_answers)">Avbryt</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		</td>
-		</tr>
-		</tbody>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 
