@@ -11,8 +11,11 @@ angular.module("samesameApp", [
 	"samesameApp.controllers",
 	"samesameApp.directives",
 	"samesameApp.services",
-	"samesameApp.filters"
+	"samesameApp.filters",
+	"angular-carousel",
+	"ui.bootstrap"
 	]).
+
 config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/partial-index", 
 		{
@@ -80,6 +83,13 @@ Stats views
 		{
 			templateUrl: "views/partial-stat-imagepairs.html", controller: "StatisticsCtrl"
 		});
+
+
+	$routeProvider.when("/partial-stat-carousel",
+	{
+		templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsCtrl"
+	});
+
 
 	
 	$routeProvider.when("/visualize", 

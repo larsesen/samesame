@@ -505,6 +505,7 @@ angular.module("samesameApp.controllers", [])
 
 		//$scope.retrieveStatistics(1);
 		$scope.imagePairs = Statistics.getStatistics(1);
+		$scope.imagePairsBouvet = Statistics.getStatistics(2);
 
 	}])
 
