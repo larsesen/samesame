@@ -1,6 +1,6 @@
 {
-  "name": "theBeautyOfData",
-  "description": "Bower file for the BoD app",
+  "name": "samesame",
+  "description": "Bower file for the samesame app",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
