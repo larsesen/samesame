@@ -105,7 +105,8 @@ Routes for retrieving statistics
 	app.route("/statsCount")
 		.get(user.getCounts);
 
-
+	app.route("/statsPopularAnswers")
+		.get(user.getMostPopularAnswers);
 
 
 

@@ -347,7 +347,16 @@ function getCounts(req,res) {
 }
 
 
-
+function getMostPopularAnswers(req,res) {
+	db.getMostPopularAnswers(function(err,rows) {
+		if (err) {
+			errorHandler(err,res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
+}
 
 
 
@@ -375,4 +384,6 @@ exports.getBouvetStatistics = getBouvetStatistics;
 exports.getMaleStatistics = getMaleStatistics;
 exports.getFemaleStatistics = getFemaleStatistics;
 exports.getCounts = getCounts;
+
+exports.getMostPopularAnswers = getMostPopularAnswers;
 
