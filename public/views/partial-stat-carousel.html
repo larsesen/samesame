@@ -1,0 +1,147 @@
+
+
+    <!--
+    <div class="row top-pad-medium">
+        <!--a button that takes you back to the main menu 
+        <div class="col-sm-2 col-sm-offset-1">
+           
+            <a href="#/partial-stat-overview" name="statisticMenuButton" class="btn btn-def-bouvet">
+                <span class="glyphicon glyphicon-stats">
+                </span>
+                Tilbake til statistikk
+            </a>
+            <br><br>
+            <a href="#/partial-index" name="menuButton" class="btn btn-def-bouvet">
+                <span class="glyphicon glyphicon-home">
+                </span>
+                Tilbake til meny
+            </a>
+        </div>
+    </div>
+        <br>
+
+        <div class="col-sm-6 col-sm-offset-2 text-white text-smallest">
+            Totalt antall spørsmål besvart: {{counts[0]["total"]}} <br>
+        </div>
+-->
+
+
+
+
+
+
+<!-- http://codepen.io/anon/pen/vOQvVa -->
+
+    <div class="col-sm-6 col-sm-offset-3">
+        <div id="slides_control" class="text-white text-small middle-pos">
+            <div>
+                <h3> Average </h3>
+                <br><br>
+                <carousel interval="4000">
+                <slide ng-repeat="image in imagePairs" active="image.active">
+                
+                <table>
+                    <tr>
+                        <td><img ng-src="./images/{{image.questionid}}a.png" imageonload style="width:300px;height:300px;"></td>
+                        <td><img ng-src="./images/{{image.questionid}}b.png" imageonload style="width:300px;height:300px;"></td> 
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>{{image.percentageA}} % </td>
+                        <td>{{image.percentageB}} % </td>
+                    </tr>
+                </table>
+                    
+                </slide>
+                </carousel>
+            </div>
+         </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!--
+    <div class="col-sm-3 col-sm-offset-3">
+        <div id="slides_control1" class="text-white text-smallest middle-pos">
+            <div>
+                <h3> Bouvet </h3>
+                <carousel interval="3000">
+                    <slide ng-repeat="image in imagePairsBouvet" active="image.active">
+                        <br><br>
+                          <img ng-src="./images/{{image.questionid}}a.png" 
+                                        imageonload style="width:200px;height:200px;">{{image.percentageA}} %
+                                        <br><br>
+                          <img ng-src="./images/{{image.questionid}}b.png" 
+                                        imageonload style="width:200px;height:200px;">{{image.percentageB}} %
+                    </slide>
+                </carousel>
+             </div>
+        </div>
+    </div>
+    -->
+
+
+
+
+
+
+
+
+
+
+<!--
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">               
+            <table class="table table-hover middle-pos bg-white">           
+                <tr ng-repeat="image in imagePairs">                                       
+                    <td>{{image.questionid}}</td>
+                    <td><img ng-src="./images/{{image.questionid}}a.png" 
+                        imageonload style="width:50px;height:50px;"><br><p>{{image.percentageA}} %</p></td>
+                    <td><img ng-src="./images/{{image.questionid}}b.png" 
+                        imageonload style="width:50px;height:50px;"><br><p>{{image.percentageB}} %</p></td>                    
+                </tr>              
+            </table>  
+            <br><br>
+        </div>
+    </div>
+-->   
+ 
+
+
+<!--
+    <div class="text-white text-smallest middle-pos">
+        <h3>Buffered ngRepeat demo</h3>
+            <div class="details">A simple buffered ng-repeat with a custom template.
+                <br>
+                Swipe 50 slides with only 5 slides in the DOM. use builtin controls
+                <br><br>
+            </div>
+            <div class="carousel-demo">
+                <input type="number" class="tiny" ng-model="carouselIndex">
+                <ul rn-carousel rn-carousel-controls rn-carousel-index="carouselIndex" rn-carousel-buffered class="carousel1" rn-carousel-auto-slide>
+                    <li ng-repeat="slide in imagePairs track by slide.questionid" ng-class="'id-' + slide.questionid">
+                        <div ng-style="{'background-image': 'url(' + slide.img + ')'}"  class="bgimage">
+                            {{ slide.questionid }} <br>
+                            <img ng-src="./images/{{slide.questionid}}a.png" 
+                    imageonload style="width:150px;height:150px;"><br><p>{{slide.percentageA}} %</p>
+                <img ng-src="./images/{{slide.questionid}}b.png" 
+                    imageonload style="width:150px;height:150px;"><br><p>{{slide.percentageB}} %</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+-->
+
+
+
+
+
+
+
