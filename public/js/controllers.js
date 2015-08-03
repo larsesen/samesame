@@ -409,10 +409,6 @@ angular.module("samesameApp.controllers", [])
 		};
 
 
-
-
-
-
 		/*
 		Used for retriving stat to register-participant-view. Code here, because angular only allows one controller per view.
 		*/
@@ -428,14 +424,7 @@ angular.module("samesameApp.controllers", [])
 				// sets objectlist
 				Statistics.setStatistics($scope.statistics,type);
 
-
 				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
-
-
-
-
-
-
 			});
 		}
 
@@ -450,7 +439,6 @@ angular.module("samesameApp.controllers", [])
 			});
 		}
 
-
 		$scope.getCurrentAnswers(UserIDService.getUserID);
 
 		//possible to easily add more type of users if necessary:
@@ -459,56 +447,14 @@ angular.module("samesameApp.controllers", [])
 		$scope.retrieveStatistics(3);
 		$scope.retrieveStatistics(4);
 
-		$scope.percentages = Statistics.getAverageStats();
-
-/*
-		$scope.retrieveStatistics(2);
-		$scope.retrieveStatistics(3);
-		$scope.retrieveStatistics(4);
-*/
-
-
-
-
-
-
-
-
+		$scope.percentages = Statistics.getPercentageStats();
 
 
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
-		$scope.averagePerson = Statistics.getStatistics(1);
-
-
-		//Statistics.compareAnswers(Statistics.getStatistics(1), Statistics.getCurrentAnswers());
-		
-		//console.log(JSON.stringify(Statistics.getAllStats()));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	//	$scope.averagePerson = Statistics.getStatistics(1);
 	}])
 	
+
 
 
 	.controller("VisualizeCtrl", ["$scope", "Answers", "Questions", function($scope, Answers, Questions) {

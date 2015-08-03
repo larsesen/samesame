@@ -347,24 +347,6 @@ function getCounts(req,res) {
 }
 
 
-
-
-
-/*
-function getMostPopularAnswers(req,res) {
-	db.getMostPopularAnswers(function(err,rows) {
-		if (err) {
-			errorHandler(err,res);
-		}
-		else {
-			res.send(rows);
-		}
-	});
-}
-exports.getMostPopularAnswers = getMostPopularAnswers;
-*/
-
-
 function getCurrentAnswers(req,res) {
 	db.getCurrentAnswers(req.params.id, function(err,rows) {
 		if (err) {

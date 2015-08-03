@@ -440,8 +440,9 @@ angular.module("samesameApp.services", [])
 
 
 
-
-
+/*
+Comparing module in register-participant: 
+*/
 			retrieveCurrentAnswers : function(id) {
 				statPercentage = [];
 				return $http.get("/currentAnswers/" + id);
@@ -453,10 +454,10 @@ angular.module("samesameApp.services", [])
 			},
 
 
-
 			compareAnswers : function(average, currList) {
 			
-				var i,result;
+				var i;
+				var result = 0;
 				var counter = 0;
 				
 				for (i = 0; i < average.length; i++) {
@@ -464,12 +465,9 @@ angular.module("samesameApp.services", [])
 					console.log("Average: Q" + average[i]["questionid"] + ", Response: " + average[i]["mostFreq"]);
 					console.log("Current: Q" + currList[i]["questionid"] + ", Response: " + currList[i]["response"]);			
 					*/
-
 					if (average[i]["questionid"] === currList[i]["questionid"] && average[i]["mostFreq"] === currList[i]["response"]) {
 						counter ++;
 					}
-
-
 				} 
 				result = (counter/currList.length)*100;
 				console.log(result);
@@ -482,8 +480,6 @@ angular.module("samesameApp.services", [])
 				currentAnswers = [];
 				var i;			
 
-				//console.log("current: " + JSON.stringify(currObject));
-
 				for (i = 0 ; i < currObject.length ; i++) {
 
 					statObject = {	
@@ -494,7 +490,7 @@ angular.module("samesameApp.services", [])
 				}
 			},
 
-			getAverageStats : function() {
+			getPercentageStats : function() {
 				return statPercentage;
 			}
 
