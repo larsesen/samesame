@@ -388,16 +388,22 @@ angular.module("samesameApp.controllers", [])
 		Sets the attempted email as duplicated, which in turn is used to inform the user
 		*/
 		$scope.submitParticipant = function() {
+			var bouvet;
 			console.log(JSON.stringify($scope.participant));
 
 			if (isBouvetEmployee($scope.participant.email)) {
-				$scope.participant.bouvet = 1;
+				bouvet = 1;
 			}
 			else {
-				$scope.participant.bouvet = 0;
+				bouvet = 0;
 			}
 
-			Participants.create($scope.participant)
+
+			//Creating JSON object used to send to db
+			var dataJSON = { "userid": $scope.participant.userid, "name": $scope.participant.name, "email": $scope.participant.email, "prize":$scope.participant.prize, "bouvet": bouvet};
+
+
+			Participants.create(dataJSON)
 			.success(function(data){
 				$location.path("/partial-participant-registered");
 			})

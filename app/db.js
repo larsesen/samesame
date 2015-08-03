@@ -193,26 +193,6 @@ function getCounts(callback) {
 }
 
 
-
-
-
-
-
-//Returns the most chosen answers from each type of person. Used to compare current participant with each type of person.
-/*function getMostPopularAnswers(callback) {
-	query("select questionid, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a " + 
-		", sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;" + 
-		"select questionid, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a " +
-		", sum(case when response='b' then 1 else 0 end) b from samesame.answers, samesame.participants where answers.userid=participants.userid and bouvet=1 group by questionid) x;" + 
-		"select questionid, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a " + 
-		", sum(case when response='b' then 1 else 0 end) b from samesame.answers where sex='m' group by questionid) x;" + 
-		"select questionid, if(a>b, 'a', 'b') as mostFreq from (select questionid, sum(case when response='a' then 1 else 0 end) a " + 
-		", sum(case when response='b' then 1 else 0 end) b from samesame.answers where sex='f' group by questionid) x", callback);
-}
-exports.getMostPopularAnswers = getMostPopularAnswers;
-*/
-
-
 function getCurrentAnswers(id, callback) {
 	query("Select questionid, response from samesame.answers where userid=" + id, callback);
 }

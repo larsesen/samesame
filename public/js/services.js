@@ -85,8 +85,8 @@ angular.module("samesameApp.services", [])
 				questionid: '1',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description : 'kjonn', 
 					imageURL : "./images/1a.png"
 				}, {
 					value : 'b',
@@ -99,8 +99,8 @@ angular.module("samesameApp.services", [])
 				questionid: '2',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description : 'filtype A', 
 					imageURL : "./images/2a.png"
 
 				}, {
@@ -113,8 +113,8 @@ angular.module("samesameApp.services", [])
 				questionid: '3',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description : 'Notifications',  
 					imageURL : "./images/3a.png"
 				}, {
 					value : 'b',
@@ -126,8 +126,8 @@ angular.module("samesameApp.services", [])
 				questionid: '4',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description: 'dorull',  
 					imageURL : "./images/4a.png"
 				}, {
 					value : 'b',
@@ -139,8 +139,8 @@ angular.module("samesameApp.services", [])
 				questionid: '5',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description: 'propper',
 					imageURL : "./images/5a.png"
 				}, {
 					value : 'b',
@@ -152,8 +152,8 @@ angular.module("samesameApp.services", [])
 				questionid: '6',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description:  'gir',
 					imageURL : "./images/6a.png"
 				}, {
 					value : 'b',
@@ -165,8 +165,8 @@ angular.module("samesameApp.services", [])
 				questionid: '7',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description: 'alarmer',
 					imageURL : "./images/7a.png"
 				}, {
 					value : 'b',
@@ -178,8 +178,8 @@ angular.module("samesameApp.services", [])
 				questionid: '8',
 				options : [
 				{
-					name: 'a',
 					value : 'a',
+					description: 'mac',
 					imageURL : "./images/8a.jpg"
 				}, {
 					value : 'b',
@@ -470,7 +470,7 @@ Comparing module in register-participant:
 					}
 				} 
 				result = (counter/currList.length)*100;
-				console.log(result);
+				//console.log(result);
 				statPercentage.push(result);
 			},
 
