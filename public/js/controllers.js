@@ -363,7 +363,7 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers the contact info
-	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", function($scope, $location, Participants, UserIDService) {
+	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", function($scope, $location, Participants, UserIDService, Statistics) {
 
 		//initial object of participant
 		$scope.participant = {};
@@ -375,7 +375,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.participant.userid = $scope.userid;
 
 
-
+		
 		//a setter for the duplicate email field
 		$scope.setDuplicateEmail = function() {
 			$scope.duplicateEmail = $scope.participant.email;
@@ -407,11 +407,108 @@ angular.module("samesameApp.controllers", [])
 				}
 			});
 		};
+
+
+
+
+
+
+		/*
+		Used for retriving stat to register-participant-view. Code here, because angular only allows one controller per view.
+		*/
+		$scope.retrieveStatistics = function(type) {
+			
+			$scope.allData = []; 
+			Statistics.resetStatistics();
+			
+			//initial call to fetch answers
+			Statistics.retrieveStatistics(type).success(function(data) {
+				$scope.statistics = data;
+			
+				// sets objectlist
+				Statistics.setStatistics($scope.statistics,type);
+
+
+				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
+
+
+
+
+
+
+			});
+		}
+
+		
+		$scope.getCurrentAnswers = function() {
+			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {
+				
+				$scope.currentAnswers = data;
+
+				Statistics.setCurrentAnswers(data);
+				//console.log("current: " + JSON.stringify(data));
+			});
+		}
+
+
+		$scope.getCurrentAnswers(UserIDService.getUserID);
+
+		//possible to easily add more type of users if necessary:
+		$scope.retrieveStatistics(1);
+		$scope.retrieveStatistics(2);
+		$scope.retrieveStatistics(3);
+		$scope.retrieveStatistics(4);
+
+		$scope.percentages = Statistics.getAverageStats();
+
+/*
+		$scope.retrieveStatistics(2);
+		$scope.retrieveStatistics(3);
+		$scope.retrieveStatistics(4);
+*/
+
+
+
+
+
+
+
+
+
+
+		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
+		$scope.averagePerson = Statistics.getStatistics(1);
+
+
+		//Statistics.compareAnswers(Statistics.getStatistics(1), Statistics.getCurrentAnswers());
+		
+		//console.log(JSON.stringify(Statistics.getAllStats()));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}])
 	
-
-
-
 
 
 	.controller("VisualizeCtrl", ["$scope", "Answers", "Questions", function($scope, Answers, Questions) {
@@ -490,8 +587,7 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setCounts($scope.statistics);
 			});
 		}
-
-
+		
 		//possible to easily add more type of users if necessary:
 		$scope.retrieveStatistics(1);
 		$scope.retrieveStatistics(2);
@@ -503,7 +599,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
-		
+
 		//Following variables used for stat-carousel
 		$scope.imagePairs = Statistics.getStatistics(1);
 		$scope.imagePairsBouvet = Statistics.getStatistics(2);
@@ -512,6 +608,10 @@ angular.module("samesameApp.controllers", [])
 	}])
 
 	
+
+
+
+
 
 
 

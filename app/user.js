@@ -347,6 +347,10 @@ function getCounts(req,res) {
 }
 
 
+
+
+
+/*
 function getMostPopularAnswers(req,res) {
 	db.getMostPopularAnswers(function(err,rows) {
 		if (err) {
@@ -357,7 +361,20 @@ function getMostPopularAnswers(req,res) {
 		}
 	});
 }
+exports.getMostPopularAnswers = getMostPopularAnswers;
+*/
 
+
+function getCurrentAnswers(req,res) {
+	db.getCurrentAnswers(req.params.id, function(err,rows) {
+		if (err) {
+			errorHandler(err,res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
+}
 
 
 /*
@@ -385,5 +402,5 @@ exports.getMaleStatistics = getMaleStatistics;
 exports.getFemaleStatistics = getFemaleStatistics;
 exports.getCounts = getCounts;
 
-exports.getMostPopularAnswers = getMostPopularAnswers;
 
+exports.getCurrentAnswers = getCurrentAnswers;

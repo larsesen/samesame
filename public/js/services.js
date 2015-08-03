@@ -298,6 +298,10 @@ angular.module("samesameApp.services", [])
 		
 		var counts = [];
 
+		var statPercentage = []
+
+		var currentAnswers = [];
+		
 		return {
 
 			/*
@@ -431,8 +435,72 @@ angular.module("samesameApp.services", [])
 					}			
 					counts.push(statObject);					
 				}
+			},
+
+
+
+
+
+
+			retrieveCurrentAnswers : function(id) {
+				statPercentage = [];
+				return $http.get("/currentAnswers/" + id);
+			},
+
+
+			getCurrentAnswers : function() {
+				return currentAnswers;
+			},
+
+
+
+			compareAnswers : function(average, currList) {
+			
+				var i,result;
+				var counter = 0;
+				
+				for (i = 0; i < average.length; i++) {
+					/*
+					console.log("Average: Q" + average[i]["questionid"] + ", Response: " + average[i]["mostFreq"]);
+					console.log("Current: Q" + currList[i]["questionid"] + ", Response: " + currList[i]["response"]);			
+					*/
+
+					if (average[i]["questionid"] === currList[i]["questionid"] && average[i]["mostFreq"] === currList[i]["response"]) {
+						counter ++;
+					}
+
+
+				} 
+				result = (counter/currList.length)*100;
+				console.log(result);
+				statPercentage.push(result);
+			},
+
+
+
+			setCurrentAnswers : function(currObject) {
+				currentAnswers = [];
+				var i;			
+
+				//console.log("current: " + JSON.stringify(currObject));
+
+				for (i = 0 ; i < currObject.length ; i++) {
+
+					statObject = {	
+						questionid : currObject[i]["questionid"],
+						response : currObject[i]["response"]
+					}			
+					currentAnswers.push(statObject);					
+				}
+			},
+
+			getAverageStats : function() {
+				return statPercentage;
 			}
-		}
+
+
+		};
+		
 
 	})
 
