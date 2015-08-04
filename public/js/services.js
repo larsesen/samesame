@@ -506,7 +506,7 @@ angular.module("samesameApp.services", [])
 		
 
 		var getMainTitle = function() {
-			return "Same same****, but different";
+			return "Same same, but different";
 		};
 
 		var getSecondaryTitle = function() {
