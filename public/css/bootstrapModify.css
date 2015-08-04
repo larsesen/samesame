@@ -245,8 +245,13 @@ input + img{ /* IMAGE STYLES */
 
 
 
+label > input + img{ /* (CHECKED) IMAGE STYLES */
+  opacity: 0.95;
+}
+
 label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
-  border:5px solid #FF6400;
+  border:5px solid #FF6400; 
+  opacity: 1;
 }
 
 
@@ -260,6 +265,10 @@ label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
 
 .topspace-small {
 	padding-top: 3em
+}
+
+.logo-topspace {
+	padding-top: 30px;
 }
 
 style btn-size {
@@ -287,12 +296,12 @@ button + img{ /* IMAGE STYLES */
 =============================
 */
 
-/*
+
 td > img {
 	height:400px;
 	width: 400px;
 }
-*/
+
 
 /*
 Following used for partial-stat-carousel
@@ -304,7 +313,7 @@ td > img {
 }
 
 #slides_control > div{
-  	height: 200px;
+  	height: 00px;
 }
 
 #slides_control {

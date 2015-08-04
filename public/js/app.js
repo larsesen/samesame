@@ -91,17 +91,6 @@ Stats views
 	});
 
 
-	
-	$routeProvider.when("/visualize", 
-		{
-			templateUrl: "views/partial-view-answersvisual.html", controller: "VisualizeCtrl"
-		});
-	$routeProvider.when("/visualize-single", 
-		{
-			templateUrl: "views/partial-view-answersvisual-single.html", controller: "VisualizeSingleCtrl"
-		});
-
-
 	$routeProvider.when("/partial-view-results",
 		{
 			templateUrl: "views/partial-view-results.html", controller: "StatisticsCtrl"
@@ -109,8 +98,5 @@ Stats views
 
 
 	$routeProvider.otherwise({redirectTo: "/partial-index"});
-
-
-
 
 }]);
