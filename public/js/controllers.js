@@ -282,7 +282,13 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService","TextStrings", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService, TextStrings) {
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
 
 		var nextQ = 1;
 		var sex;
@@ -353,11 +359,11 @@ angular.module("samesameApp.controllers", [])
 						$location.path("/partial-register-answer");				
 					}
 					else {
-						$location.path("/partial-register-participant");
+						$location.path("/partial-view-results");
 					}
 
 				});
-			}, 300, 1);
+			}, 50, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -368,7 +374,13 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers the contact info
-	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", function($scope, $location, Participants, UserIDService, Statistics) {
+	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", "TextStrings", function($scope, $location, Participants, UserIDService, Statistics, TextStrings) {
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
 
 		//initial object of participant
 		$scope.participant = {};
@@ -420,94 +432,21 @@ angular.module("samesameApp.controllers", [])
 			});
 		};
 
-
-		/*
-		Used for retriving stat to register-participant-view. Code here, because angular only allows one controller per view.
-		*/
-		$scope.retrieveStatistics = function(type) {
-			
-			$scope.allData = []; 
-			Statistics.resetStatistics();
-			
-			//initial call to fetch answers
-			Statistics.retrieveStatistics(type).success(function(data) {
-				$scope.statistics = data;
-			
-				// sets objectlist
-				Statistics.setStatistics($scope.statistics,type);
-
-				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
-			});
-		}
-
-		
-		$scope.getCurrentAnswers = function() {
-			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {
-				
-				$scope.currentAnswers = data;
-
-				Statistics.setCurrentAnswers(data);
-				//console.log("current: " + JSON.stringify(data));
-			});
-		}
-
-		$scope.getCurrentAnswers(UserIDService.getUserID);
-
-		//possible to easily add more type of users if necessary:
-		$scope.retrieveStatistics(1);
-		$scope.retrieveStatistics(2);
-		$scope.retrieveStatistics(3);
-		$scope.retrieveStatistics(4);
-
-		$scope.percentages = Statistics.getPercentageStats();
-
-
-		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
-	//	$scope.averagePerson = Statistics.getStatistics(1);
 	}])
 	
-
-
-
-	.controller("VisualizeCtrl", ["$scope", "Answers", "Questions", function($scope, Answers, Questions) {
-		/*
-		get all answers from the server,
-		always returns all answers
-		*/
-		$scope.getAnswers = function() {
-			Answers.getAll(true).success(function (data) {
-					$scope.answers = data;
-					$scope.$broadcast('draw');
-			});
-		};
-
-		$scope.getAnswers();
-		$scope.questions = Questions.questions;
-		
-	}])
-
-	.controller("VisualizeSingleCtrl", ["$scope", "RecentAnswer", "Questions", function($scope, RecentAnswer, Questions) {
-		$scope.questions = Questions.questions;		
-		
-		$scope.getAnswers = function() {
-			$scope.answers = [RecentAnswer.getAnswer()];
-			var millisecondsToWait = 100;
-			setTimeout(function() {
-			    $scope.$broadcast('draw');		
-			}, millisecondsToWait);	
-		}
-		
-		$scope.broadcasted = true;
-		$scope.getAnswers();
-
-	}])
 
 
 
 
 
 	// Inits a unique user id. Used for db interaction for a single user
-	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", function($scope, $location, UserIDService) {	
+	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", "TextStrings", function($scope, $location, UserIDService, TextStrings) {	
+		
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
 		var d = new Date();
 		var id = d.getTime();
 
@@ -518,7 +457,13 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", function($scope, $interval, Statistics) {
+	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", "UserIDService", function($scope, $interval, Statistics, TextStrings, UserIDService) {
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
 
 		var pairs;
 
@@ -530,8 +475,20 @@ angular.module("samesameApp.controllers", [])
 				var statistics = data;		
 				// sets objectlist
 				Statistics.setStatistics(statistics,type);
+
+				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
+
+
+		var retrieveAllStatistics = function() {
+			retrieveStatistics(1);
+			retrieveStatistics(2);
+			retrieveStatistics(3);
+			retrieveStatistics(4);
+			//console.log("all stats refreshed");
+		}
+
 
 		var retrieveCounts = function() {
 			Statistics.resetCounts;
@@ -541,18 +498,32 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setCounts(statistics);
 			});
 		}
-	
 
-		var retrieveAllStatistics = function() {
-			retrieveStatistics(1);
-			retrieveStatistics(2);
-			retrieveStatistics(3);
-			retrieveStatistics(4);
-			console.log("all stats refreshed");
+		var getCurrentAnswers = function() {
+			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {	
+			Statistics.setCurrentAnswers(data);
+			console.log("current: " + JSON.stringify(data));
+			});
 		}
+		getCurrentAnswers(UserIDService.getUserID);
 
 		retrieveAllStatistics();
 		retrieveCounts();
+
+
+		
+
+	
+		$scope.percentages = Statistics.getPercentageStats();
+
+
+
+
+
+
+
+
+
 
 
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
@@ -568,7 +539,7 @@ angular.module("samesameApp.controllers", [])
 			Statistics.getStatistics(3),
 			Statistics.getStatistics(4)
 			]
-			console.log("lists updated");
+			//console.log("lists updated");
 			return pairs;
 		}
 
