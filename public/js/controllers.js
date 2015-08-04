@@ -520,39 +520,40 @@ angular.module("samesameApp.controllers", [])
 
 	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", function($scope, $interval, Statistics) {
 
+		var pairs;
 
-		$scope.retrieveStatistics = function(type) {
-			
-			$scope.allData = []; 
-			Statistics.resetStatistics();
-			
+
+		var retrieveStatistics = function(type) {
+			Statistics.resetStatistics();		
 			//initial call to fetch answers
 			Statistics.retrieveStatistics(type).success(function(data) {
-				$scope.statistics = data;
-			
+				var statistics = data;		
 				// sets objectlist
-				Statistics.setStatistics($scope.statistics,type);
+				Statistics.setStatistics(statistics,type);
 			});
 		}
 
-		$scope.retrieveCounts = function() {
-			$scope.counts = [];
+		var retrieveCounts = function() {
 			Statistics.resetCounts;
 
 			Statistics.retrieveCounts().success(function(data) {
-				$scope.statistics = data;
-
-				Statistics.setCounts($scope.statistics);
+				var statistics = data;
+				Statistics.setCounts(statistics);
 			});
 		}
-		
-		//possible to easily add more type of users if necessary:
-		$scope.retrieveStatistics(1);
-		$scope.retrieveStatistics(2);
-		$scope.retrieveStatistics(3);
-		$scope.retrieveStatistics(4);
+	
 
-		$scope.retrieveCounts();
+		var retrieveAllStatistics = function() {
+			retrieveStatistics(1);
+			retrieveStatistics(2);
+			retrieveStatistics(3);
+			retrieveStatistics(4);
+			console.log("all stats refreshed");
+		}
+
+		retrieveAllStatistics();
+		retrieveCounts();
+
 
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
@@ -560,54 +561,36 @@ angular.module("samesameApp.controllers", [])
 
 		//Following variables used for stat-carousel
 		
-
-		var pairs = [
+		var updateList = function() {
+			var pairs = [
 			Statistics.getStatistics(1),
 			Statistics.getStatistics(2),
 			Statistics.getStatistics(3),
 			Statistics.getStatistics(4)
-		];
+			]
+			console.log("lists updated");
+			return pairs;
+		}
+
+		var pairs = updateList();
 		
-	
 
-		//$scope.imagePairs = [Statistics.getStatistics(1), Statistics.getStatistics(2), Statistics.getStatistics(3), Statistics.getStatistics(4)];
-
-		//	console.log("pairs: " + JSON.stringify(pairs));
 
 		//Exposure
 		var currentCollectionId = 0, currentImageId = 0;
 		var activeObject;
-/*
-		$scope.getCurrentImage = function(suffix) {
-			//console.log("***" + pairs[currentCollectionId][currentImageId].questionid + suffix + '.png');
-			
-			console.log("object: " + JSON.stringify(pairs[currentCollectionId][currentImageId]));
-			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
-		}
-*/
-		$scope.setCurrentImageObject = function() {
-			
+
+
+		var setCurrentImageObject = function() {
 			setListName(currentCollectionId);
-
-/*
-			activeObject = pairs[currentCollectionId][currentImageId];
-			Statistics.setActiveObject(activeObject);
-			$scope.activeObject = Statistics.getActiveObject();
-*/
-		$scope.activeObject = pairs[currentCollectionId][currentImageId];
-
-
-			//console.log("object: " + JSON.stringify(pairs[currentCollectionId][currentImageId]));
-			//return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
+			$scope.activeObject = pairs[currentCollectionId][currentImageId];
 		}
 
 
 		$scope.getCurrentImage = function(suffix) {
-			$scope.setCurrentImageObject();
-
+			setCurrentImageObject();
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
-
 
 
 		var setListName = function(currentCollectionId) {
@@ -639,23 +622,21 @@ angular.module("samesameApp.controllers", [])
 					currentCollectionId ++;
 				}
 
-
-				//$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
+				//Refreshes all data from database
+				retrieveAllStatistics();
+				pairs = updateList();
 			}
 
 			currentImageId = currentImageId + 1;
-			
 			//console.log("current collection id: " + currentCollectionId);
 			//console.log("current image id: " + currentImageId);
-		}
-			
-		$interval(increaseCount, 2000, pairs[currentCollectionId].length - 1);
+		}	
+		$interval(increaseCount, 500, pairs[currentCollectionId].length - 1);
+
+
 	}])
 
 	
-
-
-
 
 
 
