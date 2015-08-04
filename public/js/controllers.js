@@ -282,7 +282,7 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", "TextStrings", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService, TextStrings) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
 
 		var nextQ = 1;
 		var sex;
@@ -304,15 +304,10 @@ angular.module("samesameApp.controllers", [])
 		$scope.nextQ = nextQ;
 		$scope.answeredQuestions = answeredQuestions;
 
-		
-		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
 		$scope.nextQuestion = function(response,radio) {
 
-			
-
 			$interval(function() {
-
 				$scope.checkedA = false;
 				$scope.checkedB = false;
 
@@ -358,15 +353,13 @@ angular.module("samesameApp.controllers", [])
 						$location.path("/partial-register-answer");				
 					}
 					else {
-						$location.path("/partial-view-results");
+						$location.path("/partial-register-participant");
 					}
 
 				});
-			}, 20, 1);
+			}, 300, 1);
 			$scope.questions = Questions.questions;
-
-		};		
-
+		};
 	}])
 
 
@@ -375,13 +368,7 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers the contact info
-	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", "TextStrings", function($scope, $location, Participants, UserIDService, Statistics, TextStrings) {
-		
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
-
+	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", function($scope, $location, Participants, UserIDService, Statistics) {
 
 		//initial object of participant
 		$scope.participant = {};
@@ -434,6 +421,49 @@ angular.module("samesameApp.controllers", [])
 		};
 
 
+		/*
+		Used for retriving stat to register-participant-view. Code here, because angular only allows one controller per view.
+		*/
+		$scope.retrieveStatistics = function(type) {
+			
+			$scope.allData = []; 
+			Statistics.resetStatistics();
+			
+			//initial call to fetch answers
+			Statistics.retrieveStatistics(type).success(function(data) {
+				$scope.statistics = data;
+			
+				// sets objectlist
+				Statistics.setStatistics($scope.statistics,type);
+
+				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
+			});
+		}
+
+		
+		$scope.getCurrentAnswers = function() {
+			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {
+				
+				$scope.currentAnswers = data;
+
+				Statistics.setCurrentAnswers(data);
+				//console.log("current: " + JSON.stringify(data));
+			});
+		}
+
+		$scope.getCurrentAnswers(UserIDService.getUserID);
+
+		//possible to easily add more type of users if necessary:
+		$scope.retrieveStatistics(1);
+		$scope.retrieveStatistics(2);
+		$scope.retrieveStatistics(3);
+		$scope.retrieveStatistics(4);
+
+		$scope.percentages = Statistics.getPercentageStats();
+
+
+		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
+	//	$scope.averagePerson = Statistics.getStatistics(1);
 	}])
 	
 
@@ -477,34 +507,18 @@ angular.module("samesameApp.controllers", [])
 
 
 	// Inits a unique user id. Used for db interaction for a single user
-	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", "TextStrings", function($scope, $location, UserIDService, TextStrings) {	
-
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
-
-
-
-
+	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", function($scope, $location, UserIDService) {	
 		var d = new Date();
 		var id = d.getTime();
 
 		UserIDService.setUserID(id);
 		$location.path("/partial-start");
-
 	}])
 
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "UserIDService", "TextStrings", function($scope, $interval, Statistics, UserIDService, TextStrings) {
-
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
-
+	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", function($scope, $interval, Statistics) {
 
 
 		$scope.retrieveStatistics = function(type) {
@@ -518,8 +532,6 @@ angular.module("samesameApp.controllers", [])
 			
 				// sets objectlist
 				Statistics.setStatistics($scope.statistics,type);
-
-				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
 
@@ -533,20 +545,6 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setCounts($scope.statistics);
 			});
 		}
-
-		$scope.getCurrentAnswers = function() {
-			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {
-				
-				$scope.currentAnswers = data;
-
-				Statistics.setCurrentAnswers(data);
-				//console.log("current: " + JSON.stringify(data));
-			});
-		}
-
-
-
-		$scope.getCurrentAnswers(UserIDService.getUserID);
 		
 		//possible to easily add more type of users if necessary:
 		$scope.retrieveStatistics(1);
@@ -556,27 +554,77 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.retrieveCounts();
 
-		$scope.percentages = Statistics.getPercentageStats();
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
 
 		//Following variables used for stat-carousel
-		$scope.imagePairs = Statistics.getStatistics(1);
-		$scope.imagePairsBouvet = Statistics.getStatistics(2);
-		$scope.imagePairsMale = Statistics.getStatistics(3);
-		$scope.imagePairsFemale = Statistics.getStatistics(4);
+		
+
+		var pairs = [
+			Statistics.getStatistics(1),
+			Statistics.getStatistics(2),
+			Statistics.getStatistics(3),
+			Statistics.getStatistics(4)
+		];
+		
+	
+
+		//$scope.imagePairs = [Statistics.getStatistics(1), Statistics.getStatistics(2), Statistics.getStatistics(3), Statistics.getStatistics(4)];
+
+		//	console.log("pairs: " + JSON.stringify(pairs));
 
 		//Exposure
-		var currentImageId = 0;
+		var currentCollectionId = 0, currentImageId = 0;
+		var activeObject;
+/*
 		$scope.getCurrentImage = function(suffix) {
-			return $scope.imagePairs[currentImageId].questionid + suffix + '.png';
+			//console.log("***" + pairs[currentCollectionId][currentImageId].questionid + suffix + '.png');
+			
+			console.log("object: " + JSON.stringify(pairs[currentCollectionId][currentImageId]));
+			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
+		}
+*/
+		$scope.setCurrentImageObject = function(suffix) {
+			activeObject = pairs[currentCollectionId][currentImageId];
+			Statistics.setActiveObject(activeObject);
+			$scope.activeObject = Statistics.getActiveObject();
+			console.log("object: " + JSON.stringify(pairs[currentCollectionId][currentImageId]));
+			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
 
-		$interval(function() {
-			currentImageId = currentImageId + 1;
-		}, 200, $scope.imagePairs.length - 1);
+/*
+		$scope.getCurrentImageObject = function(suffix) {
+			return pairs[currentCollectionId][currentImageId];
+		}
+*/
 
+
+		var increaseCount = function() {
+			
+			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
+
+				currentImageId = -1;
+				if (currentCollectionId === pairs.length - 1) { //if last collection
+					currentCollectionId = 0;
+				}
+				else {
+					currentCollectionId ++;
+				}
+				
+				$interval(increaseCount, 100000, pairs[currentCollectionId].length - 1);
+
+
+
+			}
+
+			currentImageId = currentImageId + 1;
+			//console.log("current image id : " + currentImageId);
+			console.log("current collection id: " + currentCollectionId);
+			console.log("current image id: " + currentImageId);
+		}
+			
+		$interval(increaseCount, 2000, pairs[currentCollectionId].length - 1);
 	}])
 
 	

@@ -301,6 +301,8 @@ angular.module("samesameApp.services", [])
 		var statPercentage = []
 
 		var currentAnswers = [];
+
+		var activeObject;
 		
 		return {
 
@@ -492,6 +494,15 @@ angular.module("samesameApp.services", [])
 
 			getPercentageStats : function() {
 				return statPercentage;
+			},
+
+			setActiveObject : function(tempObj) {
+				activeObject = [];
+				activeObject = tempObj;
+			},
+
+			getActiveObject : function() {
+				return activeObject
 			}
 		};
 	})
