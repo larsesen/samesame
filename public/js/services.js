@@ -440,9 +440,9 @@ angular.module("samesameApp.services", [])
 
 
 
-/*
-Comparing module in register-participant: 
-*/
+			/*
+			Comparing module after register-answer but before register-participant: 
+			*/
 			retrieveCurrentAnswers : function(id) {
 				statPercentage = [];
 				return $http.get("/currentAnswers/" + id);
@@ -493,13 +493,41 @@ Comparing module in register-participant:
 			getPercentageStats : function() {
 				return statPercentage;
 			}
-
-
 		};
-		
-
 	})
 
+
+
+
+
+
+	//Used to hold editable textfields throughout application
+	.service("TextStrings", function() {
+		
+
+		var getMainTitle = function() {
+			return "Same same****, but different";
+		};
+
+		var getSecondaryTitle = function() {
+			return "There are two kinds of people";
+		};
+
+		var getDottedLine = function() {
+			return "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -";
+		}
+
+		var getRegisterAnswerHeader = function() {
+			return "Choose one picture from each category";
+		}
+
+		return {
+			getMainTitle : getMainTitle,
+			getSecondaryTitle : getSecondaryTitle,
+			getDottedLine : getDottedLine,
+			getRegisterAnswerHeader : getRegisterAnswerHeader
+		};
+	})
 
 
 	

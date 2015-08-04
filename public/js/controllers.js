@@ -282,7 +282,7 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", "TextStrings", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService, TextStrings) {
 
 		var nextQ = 1;
 		var sex;
@@ -305,6 +305,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.answeredQuestions = answeredQuestions;
 
 		
+		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
 		$scope.nextQuestion = function(response,radio) {
 
@@ -361,7 +362,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			}, 300, 1);
+			}, 20, 1);
 			$scope.questions = Questions.questions;
 
 		};		
@@ -374,7 +375,13 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers the contact info
-	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", function($scope, $location, Participants, UserIDService, Statistics) {
+	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", "TextStrings", function($scope, $location, Participants, UserIDService, Statistics, TextStrings) {
+		
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
 
 		//initial object of participant
 		$scope.participant = {};
@@ -470,18 +477,34 @@ angular.module("samesameApp.controllers", [])
 
 
 	// Inits a unique user id. Used for db interaction for a single user
-	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", function($scope, $location, UserIDService) {	
+	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", "TextStrings", function($scope, $location, UserIDService, TextStrings) {	
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
+
+
+
 		var d = new Date();
 		var id = d.getTime();
 
 		UserIDService.setUserID(id);
 		$location.path("/partial-start");
+
 	}])
 
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "UserIDService", function($scope, $interval, Statistics, UserIDService) {
+	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "UserIDService", "TextStrings", function($scope, $interval, Statistics, UserIDService, TextStrings) {
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
 
 
 		$scope.retrieveStatistics = function(type) {
@@ -553,43 +576,6 @@ angular.module("samesameApp.controllers", [])
 		$interval(function() {
 			currentImageId = currentImageId + 1;
 		}, 200, $scope.imagePairs.length - 1);
-
-
-
-
-
-
-
-		/*
-		Used for retriving stat to register-participant-view. 
-	
-		$scope.retrieveStatistics = function(type) {
-			
-			$scope.allData = []; 
-			Statistics.resetStatistics();
-			
-			//initial call to fetch answers
-			Statistics.retrieveStatistics(type).success(function(data) {
-				$scope.statistics = data;
-			
-				// sets objectlist
-				Statistics.setStatistics($scope.statistics,type);
-
-				
-			});
-		}
-	*/
-		
-		
-
-		
-
-
-
-
-
-
-
 
 	}])
 

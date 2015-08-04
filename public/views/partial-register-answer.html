@@ -4,23 +4,25 @@
 
 <div class="container middle-pos">
 
-<h2 class="text-orange">Choose one picture from each category</h2>
+<h2 class="text-orange">{{registerAnswerHeader}}</h2>
 	
 <br><br> 
 	<body>	
 
 	<div class="btn-group">
 		
-		<input type="radio" />
-		<img ng-src="./images/{{nextQ}}a.png" name="a" ng-click="nextQuestion('a')">
-    	
-  		<container class="leftspace">
-  
-		<input type="radio"/>
-		<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">
-  		
-  		</container>
-  		</div>
+
+		<label>
+			<input type="radio" value="a" ng-model="checkedA" required/>
+			<img ng-src="./images/{{nextQ}}a.png" name="a" ng-click="nextQuestion('a')">
+		</label>
+	  
+	  	<label>
+    		<input type="radio" value="b" ng-model="checkedB" required/>
+    		<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">
+  		</label>
+
+  	</div>
   		
   		<br><br>
 
@@ -43,10 +45,6 @@
     {{ formData }} 
 </pre>
  -->
-
-
-	
-
 	
 	</body>
 
