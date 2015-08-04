@@ -37,13 +37,13 @@
     <div class="col-sm-5 col-sm-offset-3 topspace">
         <div id="slides_control" class="text-white text-small middle-pos">
             <div>
-                <h2> Gjennomsnitt: </h2>
+                <h2> {{listName}} </h2>
 
              
                 <table>
                     <tr class="image-carousel">
-                        <td><img ng-src="./images/{{setCurrentImageObject('a')}}"></td>
-                        <td><img ng-src="./images/{{setCurrentImageObject('b')}}"></td> 
+                        <td><img ng-src="./images/{{getCurrentImage('a')}}"></td>
+                        <td><img ng-src="./images/{{getCurrentImage('b')}}"></td> 
                     </tr>
                     <tr></tr>
                     <tr>

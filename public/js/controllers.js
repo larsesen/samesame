@@ -585,25 +585,52 @@ angular.module("samesameApp.controllers", [])
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
 */
-		$scope.setCurrentImageObject = function(suffix) {
+		$scope.setCurrentImageObject = function() {
+			
+			setListName(currentCollectionId);
+
+/*
 			activeObject = pairs[currentCollectionId][currentImageId];
 			Statistics.setActiveObject(activeObject);
 			$scope.activeObject = Statistics.getActiveObject();
-			console.log("object: " + JSON.stringify(pairs[currentCollectionId][currentImageId]));
+*/
+		$scope.activeObject = pairs[currentCollectionId][currentImageId];
+
+
+			//console.log("object: " + JSON.stringify(pairs[currentCollectionId][currentImageId]));
+			//return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
+		}
+
+
+		$scope.getCurrentImage = function(suffix) {
+			$scope.setCurrentImageObject();
+
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
 
-/*
-		$scope.getCurrentImageObject = function(suffix) {
-			return pairs[currentCollectionId][currentImageId];
+
+
+		var setListName = function(currentCollectionId) {
+
+			if (currentCollectionId === 0) {
+				$scope.listName = "Gjennomsnitt";
+			}
+			else if (currentCollectionId === 1) {
+				$scope.listName = "Gjennomsnitt for Bouvet";
+			}
+			else if (currentCollectionId === 2) {
+				$scope.listName = "Gjennomsnitt menn";
+			}
+			else if (currentCollectionId === 3) {
+				$scope.listName = "Gjennomsnitt kvinner";
+			}
 		}
-*/
+
 
 
 		var increaseCount = function() {
-			
-			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
 
+			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
 				currentImageId = -1;
 				if (currentCollectionId === pairs.length - 1) { //if last collection
 					currentCollectionId = 0;
@@ -611,17 +638,15 @@ angular.module("samesameApp.controllers", [])
 				else {
 					currentCollectionId ++;
 				}
-				
-				$interval(increaseCount, 100000, pairs[currentCollectionId].length - 1);
 
 
-
+				//$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
 			}
 
 			currentImageId = currentImageId + 1;
-			//console.log("current image id : " + currentImageId);
-			console.log("current collection id: " + currentCollectionId);
-			console.log("current image id: " + currentImageId);
+			
+			//console.log("current collection id: " + currentCollectionId);
+			//console.log("current image id: " + currentImageId);
 		}
 			
 		$interval(increaseCount, 2000, pairs[currentCollectionId].length - 1);
