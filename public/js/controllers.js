@@ -357,7 +357,7 @@ angular.module("samesameApp.controllers", [])
 						$location.path("/partial-register-answer");				
 					}
 					else {
-						$location.path("/partial-register-participant");
+						$location.path("/partial-view-results");
 					}
 
 				});
@@ -427,49 +427,6 @@ angular.module("samesameApp.controllers", [])
 		};
 
 
-		/*
-		Used for retriving stat to register-participant-view. Code here, because angular only allows one controller per view.
-		*/
-		$scope.retrieveStatistics = function(type) {
-			
-			$scope.allData = []; 
-			Statistics.resetStatistics();
-			
-			//initial call to fetch answers
-			Statistics.retrieveStatistics(type).success(function(data) {
-				$scope.statistics = data;
-			
-				// sets objectlist
-				Statistics.setStatistics($scope.statistics,type);
-
-				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
-			});
-		}
-
-		
-		$scope.getCurrentAnswers = function() {
-			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {
-				
-				$scope.currentAnswers = data;
-
-				Statistics.setCurrentAnswers(data);
-				//console.log("current: " + JSON.stringify(data));
-			});
-		}
-
-		$scope.getCurrentAnswers(UserIDService.getUserID);
-
-		//possible to easily add more type of users if necessary:
-		$scope.retrieveStatistics(1);
-		$scope.retrieveStatistics(2);
-		$scope.retrieveStatistics(3);
-		$scope.retrieveStatistics(4);
-
-		$scope.percentages = Statistics.getPercentageStats();
-
-
-		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
-	//	$scope.averagePerson = Statistics.getStatistics(1);
 	}])
 	
 
@@ -524,7 +481,7 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", function($scope, $interval, Statistics) {
+	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "UserIDService", function($scope, $interval, Statistics, UserIDService) {
 
 
 		$scope.retrieveStatistics = function(type) {
@@ -538,6 +495,8 @@ angular.module("samesameApp.controllers", [])
 			
 				// sets objectlist
 				Statistics.setStatistics($scope.statistics,type);
+
+				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
 
@@ -551,6 +510,20 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setCounts($scope.statistics);
 			});
 		}
+
+		$scope.getCurrentAnswers = function() {
+			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {
+				
+				$scope.currentAnswers = data;
+
+				Statistics.setCurrentAnswers(data);
+				//console.log("current: " + JSON.stringify(data));
+			});
+		}
+
+
+
+		$scope.getCurrentAnswers(UserIDService.getUserID);
 		
 		//possible to easily add more type of users if necessary:
 		$scope.retrieveStatistics(1);
@@ -560,6 +533,7 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.retrieveCounts();
 
+		$scope.percentages = Statistics.getPercentageStats();
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
@@ -579,6 +553,44 @@ angular.module("samesameApp.controllers", [])
 		$interval(function() {
 			currentImageId = currentImageId + 1;
 		}, 200, $scope.imagePairs.length - 1);
+
+
+
+
+
+
+
+		/*
+		Used for retriving stat to register-participant-view. 
+	
+		$scope.retrieveStatistics = function(type) {
+			
+			$scope.allData = []; 
+			Statistics.resetStatistics();
+			
+			//initial call to fetch answers
+			Statistics.retrieveStatistics(type).success(function(data) {
+				$scope.statistics = data;
+			
+				// sets objectlist
+				Statistics.setStatistics($scope.statistics,type);
+
+				
+			});
+		}
+	*/
+		
+		
+
+		
+
+
+
+
+
+
+
+
 	}])
 
 	

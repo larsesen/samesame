@@ -100,5 +100,17 @@ Stats views
 		{
 			templateUrl: "views/partial-view-answersvisual-single.html", controller: "VisualizeSingleCtrl"
 		});
+
+
+	$routeProvider.when("/partial-view-results",
+		{
+			templateUrl: "views/partial-view-results.html", controller: "StatisticsCtrl"
+		});	
+
+
 	$routeProvider.otherwise({redirectTo: "/partial-index"});
+
+
+
+
 }]);
