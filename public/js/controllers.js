@@ -282,7 +282,7 @@ angular.module("samesameApp.controllers", [])
 
 
 	//the controller used on the page where the user registers answers
-	.controller("RegisterAnswerCtrl", ["$scope", "$location", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
+	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService) {
 
 		var nextQ = 1;
 		var sex;
@@ -304,57 +304,68 @@ angular.module("samesameApp.controllers", [])
 		$scope.nextQ = nextQ;
 		$scope.answeredQuestions = answeredQuestions;
 
-
-		$scope.nextQuestion = function(response) {
-
-			answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
-			var listEmpty = isListEmpty(answeredQuestions);
-			$scope.answeredQuestions = answeredQuestions; // used for printing to view
-
-			//Checks how many elements left. Used for routing request correctly
-			var elementsLeft = elementsLeftInList(answeredQuestions);
-			var questionid = $scope.nextQ;
-
-
-			if (questionid == 1) {
-				if (response === 'a') {
-					sex = 'm';
-				}
-				else if (response === 'b') {
-					sex = 'f';
-				}
-			}
 		
 
-			//Creating JSON object used to send to db
-			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "sex": sex  };
-			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
+		$scope.nextQuestion = function(response,radio) {
 
-			 Answers.create(dataJSON)
-			.success(function(data) {
-				console.log("answer registered" + JSON.stringify(dataJSON));
-				RecentAnswer.setAnswer(dataJSON);
+			
 
-				/*
-				Updating with next image, if there are more images.
-				*/
-				if (!listEmpty) {
-					var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
-					//console.log("question number: " + nextQ); 
-					AnsweredQuestions.removeIndex(answeredQuestions,nextQ);	
-					$scope.nextQ = nextQ; 
+			$interval(function() {
+
+				$scope.checkedA = false;
+				$scope.checkedB = false;
+
+				answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
+				var listEmpty = isListEmpty(answeredQuestions);
+				$scope.answeredQuestions = answeredQuestions; // used for printing to view
+
+				//Checks how many elements left. Used for routing request correctly
+				var elementsLeft = elementsLeftInList(answeredQuestions);
+				var questionid = $scope.nextQ;
+
+
+				if (questionid == 1) {
+					if (response === 'a') {
+						sex = 'm';
+					}
+					else if (response === 'b') {
+						sex = 'f';
+					}
 				}
+			
 
-				if (elementsLeft > 0) {
-					$location.path("/partial-register-answer");				
-				}
-				else {
-					$location.path("/partial-register-participant");
-				}
+				//Creating JSON object used to send to db
+				var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "sex": sex  };
+				//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
-			});
-		};
-		$scope.questions = Questions.questions;
+				 Answers.create(dataJSON)
+				.success(function(data) {
+					console.log("answer registered" + JSON.stringify(dataJSON));
+					RecentAnswer.setAnswer(dataJSON);
+
+					/*
+					Updating with next image, if there are more images.
+					*/
+					if (!listEmpty) {
+						var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
+						//console.log("question number: " + nextQ); 
+						AnsweredQuestions.removeIndex(answeredQuestions,nextQ);	
+						$scope.nextQ = nextQ; 
+					}
+
+					if (elementsLeft > 0) {
+						$location.path("/partial-register-answer");				
+					}
+					else {
+						$location.path("/partial-register-participant");
+					}
+
+				});
+			}, 300, 1);
+			$scope.questions = Questions.questions;
+
+		};		
+
 	}])
 
 
@@ -389,7 +400,7 @@ angular.module("samesameApp.controllers", [])
 		*/
 		$scope.submitParticipant = function() {
 			var bouvet;
-			console.log(JSON.stringify($scope.participant));
+			//console.log(JSON.stringify($scope.participant));
 
 			if (isBouvetEmployee($scope.participant.email)) {
 				bouvet = 1;
@@ -405,6 +416,7 @@ angular.module("samesameApp.controllers", [])
 
 			Participants.create(dataJSON)
 			.success(function(data){
+				console.log("participant registered" + JSON.stringify(dataJSON));
 				$location.path("/partial-participant-registered");
 			})
 			.error(function(data, status) {
@@ -512,7 +524,7 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "Statistics", function($scope, Statistics) {
+	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", function($scope, $interval, Statistics) {
 
 
 		$scope.retrieveStatistics = function(type) {
@@ -557,6 +569,16 @@ angular.module("samesameApp.controllers", [])
 		$scope.imagePairsBouvet = Statistics.getStatistics(2);
 		$scope.imagePairsMale = Statistics.getStatistics(3);
 		$scope.imagePairsFemale = Statistics.getStatistics(4);
+
+		//Exposure
+		var currentImageId = 0;
+		$scope.getCurrentImage = function(suffix) {
+			return $scope.imagePairs[currentImageId].questionid + suffix + '.png';
+		}
+
+		$interval(function() {
+			currentImageId = currentImageId + 1;
+		}, 200, $scope.imagePairs.length - 1);
 	}])
 
 	
