@@ -35,7 +35,7 @@
 
     
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 col-sm-offset-3">
              
             <div ng-repeat="dataList in allData">
                
@@ -47,8 +47,11 @@
                     <thead>
                         <tr>
                             <th class="middle-pos">Question</th>
+                            <th class="middle-pos">Mest valgte alternativ</th>
                             <th class="middle-pos">% a</th>
                             <th class="middle-pos">% b</th>
+                            <th class="middle-pos">a</th>
+                            <th class="middle-pos">b</th>
                             <th class="middle-pos">Totalt antall svar</th>
 
                             <!--
@@ -61,8 +64,11 @@
                     <tbody>
                         <tr ng-repeat="data in dataList">                                       
                             <td>{{data.questionid}}</td>
+                            <td>{{data.mostFreq}}</td>
                             <td>{{data.percentageA}}</td>
                             <td>{{data.percentageB}}</td>
+                            <td>{{data.responseA}}</td>
+                            <td>{{data.responseB}}</td>
                             <td>{{data.total}}</td>
                        
                             <!--
