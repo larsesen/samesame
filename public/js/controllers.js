@@ -366,7 +366,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			}, 300, 1);
+			}, 50, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -615,6 +615,8 @@ angular.module("samesameApp.controllers", [])
 				// sets objectlist
 				Statistics.setStatistics(statistics,type);
 
+				$scope.currentAnswers = Statistics.getCurrentAnswers(UserIDService.getUserID);
+				//console.log(Statistics.getCurrentAnswers(UserIDService.getUserID));
 				if (cb) {
 					cb(Statistics.getStatistics(type));
 				}
@@ -641,27 +643,49 @@ angular.module("samesameApp.controllers", [])
 		getCurrentAnswers(UserIDService.getUserID);
 		retrieveAllStatistics();
 	
-
 		$scope.percentages = Statistics.getPercentageStats();
-		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
-		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
 
 
 
 
-		//Following variables used for stat-carousel
-		var updateList = function() {
-			var pairs = [
-			Statistics.getStatistics(0),
-			Statistics.getStatistics(1),
-			Statistics.getStatistics(2),
-			Statistics.getStatistics(3)
-			]
-			return pairs;
+
+
+		var retrieveTypeData = function(type) {
+			Statistics.resetStatistics();		
+			//initial call to fetch answers
+			Statistics.retrieveTypeData().success(function(data) {
+				var statistics = data;		
+				// sets objectlist
+				Statistics.setTypeData(statistics);
+
+				var comparisons = Statistics.compareCurrentWithType(Statistics.getTypeData(), $scope.currentAnswers);
+				Statistics.getBiggestDeviation(comparisons);
+
+				$scope.typeData = Statistics.getTypeData();
+				//console.log(Statistics.getCurrentAnswers(UserIDService.getUserID));
+				
+				//Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
+			});
 		}
 
-		var pairs = updateList();
+
+		retrieveTypeData();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
 
 

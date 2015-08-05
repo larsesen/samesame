@@ -112,4 +112,10 @@ Routes for retrieving statistics
 
 
 
+
+	app.route("/getTypeData")
+		.get(user.getTypeData);
+
+
+
 };

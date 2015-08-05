@@ -13,25 +13,19 @@
 	</div>
 	<br>
 
-	
-
-	<div class="text-white text-smaller middle-pos" >
-		Current response:
-		<div ng-repeat="answer in currentAnswers">
-
-			{{answer.response}}
-		</div>
-	</div>
-	<br>
-
-
 	<div class="text-white text-smaller middle-pos">
-		Type response from db:
-		<div ng-repeat="data in typeData">
-			{{data.mostFreq}}		
-		</div>
-	</div>
+		
+		Du er {{percentages[0]}} % lik gjennomsnittet
+		<br>
+		Du er {{percentages[1]}} % lik gjennomsnittlig ansatt i Bouvet
+		<br>
+		Du er {{percentages[2]}} % lik gjennomsnittet for menn
+		<br>
+		Du er {{percentages[3]}} % lik gjennomsnittet for kvinner
 
+
+	</div>
+	<br><br>
 
 
 	<div>

@@ -303,6 +303,10 @@ angular.module("samesameApp.services", [])
 		var currentAnswers = [];
 
 		var activeObject;
+
+		var typeData = [],
+			comparisons = [];
+
 		
 		return {
 
@@ -490,7 +494,146 @@ angular.module("samesameApp.services", [])
 
 			getPercentageStats : function() {
 				return statPercentage;
+			},
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+			retrieveTypeData : function() {
+				typeData = [];
+				return $http.get("/getTypeData");
+			},
+
+
+			getTypeData : function() {
+				return typeData;
+			},
+
+			setTypeData : function(currObject) {
+				typeData = [];
+
+				var i;
+				for (i= 0 ; i <currObject.length; i++) {
+
+					statObject = {
+						questionid: currObject[i]["questionid"],
+						mostFreq : currObject[i]["mostFreq"],
+						a_ : currObject[i]["a_"],
+						b_ : currObject[i]["b_"]
+					}
+					typeData.push(statObject);
+				}
+			},
+
+
+
+
+
+			compareCurrentWithType : function(typeData, currentAnswers) {
+				comparisons = [];
+
+				var i;
+				for (i=0; i < typeData.length; i++) {
+
+					var sameAsType = (currentAnswers[i].response === typeData[i].mostFreq)
+
+					statObject = {
+						questionid : typeData[i].questionid,
+						response : currentAnswers[i].response,
+						mostAnswered : sameAsType,
+						percentA : typeData[i].a_,
+						percentB : typeData[i].b_
+					}
+					comparisons.push(statObject);
+		
+				}
+
+				//console.log("When complete: " + JSON.stringify(comparisons));
+				//console.log("type: " + JSON.stringify(typeData));
+				//console.log("current: " + JSON.stringify(currentAnswers));
+				return comparisons;
+			},
+
+
+
+			getBiggestDeviation : function(comparisons) {
+				var biggestDeviationIndex = -1;
+				var biggestDeviation = 0;
+				var currentDeviation = -1;
+				var i;
+				for (i=0; i < comparisons.length; i++) {
+					
+
+					var typeAnswer = comparisons[i].mostAnswered;
+					var userResponse = comparisons[i].response;
+					var percentA = comparisons[i].a_;
+					var percentB = comparisons[i].b_;
+					
+					console.log("type: " + typeAnswer);
+					console.log("userResp: " + userResponse);
+
+					console.log(typeAnswer === 'false');
+
+					
+					if (typeAnswer === false) {
+						
+						if (userResponse === 'a') {
+							currentDeviation = percentB - percentA;
+							console.log("False and response is a, deviation is: " + currentDeviation);
+							if (currentDeviation > biggestDeviation) {
+								biggestDeviation = currentDeviation;
+								biggestDeviationIndex = i;
+							}
+							
+
+						}
+						else if (userResponse === 'b') {
+							currentDeviation = percentA - percentB;
+							console.log("False and response is b, deviation is: " + currentDeviation);
+							if (currentDeviation > biggestDeviation) {
+								biggestDeviation = currentDeviation;
+								biggestDeviationIndex = i;
+							}
+						}
+
+
+						else {
+							console.log("Impossible state");
+						}
+					}
+
+					else if (typeAnswer === true) {
+						console.log("TypeAnswer is true");
+					}
+					else {
+						console.log("shouldn't get here");
+					}
+					//console.log("hit none of the ifs");
+
+				}
+				console.log("questionid: " + biggestDeviationIndex + ", deviation: " + biggestDeviation);
 			}
+
+
+
+
+
+
+
+
 		};
 	})
 

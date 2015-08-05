@@ -359,6 +359,50 @@ function getCurrentAnswers(req,res) {
 }
 
 
+
+
+
+
+function getTypeData(req,res) {
+	db.getTypeData(function(err,rows) {
+		if (err) {
+			errorHandler(err,res);
+		}
+		else {
+			res.send(rows);
+		}
+	});
+}
+
+exports.getTypeData = getTypeData;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 Exporting of all methods used by other scripts, mostly by router.js
 */
