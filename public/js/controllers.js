@@ -507,43 +507,29 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
-		retrieveAllStatistics();
-		retrieveCounts();
-	
-
-		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
-		$scope.counts = Statistics.getCounts(); //Used in view to access variables
-
-
-
-/*
-UpdateList to be renamed to initList, and only be called once per controller action.
-updateList(index) will deal with updating the (potentially) changed object, while the rest of the list stays
-the same, as it is updated right before it is presented.
-*/
-
 		//Following variables used for stat-carousel
-		var updateList = function() {
+		var initList = function() {
 			var pairs = [
 			Statistics.getStatistics(0),
 			Statistics.getStatistics(1),
 			Statistics.getStatistics(2),
 			Statistics.getStatistics(3)
 			]
-			//console.log("lists updated");
 			return pairs;
 		}
 
-/*
-		var updateList = function(index) {
-			pairs[index] = Statistics.getStatistics(index);
-		}
-*/
 
 
-		var pairs = updateList();
+		retrieveAllStatistics();
+		retrieveCounts();
+		pairs = initList();
+
+		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
+		$scope.counts = Statistics.getCounts(); //Used in view to access variables
+
+
 		
-
+		
 
 		//Exposure
 		var currentCollectionId = 0, currentImageId = 0;
@@ -588,7 +574,6 @@ the same, as it is updated right before it is presented.
 		var increaseCount = function() {
 
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
-			
 				var nextCollectionId;
 				if (currentCollectionId === pairs.length - 1) {
 					nextCollectionId = 0;
@@ -602,7 +587,6 @@ the same, as it is updated right before it is presented.
 					currentCollectionId = nextCollectionId;
 					pairs[nextCollectionId] = imagePairList;
 				});
-				pairs = updateList();
 			} 
 			else {
 				currentImageId = currentImageId + 1;
