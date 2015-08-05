@@ -316,16 +316,16 @@ angular.module("samesameApp.services", [])
 
 			//retrieves statistics from db
 			retrieveStatistics : function(type) {
-				if (type === 1) {
+				if (type === 0) {
 					return $http.get("/statsAverage");
 				}
-				else if (type === 2) {
+				else if (type === 1) {
 					return $http.get("/statsBouvet");
 				}
-				else if (type === 3) {
+				else if (type === 2) {
 					return $http.get("/statsMale");
 				}
-				else if (type === 4) {
+				else if (type === 3) {
 					return $http.get("/statsFemale");
 				}
 			},
@@ -346,16 +346,16 @@ angular.module("samesameApp.services", [])
 
 
 			getStatistics : function(type) {
-				if (type === 1 ) {
+				if (type === 0 ) {
 					return statAverage;
 				}
-				else if (type === 2) {
+				else if (type === 1) {
 					return statBouvet;
 				}
-				else if (type === 3) {
+				else if (type === 2) {
 					return statMale;
 				}
-				else if (type === 4) {
+				else if (type === 3) {
 					return statFemale;
 				}
 			},
@@ -377,34 +377,34 @@ angular.module("samesameApp.services", [])
 						greatest : currObject[i]["greatest"]
 					}
 
-					if ( type === 1 ) {
+					if ( type === 0 ) {
 						statAverage.push(statObject);
 					}
-					else if (type === 2) {
+					else if (type === 1) {
 						statBouvet.push(statObject);
 					}
-					else if (type === 3) {
+					else if (type === 2) {
 						statMale.push(statObject);
 					}
-					else if (type === 4) {
+					else if (type === 3) {
 						statFemale.push(statObject);
 					}
 
 					
 				}
-				if ( type === 1 ) {
+				if ( type === 0 ) {
 					statAverage.name = "Average";
 					allStat.push(statAverage);
 				}
-				else if (type === 2) {
+				else if (type === 1) {
 					statBouvet.name = "Bouvet";
 					allStat.push(statBouvet);
 				}
-				else if (type === 3) {
+				else if (type === 2) {
 					statMale.name = "Male";
 					allStat.push(statMale);
 				}
-				else if (type === 4) {
+				else if (type === 3) {
 					statFemale.name = "Female";
 					allStat.push(statFemale);
 				}

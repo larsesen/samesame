@@ -310,10 +310,13 @@ angular.module("samesameApp.controllers", [])
 		$scope.nextQ = nextQ;
 		$scope.answeredQuestions = answeredQuestions;
 
-
 		$scope.nextQuestion = function(response,radio) {
 
+				// Define style for image
+
 			$interval(function() {
+
+				// Reset styple for image "ng-class"
 				$scope.checkedA = false;
 				$scope.checkedB = false;
 
@@ -346,7 +349,7 @@ angular.module("samesameApp.controllers", [])
 					RecentAnswer.setAnswer(dataJSON);
 
 					/*
-					Updating with next image, if there are more images.
+					Updating with next image, iff there are more images.
 					*/
 					if (!listEmpty) {
 						var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
@@ -363,7 +366,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			}, 50, 1);
+			}, 300, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -468,7 +471,7 @@ angular.module("samesameApp.controllers", [])
 		var pairs;
 
 
-		var retrieveStatistics = function(type) {
+		var retrieveStatistics = function(type, cb) {
 			Statistics.resetStatistics();		
 			//initial call to fetch answers
 			Statistics.retrieveStatistics(type).success(function(data) {
@@ -476,23 +479,25 @@ angular.module("samesameApp.controllers", [])
 				// sets objectlist
 				Statistics.setStatistics(statistics,type);
 
-				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
+				if (cb) {
+					cb(Statistics.getStatistics(type));
+				}
+
+				//Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
 
 
-		var retrieveAllStatistics = function() {
+		var retrieveAllStatistics = function(cb) {
+			retrieveStatistics(0);
 			retrieveStatistics(1);
 			retrieveStatistics(2);
 			retrieveStatistics(3);
-			retrieveStatistics(4);
 			//console.log("all stats refreshed");
 		}
 
-
 		var retrieveCounts = function() {
 			Statistics.resetCounts;
-
 			Statistics.retrieveCounts().success(function(data) {
 				var statistics = data;
 				Statistics.setCounts(statistics);
@@ -505,39 +510,28 @@ angular.module("samesameApp.controllers", [])
 			console.log("current: " + JSON.stringify(data));
 			});
 		}
-		getCurrentAnswers(UserIDService.getUserID);
 
+
+		getCurrentAnswers(UserIDService.getUserID);
 		retrieveAllStatistics();
 		retrieveCounts();
-
-
-		
-
 	
+
 		$scope.percentages = Statistics.getPercentageStats();
-
-
-
-
-
-
-
-
-
-
-
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
 
+
+
+
 		//Following variables used for stat-carousel
-		
 		var updateList = function() {
 			var pairs = [
+			Statistics.getStatistics(0),
 			Statistics.getStatistics(1),
 			Statistics.getStatistics(2),
-			Statistics.getStatistics(3),
-			Statistics.getStatistics(4)
+			Statistics.getStatistics(3)
 			]
 			//console.log("lists updated");
 			return pairs;
@@ -560,6 +554,11 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.getCurrentImage = function(suffix) {
 			setCurrentImageObject();
+
+			if(!pairs[currentCollectionId][currentImageId]) {
+				console.log('Warning: ' + currentCollectionId + ', ' + currentImageId);
+			}
+
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
 
@@ -585,26 +584,38 @@ angular.module("samesameApp.controllers", [])
 		var increaseCount = function() {
 
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
-				currentImageId = -1;
-				if (currentCollectionId === pairs.length - 1) { //if last collection
-					currentCollectionId = 0;
+			
+				
+				/*
+				var nextCollectionID = currentCollectionId === pairs.length - 1
+				? 0
+				: currentCollectionId + 1
+				*/
+
+				var nextCollectionId;
+				if (currentCollectionId === pairs.length - 1) {
+					nextCollectionId = 0;
 				}
 				else {
-					currentCollectionId ++;
+					nextCollectionId = currentCollectionId + 1;
 				}
 
-				//Refreshes all data from database
-				retrieveAllStatistics();
+				retrieveStatistics(nextCollectionId, function(imagePairList) {
+					currentImageId = 0;
+					currentCollectionId = nextCollectionId;
+					pairs[nextCollectionId] = imagePairList;
+					
+				});
 				pairs = updateList();
+			} 
+			else {
+				currentImageId = currentImageId + 1;
 			}
 
-			currentImageId = currentImageId + 1;
 			//console.log("current collection id: " + currentCollectionId);
 			//console.log("current image id: " + currentImageId);
 		}	
-		$interval(increaseCount, 500, pairs[currentCollectionId].length - 1);
-
-
+		$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
 	}])
 
 	
