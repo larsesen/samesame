@@ -288,7 +288,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.mainTitle = TextStrings.getMainTitle();
 		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
 		$scope.dottedLine = TextStrings.getDottedLine();
-
+		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
 		var nextQ = 1;
 		var sex;
@@ -462,6 +462,8 @@ angular.module("samesameApp.controllers", [])
 
 	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", function($scope, $interval, Statistics, TextStrings) {
 
+	//.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", function($scope, $interval, Statistics, TextStrings) {
+
 		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
 		$scope.mainTitle = TextStrings.getMainTitle();
 		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
@@ -514,7 +516,11 @@ angular.module("samesameApp.controllers", [])
 
 
 
-
+/*
+UpdateList to be renamed to initList, and only be called once per controller action.
+updateList(index) will deal with updating the (potentially) changed object, while the rest of the list stays
+the same, as it is updated right before it is presented.
+*/
 
 		//Following variables used for stat-carousel
 		var updateList = function() {
@@ -527,6 +533,13 @@ angular.module("samesameApp.controllers", [])
 			//console.log("lists updated");
 			return pairs;
 		}
+
+/*
+		var updateList = function(index) {
+			pairs[index] = Statistics.getStatistics(index);
+		}
+*/
+
 
 		var pairs = updateList();
 		
@@ -545,11 +558,11 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.getCurrentImage = function(suffix) {
 			setCurrentImageObject();
-
+			
+			//To initially set image while waiting for Angular
 			if(!pairs[currentCollectionId][currentImageId]) {
-				console.log('Warning: ' + currentCollectionId + ', ' + currentImageId);
+				return "loading.png";
 			}
-
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
 
@@ -557,16 +570,16 @@ angular.module("samesameApp.controllers", [])
 		var setListName = function(currentCollectionId) {
 
 			if (currentCollectionId === 0) {
-				$scope.listName = "Gjennomsnitt";
+				$scope.listName = "Prosentfordeling";
 			}
 			else if (currentCollectionId === 1) {
-				$scope.listName = "Gjennomsnitt for Bouvet";
+				$scope.listName = "Prosentfordeling for Bouvet";
 			}
 			else if (currentCollectionId === 2) {
-				$scope.listName = "Gjennomsnitt menn";
+				$scope.listName = "Prosentfordeling menn";
 			}
 			else if (currentCollectionId === 3) {
-				$scope.listName = "Gjennomsnitt kvinner";
+				$scope.listName = "Prosentfordeling kvinner";
 			}
 		}
 
@@ -576,13 +589,6 @@ angular.module("samesameApp.controllers", [])
 
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
 			
-				
-				/*
-				var nextCollectionID = currentCollectionId === pairs.length - 1
-				? 0
-				: currentCollectionId + 1
-				*/
-
 				var nextCollectionId;
 				if (currentCollectionId === pairs.length - 1) {
 					nextCollectionId = 0;
@@ -595,18 +601,14 @@ angular.module("samesameApp.controllers", [])
 					currentImageId = 0;
 					currentCollectionId = nextCollectionId;
 					pairs[nextCollectionId] = imagePairList;
-
 				});
 				pairs = updateList();
 			} 
 			else {
 				currentImageId = currentImageId + 1;
 			}
-
-			//console.log("current collection id: " + currentCollectionId);
-			//console.log("current image id: " + currentImageId);
 		}	
-		$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
+		$interval(increaseCount, 3000, pairs[currentCollectionId].length - 1);
 	}])
 
 
