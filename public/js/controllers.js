@@ -460,7 +460,7 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", "UserIDService", function($scope, $interval, Statistics, TextStrings, UserIDService) {
+	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", function($scope, $interval, Statistics, TextStrings) {
 
 		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
 		$scope.mainTitle = TextStrings.getMainTitle();
@@ -504,20 +504,11 @@ angular.module("samesameApp.controllers", [])
 			});
 		}
 
-		var getCurrentAnswers = function() {
-			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {	
-			Statistics.setCurrentAnswers(data);
-			console.log("current: " + JSON.stringify(data));
-			});
-		}
 
-
-		getCurrentAnswers(UserIDService.getUserID);
 		retrieveAllStatistics();
 		retrieveCounts();
 	
 
-		$scope.percentages = Statistics.getPercentageStats();
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
@@ -604,7 +595,7 @@ angular.module("samesameApp.controllers", [])
 					currentImageId = 0;
 					currentCollectionId = nextCollectionId;
 					pairs[nextCollectionId] = imagePairList;
-					
+
 				});
 				pairs = updateList();
 			} 
@@ -616,6 +607,80 @@ angular.module("samesameApp.controllers", [])
 			//console.log("current image id: " + currentImageId);
 		}	
 		$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
+	}])
+
+
+
+
+
+
+	.controller("StatisticsCompareCtrl", ["$scope", "$interval", "Statistics", "TextStrings", "UserIDService", function($scope, $interval, Statistics, TextStrings, UserIDService) {
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+
+
+
+		var retrieveStatistics = function(type, cb) {
+			Statistics.resetStatistics();		
+			//initial call to fetch answers
+			Statistics.retrieveStatistics(type).success(function(data) {
+				var statistics = data;		
+				// sets objectlist
+				Statistics.setStatistics(statistics,type);
+
+				if (cb) {
+					cb(Statistics.getStatistics(type));
+				}
+				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
+			});
+		}
+
+		var retrieveAllStatistics = function(cb) {
+			retrieveStatistics(0);
+			retrieveStatistics(1);
+			retrieveStatistics(2);
+			retrieveStatistics(3);
+			//console.log("all stats refreshed");
+		}
+
+
+		var getCurrentAnswers = function() {
+			Statistics.retrieveCurrentAnswers(UserIDService.getUserID()).success(function(data) {	
+			Statistics.setCurrentAnswers(data);
+			});
+		}
+
+
+		getCurrentAnswers(UserIDService.getUserID);
+		retrieveAllStatistics();
+	
+
+		$scope.percentages = Statistics.getPercentageStats();
+		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
+		$scope.counts = Statistics.getCounts(); //Used in view to access variables
+
+
+
+
+
+		//Following variables used for stat-carousel
+		var updateList = function() {
+			var pairs = [
+			Statistics.getStatistics(0),
+			Statistics.getStatistics(1),
+			Statistics.getStatistics(2),
+			Statistics.getStatistics(3)
+			]
+			return pairs;
+		}
+
+		var pairs = updateList();
+		
+
+
 	}])
 
 	

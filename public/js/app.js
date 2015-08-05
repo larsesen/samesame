@@ -86,7 +86,7 @@ Stats views
 
 	$routeProvider.when("/partial-view-results",
 		{
-			templateUrl: "views/partial-view-results.html", controller: "StatisticsCtrl"
+			templateUrl: "views/partial-view-results.html", controller: "StatisticsCompareCtrl"
 		});	
 
 
