@@ -46,10 +46,13 @@ function clickStartButton(browser) {
     browser.findElement(by.name("startButton")).click();
 }
 
+function clickProceedButton(browser) {
+    browser.findElement(by.name("proceedButton").click());
+}
+
 function clickSeeAllAnswers(browser) {
     browser.findElement(by.name("seeAllAnswers")).click();
 }
-
 
 function clickSeeAllParticipants(browser) {
     browser.findElement(by.name("seeAllParticipants")).click();
@@ -163,6 +166,7 @@ exports.directToViewParticipants = directToViewParticipants;
 
 exports.clickRegisterAnswerButton = clickRegisterAnswerButton;
 exports.clickSeeAllAnswers = clickSeeAllAnswers;
+exports.clickProceedButton = clickProceedButton;
 exports.clickSeeAllParticipants = clickSeeAllParticipants;
 exports.clickMenuButton = clickMenuButton;
 exports.clickStatistics = clickStatistics;

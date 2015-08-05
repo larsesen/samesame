@@ -393,19 +393,15 @@ angular.module("samesameApp.services", [])
 					
 				}
 				if ( type === 0 ) {
-					statAverage.name = "Average";
 					allStat.push(statAverage);
 				}
 				else if (type === 1) {
-					statBouvet.name = "Bouvet";
 					allStat.push(statBouvet);
 				}
 				else if (type === 2) {
-					statMale.name = "Male";
 					allStat.push(statMale);
 				}
 				else if (type === 3) {
-					statFemale.name = "Female";
 					allStat.push(statFemale);
 				}
 				//console.log(JSON.stringify(allStat));

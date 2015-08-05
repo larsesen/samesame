@@ -527,8 +527,6 @@ angular.module("samesameApp.controllers", [])
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
-
-		
 		
 
 		//Exposure

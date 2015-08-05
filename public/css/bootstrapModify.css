@@ -249,10 +249,13 @@ label > input + img{ /* (CHECKED) IMAGE STYLES */
   opacity: 0.95;
 }
 
-label > input:checked + img{ /* (CHECKED) IMAGE STYLES */
+/* (CHECKED) IMAGE STYLES */
+
+label > input:checked + img, img.foo { 
   border:5px solid #FF6400; 
   opacity: 1;
 }
+
 
 
 .leftspace {
