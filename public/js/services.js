@@ -560,78 +560,120 @@ angular.module("samesameApp.services", [])
 					comparisons.push(statObject);
 		
 				}
-
-				//console.log("When complete: " + JSON.stringify(comparisons));
-				//console.log("type: " + JSON.stringify(typeData));
-				//console.log("current: " + JSON.stringify(currentAnswers));
 				return comparisons;
 			},
 
 
 
 			getBiggestDeviation : function(comparisons) {
-				var biggestDeviationIndex = -1;
-				var biggestDeviation = 0;
-				var currentDeviation = -1;
+
+				//neg variables is the main check. But if no neg variables are set, I retrieve biggest positive deviation to present
+				var biggestNegDeviationIndex = -1,
+					biggestNegDeviation = 0,
+					currentNegDeviation = -1;
+
+				var biggestPosDeviationIndex = -1,
+					biggestPosDeviation = 0,
+					currentPosDeviation = -1;
+
+				var statObject = []
+
 				var i;
 				for (i=0; i < comparisons.length; i++) {
 					
-
 					var typeAnswer = comparisons[i].mostAnswered;
 					var userResponse = comparisons[i].response;
-					var percentA = comparisons[i].a_;
-					var percentB = comparisons[i].b_;
+					var percentA = comparisons[i].percentA;
+					var percentB = comparisons[i].percentB;
 					
-					console.log("type: " + typeAnswer);
-					console.log("userResp: " + userResponse);
-
-					console.log(typeAnswer === 'false');
-
-					
-					if (typeAnswer === false) {
-						
+				
+					//If we want to find the biggest deviation from the type answer
+					if (typeAnswer === false) {		
 						if (userResponse === 'a') {
-							currentDeviation = percentB - percentA;
-							console.log("False and response is a, deviation is: " + currentDeviation);
-							if (currentDeviation > biggestDeviation) {
-								biggestDeviation = currentDeviation;
-								biggestDeviationIndex = i;
+							currentNegDeviation = percentB - percentA;	
+							if (currentNegDeviation > biggestNegDeviation) {
+								biggestNegDeviation = currentNegDeviation;
+								biggestNegDeviationIndex = i;
 							}
-							
+						}
+						else if (userResponse === 'b') {
+							currentNegDeviation = percentA - percentB;
+							if (currentNegDeviation > biggestNegDeviation) {
+								biggestNegDeviation = currentNegDeviation;
+								biggestNegDeviationIndex = i;
+							}
+						}
+					}
+
+
+					else if (typeAnswer === true) {		
+						if (userResponse === 'a') {
+							currentPosDeviation = percentA - percentB;
+							if (currentPosDeviation > biggestPosDeviation) {
+								biggestPosDeviation = currentPosDeviation;
+								biggestPosDeviationIndex = i;
+							}
 
 						}
 						else if (userResponse === 'b') {
-							currentDeviation = percentA - percentB;
-							console.log("False and response is b, deviation is: " + currentDeviation);
-							if (currentDeviation > biggestDeviation) {
-								biggestDeviation = currentDeviation;
-								biggestDeviationIndex = i;
+							currentPosDeviation = percentB - percentA;
+							if (currentPosDeviation > biggestPosDeviation) {
+								biggestPosDeviation = currentPosDeviation;
+								biggestPosDeviationIndex = i;
 							}
 						}
-
-
-						else {
-							console.log("Impossible state");
-						}
 					}
-
-					else if (typeAnswer === true) {
-						console.log("TypeAnswer is true");
-					}
-					else {
-						console.log("shouldn't get here");
-					}
-					//console.log("hit none of the ifs");
-
 				}
-				console.log("questionid: " + biggestDeviationIndex + ", deviation: " + biggestDeviation);
+
+				//console.log("Negative Deviation:   questionid: " + biggestNegDeviationIndex + ", deviation: " + biggestNegDeviation);
+				//console.log("negIndex: " + biggestNegDeviationIndex + ", posIndex: " + biggestPosDeviationIndex);
+
+				if (biggestNegDeviationIndex === -1) {
+					console.log("Finding positive deviation");
+					//console.log("You have answered the same as the type answer for all questions");
+					//console.log("Positive Deviation:     questionid: " + biggestPosDeviationIndex + ", deviation: " + biggestPosDeviation);
+
+					var percentage;
+					if (currentAnswers[biggestPosDeviationIndex].response === 'a') {
+						percentage = typeData[biggestPosDeviationIndex].a_;
+					}
+					else if (currentAnswers[biggestPosDeviationIndex].response === 'b') {
+						percentage = typeData[biggestPosDeviationIndex].b_;
+					}
+
+					statObject = {
+						questionid : currentAnswers[biggestPosDeviationIndex].questionid,
+						response : currentAnswers[biggestPosDeviationIndex].response,
+						mostAnswered : true,
+						percent : percentage
+					}
+				}
+
+				else {
+					console.log("Finding negative deviation");
+					var percentage;
+					if (currentAnswers[biggestNegDeviationIndex].response === 'a') {
+						percentage = typeData[biggestNegDeviationIndex].a_;
+					}
+					else if (currentAnswers[biggestNegDeviationIndex].response === 'b') {
+						percentage = typeData[biggestNegDeviationIndex].b_;
+					}
+
+					statObject = {
+						questionid : typeData[biggestNegDeviationIndex].questionid,
+						response : currentAnswers[biggestNegDeviationIndex].response,
+						mostAnswered : false,
+						percent : percentage
+					}
+				}
+
+
+
+				console.log(JSON.stringify(statObject));
+
+
+
 			}
-
-
-
-
-
-
 
 
 		};
