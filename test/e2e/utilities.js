@@ -47,7 +47,8 @@ function clickStartButton(browser) {
 }
 
 function clickProceedButton(browser) {
-    browser.findElement(by.name("proceedButton").click());
+    browser.findElement(by.name("proceedButton")).click();
+    //browser.findElement(by.id("proceedBtn").click());
 }
 
 function clickSeeAllAnswers(browser) {
@@ -98,17 +99,18 @@ function pickWinner(browser) {
     browser.findElement(by.name("pickWinner")).click();
 }
 
+/*
 function deleteAnswers(browser) {
     browser.findElement(by.name("deleteAnswers")).click();
     browser.findElement(by.name("confirmDelete")).click();
 }
-
-
+*/
+/*
 function deleteParticipants(browser) {
     browser.findElement(by.name("deleteParticipants")).click();
     browser.findElement(by.name("confirmDelete")).click();
 }
-
+*/
 
 function registerParticipant(browser, timestamp) {
     browser.findElement(By.name("participantName")).sendKeys("test");
@@ -121,7 +123,7 @@ function submitParticipant(browser) {
 }
 
 function fillAnswerRandomly(browser) {
-    var i;
+    var i;  
     for (i = 0; i < numberOfQuestions; i++) {
         browser.findElement(by.name(getRandomWithinLength(responses))).click();
     }
@@ -187,9 +189,8 @@ exports.fillAnswerFemale = fillAnswerFemale;
 exports.registerParticipant = registerParticipant;
 exports.submitParticipant = submitParticipant;
 
-exports.deleteAnswers = deleteAnswers;
-
-exports.deleteParticipants = deleteParticipants;
+//exports.deleteAnswers = deleteAnswers;
+//exports.deleteParticipants = deleteParticipants;
 exports.pickWinner = pickWinner;
 
 

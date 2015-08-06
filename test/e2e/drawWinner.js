@@ -16,6 +16,7 @@ describe('drawWinner.js, testing draw winner functionality within participants:'
     util.clickToAnswerPage(browser);
 
     util.fillAnswerRandomly(browser);
+    util.clickProceedButton(browser);
   
     util.registerParticipant(browser, timestamp);
     util.submitParticipant(browser);

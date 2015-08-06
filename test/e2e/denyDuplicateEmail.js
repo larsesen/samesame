@@ -13,6 +13,7 @@ describe('denyDuplicateEmail.js, should test restrictions towards submitting alr
     util.clickStartButton(browser);
 
     util.fillAnswerRandomly(browser);
+    util.clickProceedButton(browser);
     util.registerParticipant(browser, timestamp);
     util.submitParticipant(browser);
 

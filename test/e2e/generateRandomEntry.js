@@ -9,6 +9,7 @@ describe('generateRandomEntry.js, happy flow of application:', function() {
         util.directToIndex(browser);
         util.clickToAnswerPage(browser);
         util.fillAnswerRandomly(browser);
+        util.clickProceedButton(browser);
         expect(browser.getCurrentUrl()).toEqual(baseURL + "/public/index.html#/partial-register-participant");
     });
 

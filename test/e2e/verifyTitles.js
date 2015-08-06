@@ -21,6 +21,7 @@ describe('verifyTitles.js, test title of pages:', function() {
     expect(browser.getTitle()).toEqual(correctTitle)
 
     util.fillAnswerRandomly(browser);
+    util.clickProceedButton(browser);
     expect(browser.getTitle()).toEqual(correctTitle)
 
     util.registerParticipant(browser, timestamp);

@@ -17,7 +17,8 @@ describe('submittedAnswer.js, adding new answer to database table:', function() 
     util.directToIndex(browser);
     util.clickToAnswerPage(browser);
     util.fillAnswerRandomly(browser);
-  });
+    util.clickProceedButton(browser);
+    });
 
 
   it("should verify new answer in answer table", function(){	

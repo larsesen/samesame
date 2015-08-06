@@ -18,6 +18,7 @@ describe('participantSubmitted.js, adding new participant to database table:', f
     util.directToIndex(browser);
     util.clickToAnswerPage(browser);
     util.fillAnswerRandomly(browser);
+    util.clickProceedButton(browser);
   });
 
 
