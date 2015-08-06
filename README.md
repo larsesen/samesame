@@ -1,18 +1,24 @@
-####The Beauty of Data####
+####Same same, but different####
 
-by Lars Nedberg & Henrik Loennechen
+by Lars Nedberg
 
-This repo is a fork of the original https://github.com/henloen/sommer-2014 This version Owner is: Arne-Richard Hofsøy (arhplanet@gmail.com).
+Original: https://github.com/henloen/sommer-2014, owners Lars Nedberg and Henrik Loennechen.
+Project was then forked and modified: https://github.com/arhplanet/sommer-2014, owner Arne-Richard Hofsøy (arhplanet@gmail.com
+This version is a fork of the work made by Arne-Richard Hofsøy. Owner of this version: Lars Nedberg (lars.nedberg@bouvet.no).
 
 
-#####What is it?#####
-We have two parts of the application, the admin part and the user part.
-The user part is basically a fancy, radio button-styled questionnaire.
-The answers obtained are saved in a database, and can be viewed in the admin part of the application.
-Both parts of the application can be accessed from the main menu that is the first screen that welcomes you when accessing the application.
 
-#####Documentation#####
-A documentation on the concept, the use of the application, the intended users, the technical solutions chosen and more can be obtained by asking Henrik.
+The application mainly consists of two subparts.
+Part 1 is a questionnaire where the user answers an image-questionnaire-form.
+Answers obtained are saved in a database, and can be viewed in the admin part of the application.
+Both the user and the admin part of the application can be accessed from the main menu (the first screen when accessing the application)
+
+Part 2 is presenting statistics from the answers gathered in part 1.
+
+
+A documentation on the concept, the use of the application, the intended users, the technical solutions chosen and more can be obtained by asking Lars.
+
+
 
 #####How to set up and run the application######
 1. Clone this repo
