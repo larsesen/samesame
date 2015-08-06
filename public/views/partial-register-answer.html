@@ -8,31 +8,12 @@
 	
 <br>
 	<body>	
-
-	<div class="btn-group">
-		
-
-		<label>
-			<input type="radio" value="a" ng-model="checkedA" required/>
-			<img ng-src="./images/{{nextQ}}a.png" name="a" ng-class="foo()" ng-click="nextQuestion('a')">
-		</label>
-	  
-	  	<label>
-    		<input type="radio" value="b" ng-model="checkedB" required/>
-    		<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">
-  		</label>
-
-  	</div>
-  		
-  		<br>
-
-		<!--
-		<div class="text-white text-medium">			
-			{{nextQ}} || {{questionid}} || {{response}}		
-		</div>
-		-->
-
+		<div class="custom-image-size">
+		<img ng-src="./images/{{nextQ}}a.png" name="a" ng-click="nextQuestion('a')">
+		<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">		
+</div>
 	</div>
+	
 	<div class="middle-pos topspace">
 		<a href="#/partial-start" class="btn btn-def-bouvet btn-front-large">
 			<span class="glyphicon glyphicon-repeat"></span>
@@ -40,13 +21,5 @@
 		</a>
 	</div>
 
-<!--
-<pre>
-    {{ formData }} 
-</pre>
- -->
 	
 	</body>
-
-
-

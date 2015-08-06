@@ -290,6 +290,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.dottedLine = TextStrings.getDottedLine();
 		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
+		//setting that question about sex should be answered first
 		var nextQ = 1;
 		var sex;
 
@@ -312,13 +313,15 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.nextQuestion = function(response,radio) {
 
-				// Define style for image
 
 			$interval(function() {
 
-				// Reset styple for image "ng-class"
+/*
+				// Reset style for image "ng-class"
 				$scope.checkedA = false;
 				$scope.checkedB = false;
+*/
+
 
 				answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 				var listEmpty = isListEmpty(answeredQuestions);
@@ -366,7 +369,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			}, 50, 1);
+			}, 130, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -647,10 +650,6 @@ angular.module("samesameApp.controllers", [])
 
 
 
-
-
-
-
 		var retrieveTypeData = function(type) {
 			Statistics.resetStatistics();		
 			//initial call to fetch answers
@@ -664,15 +663,13 @@ angular.module("samesameApp.controllers", [])
 				$scope.resultObject = Statistics.getBiggestDeviation(comparisons);
 
 
-				//var negDev = Statistics.isNegativeDeviation(statObject);
-
 
 				
 			
 
 
 				$scope.typeData = Statistics.getTypeData();
-				//console.log(Statistics.getCurrentAnswers(UserIDService.getUserID));
+
 				
 				//Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});

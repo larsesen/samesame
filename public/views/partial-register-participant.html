@@ -1,13 +1,14 @@
-<div class="text-large"> &nbsp <img src="./photos/logo_medium.png"> </div>
+<div class="text-large logo-topspace"> 
+	&nbsp <img src="./photos/logo_medium.png"> </div>
 
 
 <div class="container middle-pos">	
-	<h2 class="text-orange text-large top-pad">{{mainTitle}}</h2>
+	<h2 class="text-orange text-large">{{mainTitle}}</h2>
 	<h6 class="text-white">{{dottedLine}}</h6>
 	<p class="text-white text-smaller">{{secondaryTitle}}</p>
 	<h6 class="text-white">{{dottedLine}}</h6>
 
-	<br><br>
+	<br>
 	<div class="text-white text-smaller">
 		<p> Hvis du vil være med i trekningen av premien, kan du fylle
 			ut informasjonen under. </p>
@@ -39,25 +40,26 @@
 		</p>
 		
 		<p ng-show="userForm.participantEmail.$dirty && userForm.participantEmail.$error.pattern"
-		
 		class="help-block has-error-custom">
 			Kontaktinformasjonen må inneholde enten telefonnr eller epost
 		</p>
 		
-		<br>
 
 
-		<div class="btn-group">
-			<label>
-				<input type="radio" value="a" ng-model="participant.prize" required/>
-		    	<img ng-src="./images/prize/1a.png" name="participantPrizeA">
-		  	</label>
-	  
-		  	<label>
-	    		<input type="radio" value="b" ng-model="participant.prize" required/>
-	    		<img ng-src="./images/prize/1b.png" name="participantPrizeB" >
-	  		</label>
-  		</div>
+	
+	<div class="btn-group">
+		<label>
+			<input type="radio" value="a" ng-model="participant.prize" required/>
+	    	<img ng-src="./images/prize/1a.png" name="participantPrizeA">
+	  	</label>
+  
+	  	<label>
+    		<input type="radio" value="b" ng-model="participant.prize" required/>
+    		<img ng-src="./images/prize/1b.png" name="participantPrizeB" >
+  		</label>
+  	</div>
+
+
 
 
   		<br><br><br>			
@@ -75,13 +77,8 @@
 		</div>
 
 
-		<br>
-		<div class="text-white text-medium">
-			
-			<!--
-			{{nextQ}} || {{questionid}} || {{response}}
-			-->
-		</div>
+		
+		
 	</form>
 
 
@@ -90,6 +87,6 @@
 			Nei takk 
 		</a>
 	</div>
-	<br><br>
+	<br>
 
 </div>

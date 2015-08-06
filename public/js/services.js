@@ -579,7 +579,8 @@ angular.module("samesameApp.services", [])
 				var statObject = []
 
 				var i;
-				for (i=0; i < comparisons.length; i++) {
+				//Purpously omitting index=0, because statistics male/female is not that interesting
+				for (i = 1; i < comparisons.length; i++) {
 					
 					var typeAnswer = comparisons[i].mostAnswered;
 					var userResponse = comparisons[i].response;
@@ -587,7 +588,6 @@ angular.module("samesameApp.services", [])
 					var percentB = comparisons[i].percentB;
 					
 				
-					//If we want to find the biggest deviation from the type answer
 					if (typeAnswer === false) {		
 						if (userResponse === 'a') {
 							currentNegDeviation = percentB - percentA;	
@@ -624,7 +624,8 @@ angular.module("samesameApp.services", [])
 					}
 				}
 
-
+				//Setting object:
+				
 				var questionid,
 					response, 
 					mostAnswered,
@@ -667,13 +668,7 @@ angular.module("samesameApp.services", [])
 						percent : percentage
 					}
 				return statObject;
-			},
-
-
-			isNegativeDeviation : function(statObject) {
-				return statObject.mostAnswered;
 			}
-
 
 		};
 	})
