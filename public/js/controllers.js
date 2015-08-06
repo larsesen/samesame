@@ -314,23 +314,14 @@ angular.module("samesameApp.controllers", [])
 		$scope.nextQuestion = function(response,radio) {
 
 
-			$interval(function() {
-
-/*
-				// Reset style for image "ng-class"
-				$scope.checkedA = false;
-				$scope.checkedB = false;
-*/
-
+			//$interval(function() {
 
 				answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 				var listEmpty = isListEmpty(answeredQuestions);
-				$scope.answeredQuestions = answeredQuestions; // used for printing to view
 
 				//Checks how many elements left. Used for routing request correctly
 				var elementsLeft = elementsLeftInList(answeredQuestions);
 				var questionid = $scope.nextQ;
-
 
 				if (questionid == 1) {
 					if (response === 'a') {
@@ -341,7 +332,6 @@ angular.module("samesameApp.controllers", [])
 					}
 				}
 			
-
 				//Creating JSON object used to send to db
 				var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "sex": sex  };
 				//console.log("dataJSON: " + JSON.stringify(dataJSON));  
@@ -369,7 +359,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			}, 130, 1);
+			//}, 130, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
