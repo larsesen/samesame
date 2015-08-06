@@ -20,19 +20,13 @@ supports GET, POST, DELETE
 */
 	app.route("/answers")
 		//used to get all answers in json format
-		.get(user.getAnswers)
+		.get(user.getAllAnswers)
 		
 		//used to insert a new answer
 		.post(user.insertAnswer)
 		
 		//used to truncate the table containing the answers
-		.delete(user.deleteAnswers);
-		
-/*
-route for accessing multiple answers and visualize them
-supports GET
-*/		
-	app.route("/visualize").get(user.getAnswers);
+		.delete(user.deleteAllAnswers);
 
 /*
 route for accessing specific answers based on the id provided as parameter
@@ -40,11 +34,11 @@ supports GET, PUT, DELETE
 */
 	app.route("/answers/:id")
 		//used to get the answer with the specified id
-		.get(user.getAnswer)
+		.get(user.getSingleAnswer)
 		
-
 		//used to delete the answer with the specified id
-		.delete(user.deleteAnswer);
+		.delete(user.deleteSingleAnswer);
+
 
 
 /*
@@ -85,7 +79,6 @@ route for deleting all winners, sets the 'winner' field of all participants to 0
 
 
 
-
 /*
 Routes for retrieving statistics
 */
@@ -105,17 +98,11 @@ Routes for retrieving statistics
 	app.route("/statsCount")
 		.get(user.getCounts);
 
+
 	app.route("/currentAnswers/:id")
 		.get(user.getCurrentAnswers);
 
-
-
-
-
-
 	app.route("/getTypeData")
 		.get(user.getTypeData);
-
-
 
 };

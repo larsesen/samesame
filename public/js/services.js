@@ -7,24 +7,12 @@ angular.module("samesameApp.services", [])
 	.factory("Answers", function($http) {
 		return {
 			//gets all answers with a boolean parameter to determine whether all answers or only unprocessed should be fetched
-			getAll : function(viewAllArg) {
-				return $http.get("/answers", {
-					params : {
-						viewAll : viewAllArg
-					}
-				});
+			getAll : function() {
+				return $http.get("/answers");
 			},
 			//get the answer with the specified id
 			get : function(id) {
 				return $http.get("/answers/" + id);
-			},
-			//locks the answer with the specified id
-			toggleLock : function(id) {
-				return $http.put("/toggleLockAnswer/" + id);
-			},
-			//updates the processed status of the answer with the specified id
-			update : function(id) {
-				return $http.put("/answers/" + id);
 			},
 			//deletes all answers
 			deleteAll : function() {
@@ -38,6 +26,7 @@ angular.module("samesameApp.services", [])
 			delete : function(id) {
 				return $http.delete(/answers/ + id);
 			},
+			//exports db data to excel file
 			export : function() {
 				return $http.get("/exportAnswers");
 			}

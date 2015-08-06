@@ -12,7 +12,6 @@ angular.module("samesameApp", [
 	"samesameApp.directives",
 	"samesameApp.services",
 	"samesameApp.filters",
-	"angular-carousel",
 	"ui.bootstrap"
 	]).
 
@@ -51,6 +50,7 @@ config(["$routeProvider", function($routeProvider) {
 			templateUrl: "views/partial-view-participants.html", controller: "ParticipantsCtrl"
 		});
 
+
 /* ============================================================
 Stats views
 =============================================================*/
@@ -70,8 +70,6 @@ Stats views
 			templateUrl: "views/partial-stat-generateAverage.html", controller: "StatisticsCtrl",
 		});
 
-
-
 	$routeProvider.when("/partial-stat-imagepairs",
 		{
 			templateUrl: "views/partial-stat-imagepairs.html", controller: "StatisticsCtrl"
@@ -82,7 +80,6 @@ Stats views
 	{
 		templateUrl: "views/stat-carousel-backup.html", controller: "StatisticsCtrl"
 	});
-
 
 	$routeProvider.when("/partial-view-results",
 		{

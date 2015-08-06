@@ -38,20 +38,27 @@ function query(queryStr, callback) {
 }
 
 
+
+
+
+/*========================
+Answer queries
+========================*/
+
 //select all answers
-function readAnswers(callback) {
-	//console.log("db.readAnswers");
+function getAllAnswers(callback) {
 	query("select * from samesame.answers", callback);
 }
 
+
 //select a specific answer
-function readOneAnswer(id, callback) {
+function getSingleAnswer(id, callback) {
 	query("select * from samesame.answers where answerid = " + id + ";", callback);
 }
 
+
 /*
-insert a new answer
-values is an array containing the values to be inserted
+insert a new answer. Values is an array containing the values to be inserted
 also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
@@ -62,16 +69,28 @@ function insertAnswer(values, callback) {
 
 
 //delete all answers
-function deleteAnswers(callback) {
+function deleteAllAnswers(callback) {
 	query("truncate table samesame.answers", callback);
 }
 
 
 
 //delete a specific answer
-function deleteAnswer(id, callback) {
+function deleteSingleAnswer(id, callback) {
 	query("delete from samesame.answers where answerid = " + id, callback);
 }
+
+//export answers to CSV-file without the status fields (locked and processed)
+function exportAnswers(callback) {
+	query("SELECT userid, questionid, response from samesame.answers", callback);
+			// INTO OUTFILE '" + exportPath + "answers" + dateHelper() + ".csv'\
+}
+
+
+
+/*========================
+Participant queries
+========================*/
 
 //select all participants
 function getParticipants(callback) {
@@ -79,14 +98,12 @@ function getParticipants(callback) {
 }
 
 /*
-insert a new participant
-values is an array containing the values to be inserted
+insert a new participant. Values is an array containing the values to be inserted
 */
 function insertParticipant(values, callback) {
 	query("insert into samesame.participants(email, userid, name, prize, bouvet)" + 
 		"values ('" + values.email + "', '" + values.userid + "', '" + values.name + "', '" + values.prize + "', '" + values.bouvet + "');", callback);
 }
-
 
 //delete all participants
 function deleteParticipants(callback) {
@@ -103,12 +120,6 @@ function deleteWinners(callback) {
 	query("update samesame.participants set winner = 0 where winner = 1", callback);
 }
 
-//export answers to CSV-file without the status fields (locked and processed)
-function exportAnswers(callback) {
-	query("SELECT userid, questionid, response from samesame.answers", callback);
-			// INTO OUTFILE '" + exportPath + "answers" + dateHelper() + ".csv'\
-}
-
 //export participants to CSV-file without the winner field
 function exportParticipants(callback) {
 	query("SELECT email, name FROM samesame.participants", callback);
@@ -117,24 +128,11 @@ function exportParticipants(callback) {
 
 
 
-
-
-
-function getAllAnswers(callback) {
-	//console.log("db calling getStats");
-	query("SELECT * FROM samesame.answers", callback);
-}
-
-
-
-
-
-
-
-
 /*===========================================================================
-Statistics
+Statistics queries
 SQL queries returns a lot of information, where a single view does not necessarily use all data, but all data is used somewhere.
+
+Complete statement is copied as a comment inside each function to easily test it out in MySQL command line without dealing with syntax.
 ===========================================================================*/
 
 
@@ -159,6 +157,7 @@ from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(ca
 from samesame.answers, samesame.participants where answers.userid=participants.userid and bouvet=1 group by questionid) x;
 */
 }
+
 
 function getMaleStatistics(callback) {
 	query("select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " +
@@ -190,6 +189,11 @@ function getCounts(callback) {
 		"select count(*) as bouvet from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and bouvet=1;"+
 		"select count(*) as male from samesame.answers where sex='m';" +
 		"select count(*) as female from samesame.answers where sex='f'", callback);
+/*
+select count(*) as total from samesame.answers; select count(*) as bouvet from samesame.answers,samesame.participants 
+where samesame.answers.userid = samesame.participants.userid and bouvet=1; select count(*) as male from samesame.answers where sex='m'; 
+select count(*) as female from samesame.answers where sex='f';
+*/
 }
 
 
@@ -198,82 +202,48 @@ function getCurrentAnswers(id, callback) {
 }
 
 
-
-/*
-
-select questionid, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ 
-from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
-
-
-1438765647029
-
-//To retrieve questionid, most selected answer, as well as percentages for a and b.
-select questionid, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, sum(case when response='a' then 1 else 0 end) a, 
-sum(case when response='b' then 1 else 0 end) b 
-from samesame.answers group by questionid) x;
-
-*/
-
 function getTypeData(callback) {
 	query("select questionid, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " + 
 		" from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
 		" from samesame.answers group by questionid) x", callback);
+/*
+select questionid, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ from (select questionid, 
+sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x;
+*/
 }
 
-exports.getTypeData = getTypeData;
 
 
 
 
 
 
+/*========================
+Exporting methods
+========================*/
 
+exports.getAllAnswers         = getAllAnswers;
+exports.getSingleAnswer       = getSingleAnswer;
+exports.insertAnswer          = insertAnswer;
+exports.deleteAllAnswers      = deleteAllAnswers;
+exports.deleteSingleAnswer    = deleteSingleAnswer;
+exports.exportAnswers         = exportAnswers;
 
+exports.getParticipants       = getParticipants;
+exports.insertParticipant     = insertParticipant;
+exports.deleteParticipants    = deleteParticipants;
+exports.updateWinner          = updateWinner;
+exports.deleteWinners         = deleteWinners;
+exports.exportParticipants    = exportParticipants;
 
+exports.getAverageStatistics  = getAverageStatistics;
+exports.getBouvetStatistics   = getBouvetStatistics;
+exports.getMaleStatistics     = getMaleStatistics;
+exports.getFemaleStatistics   = getFemaleStatistics;
+exports.getCounts             = getCounts;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-exports.readAnswers            = readAnswers;
-exports.readOneAnswer          = readOneAnswer;
-exports.insertAnswer           = insertAnswer;
-exports.deleteAnswers          = deleteAnswers;
-exports.deleteAnswer           = deleteAnswer;
-exports.getParticipants        = getParticipants;
-exports.insertParticipant      = insertParticipant;
-exports.deleteParticipants     = deleteParticipants;
-exports.updateWinner           = updateWinner;
-exports.deleteWinners          = deleteWinners;
-exports.exportAnswers          = exportAnswers;
-exports.exportParticipants     = exportParticipants;
-
-
-exports.getAllAnswers = getAllAnswers;
-
-exports.getAverageStatistics = getAverageStatistics;
-exports.getBouvetStatistics = getBouvetStatistics;
-exports.getMaleStatistics = getMaleStatistics;
-exports.getFemaleStatistics = getFemaleStatistics;
-exports.getCounts = getCounts;
-
-
-exports.getCurrentAnswers = getCurrentAnswers;
+exports.getCurrentAnswers     = getCurrentAnswers;
+exports.getTypeData           = getTypeData;
 
 
 

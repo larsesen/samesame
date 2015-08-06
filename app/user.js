@@ -17,8 +17,8 @@ function index(req, res){
 Get all answers from the database and return them as an array of JSON objects.
 The parameter 'viewAll' determines whether all answers or only unprocessed are fetched
 */
-function getAnswers(req, res) {
-	db.readAnswers(function(err, rows) {
+function getAllAnswers(req, res) {
+	db.getAllAnswers(function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
 		}
@@ -33,8 +33,8 @@ function getAnswers(req, res) {
 /*
 Get the answer with the id specified as parameter of the request.
 */
-function getAnswer(req, res) {
-	db.readOneAnswer(req.params.id, function(err, row) {
+function getSingleAnswer(req, res) {
+	db.getSingleAnswer(req.params.id, function(err, row) {
 		if (err) {
 			errorHandler(err, res);
 		}
@@ -71,8 +71,8 @@ function insertAnswer(req, res) {
 /*
 Truncate (clear/delete) the samesame.answers table.
 */
-function deleteAnswers(req, res) {
-	db.deleteAnswers(function(err, rows) {
+function deleteAllAnswers(req, res) {
+	db.deleteAllAnswers(function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
 		}
@@ -85,8 +85,8 @@ function deleteAnswers(req, res) {
 /*
 Delete the answer with the id specified as parameter of the request
 */
-function deleteAnswer(req, res){
-	db.deleteAnswer(req.params.id, function(err, rows) {
+function deleteSingleAnswer(req, res){
+	db.deleteSingleAnswer(req.params.id, function(err, rows) {
 		if (err) {
 			errorHandler(err, res);
 		}
@@ -264,22 +264,6 @@ function convertToCSV(objArray) {
 
 
 
-// =======================================================================================
-
-
-function getAllAnswers(req, res) {
-	db.getAllAnswers(function(err, rows) {
-		if (err) {
-			errorHandler(err, res);
-		}
-		else {
-			res.send(rows);
-		}
-	});
-}
-
-
-
 /*=======================================
 Statistics
 =======================================*/
@@ -291,7 +275,6 @@ function getAverageStatistics(req,res) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
@@ -303,7 +286,6 @@ function getBouvetStatistics(req,res) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
@@ -315,7 +297,6 @@ function getMaleStatistics(req,res) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
@@ -327,7 +308,6 @@ function getFemaleStatistics(req,res) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
@@ -340,7 +320,6 @@ function getCounts(req,res) {
 			errorHandler(err, res);
 		}
 		else {
-			//console.log("Rows returned from db: " + JSON.stringify(rows));
 			res.send(rows);
 		}
 	});
@@ -359,10 +338,6 @@ function getCurrentAnswers(req,res) {
 }
 
 
-
-
-
-
 function getTypeData(req,res) {
 	db.getTypeData(function(err,rows) {
 		if (err) {
@@ -374,45 +349,21 @@ function getTypeData(req,res) {
 	});
 }
 
-exports.getTypeData = getTypeData;
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-Exporting of all methods used by other scripts, mostly by router.js
-*/
+/*=======================================
+Exporting methods
+=======================================*/
 
 exports.index                 = index;
-exports.getAnswers            = getAnswers;
-exports.getAnswer             = getAnswer;
+exports.getAllAnswers         = getAllAnswers;
+exports.getSingleAnswer       = getSingleAnswer;
 exports.insertAnswer          = insertAnswer;
-exports.deleteAnswers         = deleteAnswers;
-exports.deleteAnswer          = deleteAnswer;
+exports.deleteAllAnswers      = deleteAllAnswers;
+exports.deleteSingleAnswer    = deleteSingleAnswer;
+
 exports.getParticipants       = getParticipants;
 exports.insertParticipant     = insertParticipant;
 exports.deleteParticipants    = deleteParticipants;
@@ -421,12 +372,11 @@ exports.updateWinner          = updateWinner;
 exports.exportAnswers         = exportAnswers;
 exports.exportParticipants    = exportParticipants;
 
-exports.getAllAnswers = getAllAnswers;
-exports.getAverageStatistics = getAverageStatistics;
-exports.getBouvetStatistics = getBouvetStatistics;
-exports.getMaleStatistics = getMaleStatistics;
-exports.getFemaleStatistics = getFemaleStatistics;
-exports.getCounts = getCounts;
+exports.getAverageStatistics  = getAverageStatistics;
+exports.getBouvetStatistics   = getBouvetStatistics;
+exports.getMaleStatistics     = getMaleStatistics;
+exports.getFemaleStatistics   = getFemaleStatistics;
+exports.getCounts             = getCounts;
 
-
-exports.getCurrentAnswers = getCurrentAnswers;
+exports.getCurrentAnswers     = getCurrentAnswers;
+exports.getTypeData           = getTypeData;
