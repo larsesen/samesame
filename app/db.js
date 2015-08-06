@@ -212,14 +212,6 @@ select questionid, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, 
 sum(case when response='b' then 1 else 0 end) b 
 from samesame.answers group by questionid) x;
 
-
-
-
-
-select *, (a-b) as difference, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ 
-from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b from samesame.answers group by questionid) x
-
-
 */
 
 function getTypeData(callback) {

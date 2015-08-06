@@ -660,7 +660,16 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setTypeData(statistics);
 
 				var comparisons = Statistics.compareCurrentWithType(Statistics.getTypeData(), $scope.currentAnswers);
-				Statistics.getBiggestDeviation(comparisons);
+				
+				$scope.resultObject = Statistics.getBiggestDeviation(comparisons);
+
+
+				//var negDev = Statistics.isNegativeDeviation(statObject);
+
+
+				
+			
+
 
 				$scope.typeData = Statistics.getTypeData();
 				//console.log(Statistics.getCurrentAnswers(UserIDService.getUserID));

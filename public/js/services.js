@@ -567,7 +567,7 @@ angular.module("samesameApp.services", [])
 
 			getBiggestDeviation : function(comparisons) {
 
-				//neg variables is the main check. But if no neg variables are set, I retrieve biggest positive deviation to present
+				//neg variables is the main check. But if no neg variables are found, I retrieve biggest positive deviation to present
 				var biggestNegDeviationIndex = -1,
 					biggestNegDeviation = 0,
 					currentNegDeviation = -1;
@@ -613,7 +613,6 @@ angular.module("samesameApp.services", [])
 								biggestPosDeviation = currentPosDeviation;
 								biggestPosDeviationIndex = i;
 							}
-
 						}
 						else if (userResponse === 'b') {
 							currentPosDeviation = percentB - percentA;
@@ -625,54 +624,54 @@ angular.module("samesameApp.services", [])
 					}
 				}
 
-				//console.log("Negative Deviation:   questionid: " + biggestNegDeviationIndex + ", deviation: " + biggestNegDeviation);
-				//console.log("negIndex: " + biggestNegDeviationIndex + ", posIndex: " + biggestPosDeviationIndex);
+
+				var questionid,
+					response, 
+					mostAnswered,
+					percentage;
 
 				if (biggestNegDeviationIndex === -1) {
 					console.log("Finding positive deviation");
-					//console.log("You have answered the same as the type answer for all questions");
-					//console.log("Positive Deviation:     questionid: " + biggestPosDeviationIndex + ", deviation: " + biggestPosDeviation);
-
-					var percentage;
-					if (currentAnswers[biggestPosDeviationIndex].response === 'a') {
+					
+					questionid = currentAnswers[biggestPosDeviationIndex].questionid;
+					response = currentAnswers[biggestPosDeviationIndex].response;
+					mostAnswered = true;
+				
+					if (response === 'a') {
 						percentage = typeData[biggestPosDeviationIndex].a_;
 					}
-					else if (currentAnswers[biggestPosDeviationIndex].response === 'b') {
+					else if (response === 'b') {
 						percentage = typeData[biggestPosDeviationIndex].b_;
-					}
-
-					statObject = {
-						questionid : currentAnswers[biggestPosDeviationIndex].questionid,
-						response : currentAnswers[biggestPosDeviationIndex].response,
-						mostAnswered : true,
-						percent : percentage
-					}
+					}								
 				}
 
 				else {
 					console.log("Finding negative deviation");
-					var percentage;
-					if (currentAnswers[biggestNegDeviationIndex].response === 'a') {
+
+					questionid = currentAnswers[biggestNegDeviationIndex].questionid;
+					response = currentAnswers[biggestNegDeviationIndex].response;
+					mostAnswered = false;
+
+					if (response === 'a') {
 						percentage = typeData[biggestNegDeviationIndex].a_;
 					}
-					else if (currentAnswers[biggestNegDeviationIndex].response === 'b') {
+					else if (response === 'b') {
 						percentage = typeData[biggestNegDeviationIndex].b_;
-					}
-
-					statObject = {
-						questionid : typeData[biggestNegDeviationIndex].questionid,
-						response : currentAnswers[biggestNegDeviationIndex].response,
-						mostAnswered : false,
-						percent : percentage
-					}
+					}					
 				}
 
+				statObject = {
+						questionid : questionid,
+						response : response,
+						mostAnswered : mostAnswered,
+						percent : percentage
+					}
+				return statObject;
+			},
 
 
-				console.log(JSON.stringify(statObject));
-
-
-
+			isNegativeDeviation : function(statObject) {
+				return statObject.mostAnswered;
 			}
 
 

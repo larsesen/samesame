@@ -13,24 +13,14 @@
 	</div>
 	<br>
 
+
+	<div class="text-smaller text-white">
+		Du skilte deg mest ut på spørsmål {{resultObject.questionid}} <br>
+		Ditt svar var {{resultObject.response}} <br>
+		{{resultObject.percent}} % svarte det samme som deg <br><br>
+
+	</div>
 	
-
-	<div class="text-white text-smaller middle-pos" >
-		Current response:
-		<div ng-repeat="answer in currentAnswers">
-
-			{{answer.response}}
-		</div>
-	</div>
-	<br>
-
-
-	<div class="text-white text-smaller middle-pos">
-		Type response from db:
-		<div ng-repeat="data in typeData">
-			{{data.mostFreq}}		
-		</div>
-	</div>
 
 
 
