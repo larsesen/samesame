@@ -276,9 +276,16 @@ tr th {
 
 
 .typePerson img {
-	height:200px;
-	width:200px;
+	height:100px;
+	width:100px;
 }
 
- 
+.image-size-custom img {
+	height:200px;
+	width: 200px;
+}
 
+
+.image-horizontal div img {
+	display: inline-block;
+}
