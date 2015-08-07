@@ -16,48 +16,28 @@
                 Tilbake til meny
             </a>
         </div>
-
-
     </div>
-    <br><br><br>
+   
 
 
-    <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-           
-            <div ng-repeat="dataList in allData">
+    <div class="col-sm-4 col-sm-offset-4">
+       
+        <div ng-repeat="dataList in allData" class="text-white text-medium middle-pos">
+            List
+            <div class="text-orange text-small text-center">
+                {{dataList.name}}
+            </div>
+        
+            <div ng-repeat="data in dataList">                                       
+                    
+                    <img ng-src="./images/{{data.questionid}}{{data.mostFreq}}.png" imageonload></td>
 
-                <div class="text-orange text-small text-center">
-                    {{dataList.name}}
-                </div>
-
+            </div>
             <br>
-
-            <!-- Mal for hvordan tabellen skal se ut -->
-            <table style="img-small" class="table table-hover middle-pos bg-white">
-                <thead>
-                    <tr>
-                        <!--
-                        <th class="middle-pos">Question</th>
-                        <th class="middle-pos">Mest valgte alternativ</th>
-                        -->
-                        <th class="middle-pos">Bilde </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="data in dataList">                                       
-                        <!--
-                        <td>{{data.questionid}}</td>
-                        <td>{{data.mostFreq}}</td>                                         
-                        -->
-                        <td><img ng-src="./images/{{data.questionid}}{{data.mostFreq}}.png" imageonload></td>
-
-                    </tr>
-                </tbody>
-            </table>
-            <br><br><br><br>
         </div>
     </div>
 
-
 </div>
+
+
+
