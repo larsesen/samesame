@@ -65,9 +65,9 @@ Stats views
 			templateUrl: "views/partial-stat-table.html", controller: "StatisticsCtrl"
 		});
 
-	$routeProvider.when("/partial-stat-generateAverage",
+	$routeProvider.when("/partial-stat-typePerson",
 		{
-			templateUrl: "views/partial-stat-generateAverage.html", controller: "StatisticsCtrl",
+			templateUrl: "views/partial-stat-typePerson.html", controller: "StatisticsCtrl",
 		});
 
 	$routeProvider.when("/partial-stat-carousel",

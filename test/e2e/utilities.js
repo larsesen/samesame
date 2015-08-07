@@ -71,12 +71,8 @@ function clickTableStatistics(browser) {
     browser.findElement(by.name("seeTableStatistics")).click();
 }
 
-function clickComparisonStatistics(browser) {
-    browser.findElement(by.name("seeComparisonStatistics")).click();
-}
-
-function clickAverageStatistics(browser) {
-    browser.findElement(by.name("seeAverageStatistics")).click();
+function clickTypeStatistics(browser) {
+    browser.findElement(by.name("seeTypeStatistics")).click();
 }
 
 function clickStatisticMenuButton(browser) {
@@ -174,7 +170,7 @@ exports.clickMenuButton = clickMenuButton;
 exports.clickStatistics = clickStatistics;
 exports.clickTableStatistics = clickTableStatistics;
 exports.clickComparisonStatistics = clickComparisonStatistics;
-exports.clickAverageStatistics = clickAverageStatistics;
+exports.clickTypeStatistics = clickTypeStatistics;
 exports.clickStatisticMenuButton = clickStatisticMenuButton;
 
 exports.clickStartButton = clickStartButton;

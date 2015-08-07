@@ -69,8 +69,8 @@ Complete when statistic module is built with final names
     util.clickComparisonStatistics(browser);
     expect(browser.getCurrentUrl()).toEqual(baseURL + "index.html#/partial-stat-Comparison");
 */
-    util.clickAverageStatistics(browser);
-    expect(browser.getCurrentUrl()).toEqual(baseURL + "index.html#/partial-stat-generateAverage");
+    util.clickTypeStatistics(browser);
+    expect(browser.getCurrentUrl()).toEqual(baseURL + "index.html#/partial-stat-typePerson");
 
 
 	});
