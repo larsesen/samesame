@@ -155,6 +155,14 @@ body {
 	color: #fff;
 }
 
+.text-larger {
+	font-size: 60px;
+}
+
+.text-largest {
+	font-size: 70px;
+}
+
 .text-large {
 	font-size:50px;
 }
@@ -271,8 +279,24 @@ input:checked + img {
 	padding-top: 6em
 }
 
+.topspace-large {
+	padding-top: 12em;
+}
+
+.topspace-larger {
+	padding-top: 18em;
+}
+
+.topspace-largest {
+	padding-top: 24em;
+}
+
 .topspace-small {
 	padding-top: 3em
+}
+
+.topspace-smaller {
+	padding-top: 1em;
 }
 
 .logo-topspace {
@@ -321,7 +345,7 @@ Register answer:
 
 
 
-Used to set size of images in partial-register-answer
+
 .custom-image-size img {
 	width: 350px;
 	height: 350px;
@@ -332,12 +356,13 @@ Used to set size of images in partial-register-answer
 Used to set size of images in partial-stat-carousel:;
 */
 .custom-image-size td img {
-	width: 400px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 }
 
-.progress-bar-height{
+.progress-bar-dimensions{
 	min-height: 100px;
+	width:1000px;
 }
 
 .progress-bar-custom {
@@ -345,6 +370,7 @@ Used to set size of images in partial-stat-carousel:;
 	color: #FF6400;
 	min-width:6em;
 	line-height: 100px;
+
 }
 
 img:active {

@@ -314,7 +314,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.nextQuestion = function(response,radio) {
 
 
-			//$interval(function() {
+			$interval(function() {
 
 				answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 				var listEmpty = isListEmpty(answeredQuestions);
@@ -359,7 +359,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			//}, 130, 1);
+			}, 130, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])

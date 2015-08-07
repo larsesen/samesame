@@ -27,49 +27,42 @@
 
 
 
+<div class="row">
+    
+    <div class="middle-pos text-white text-larger topspace-smaller">
+        {{listName}}:
+    </div>
 
-
-<!-- http://codepen.io/anon/pen/vOQvVa -->
-
-
-<!--
--->
-    <div class="col-sm-5 col-sm-offset-3 topspace">
-        <div id="slides_control" class="text-white text-small middle-pos">
-            <div>
-                <h2> {{listName}} </h2>
-
-             
-                <table>
-                    <tr class="image-carousel custom-image-size">
-                        <td><img ng-src="./images/{{getCurrentImage('a')}}"></td>
-                        <td><img ng-src="./images/{{getCurrentImage('b')}}"></td> 
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <!--
-                        <td>{{activeObject.percentageA}} % </td>
-                        <td>{{activeObject.percentageB}} % </td>
-                        -->
-                    </tr>
-                </table>
-                    <br><br>
-
+    <div class="col-sm-4 col-sm-offset-3 topspace-large">
+        <div id="slides_control">
+            
+            <table>
+                <tr class="image-carousel custom-image-size">
+                    <td><img ng-src="./images/{{getCurrentImage('a')}}"></td>
+                    <td><img ng-src="./images/{{getCurrentImage('b')}}"></td> 
+                </tr>
+                <tr></tr>
                 
-<div class="progress progress-bar-height">
+                 <!--
+                <tr>
+                    <td>{{activeObject.percentageA}} % </td>
+                    <td>{{activeObject.percentageB}} % </td> 
+                </tr>
+                -->
+            </table>
+         </div>
+
+         
+         <div class="topspace">
+
+                <div class="progress progress-bar-dimensions">
                     <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{activeObject.percentageA}}%; ">
                         {{activeObject.percentageA}} %
                     </div>
                 </div>
 
-                </slide>
-                </carousel>
-
-                
-            </div>
-         </div>
+        </div>
 
     </div>
-
-
+</div>
 

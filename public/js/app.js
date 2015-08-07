@@ -78,7 +78,7 @@ Stats views
 
 	$routeProvider.when("/partial-stat-carousel",
 	{
-		templateUrl: "views/stat-carousel-backup.html", controller: "StatisticsCtrl"
+		templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsCtrl"
 	});
 
 	$routeProvider.when("/partial-view-results",
