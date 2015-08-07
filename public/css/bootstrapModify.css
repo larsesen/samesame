@@ -319,9 +319,32 @@ Register answer:
 =============================
 */
 
+
+
+Used to set size of images in partial-register-answer
 .custom-image-size img {
 	width: 350px;
 	height: 350px;
+}
+
+
+/*
+Used to set size of images in partial-stat-carousel:;
+*/
+.custom-image-size td img {
+	width: 400px;
+	height: 400px;
+}
+
+.progress-bar-height{
+	min-height: 100px;
+}
+
+.progress-bar-custom {
+	font-size: 40px;
+	color: #FF6400;
+	min-width:6em;
+	line-height: 100px;
 }
 
 img:active {
@@ -332,3 +355,5 @@ img:active {
 img:checked {
 	border:5px solid #FF6400;
 }
+
+
