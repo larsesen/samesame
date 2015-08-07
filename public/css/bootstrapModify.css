@@ -270,6 +270,9 @@ Styling in partial-stat-carousel.html
 }
 
 
+tr th {
+	text-align: center;
+}
 
 
 

@@ -14,35 +14,38 @@
 
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-2 middle-pos">
-
-		<div class="text-white text-smaller top-pad-smallest">
-			Totalt antall svar: {{answers.length}}
-		<br><br>
-				Index: {{startAnswers + 1}} - {{startAnswers + 10}}
-		<br><br>
+			<div class="text-white text-smaller top-pad-smallest">
+				Totalt antall svar: {{answers.length}}
+			<br><br>
+					Index: {{startAnswers + 1}} - {{startAnswers + 10}}
+			<br><br>
+			</div>
 		</div>
+	</div>
+		
 
-
-		<table class="table table-hover bg-white text-smallest">
-			<thead align="center">
-				<tr>
-					<th>UserID</th>
-					<th>QuestionID</th>
-					<th>Svar</th>
-				</tr>
-			</thead>
-			<tbody class="listview">
-				<!--the ng-class is used for dynamically assigning classes to the rows to give them different colors -->
-				<tr ng-repeat="answer in answers 
-				| answersFromTo:startAnswers:startAnswers +  limitAnswers 
-				| orderBy:['userid']">
-			
-					<td>{{answer.userid}}</td>
-					<td>{{answer.questionid}}</td>
-					<td>{{answer.response}}</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<table class="table table-hover middle-pos bg-white text-smallest">
+				<thead>
+					<tr>
+						<th>UserID</th>
+						<th>QuestionID</th>
+						<th>Svar</th>
+					</tr>
+				</thead>
+				<tbody class="listview">
+					<!--the ng-class is used for dynamically assigning classes to the rows to give them different colors -->
+					<tr ng-repeat="answer in answers 
+					| answersFromTo:startAnswers:startAnswers +  limitAnswers 
+					| orderBy:['userid']">
+				
+						<td>{{answer.userid}}</td>
+						<td>{{answer.questionid}}</td>
+						<td>{{answer.response}}</td>
+					</tr>
+				</tbody>
+			</table>
 	</div>
 
 
