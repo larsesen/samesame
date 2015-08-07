@@ -1,6 +1,6 @@
 <div class="container-fluid">
     
-    <div class="row top-pad-medium">
+    <div class="row top-pad-smaller">
         <!--a button that takes you back to the main menu -->
         <div class="col-sm-2 col-sm-offset-1">
            
@@ -17,8 +17,7 @@
             </a>
         </div>
 
-
-        <div class="col-sm-5 col-sm-offset-2 text-white text-smallest">
+        <div class="col-sm-5 col-sm-offset-2 text-white text-smaller">
             Totalt antall spørsmål besvart: {{counts[0]["total"]}} <br>
             Totalt antall spørsmål besvart av Bouvet: {{counts[1]["bouvet"]}}<br>
             Totalt antall spørsmål besvart av menn: {{counts[2]["male"]}}<br>
@@ -28,7 +27,7 @@
 
     </div>
     <br><br>
-    <div class="row text-orange text-medium middle-pos top-pad-small">
+    <div class="row text-orange text-medium middle-pos top-pad-smallest">
         Statistikk
     </div>
     <br><br>
@@ -43,7 +42,7 @@
                     {{dataList.name}}
                 </div>
 
-                <table class="table table-hover middle-pos bg-white">
+                <table class="table table-hover middle-pos bg-white text-smallest">
                     <thead>
                         <tr>
                             <th class="middle-pos">Question</th>
@@ -52,13 +51,7 @@
                             <th class="middle-pos">% b</th>
                             <th class="middle-pos">a</th>
                             <th class="middle-pos">b</th>
-                            <th class="middle-pos">Totalt antall svar</th>
-
-                            <!--
-                            <th class="middle-pos">a</th>
-                            <th class="middle-pos">b</th>
-                            -->
-                            
+                            <th class="middle-pos">Totalt antall svar</th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -70,12 +63,6 @@
                             <td>{{data.responseA}}</td>
                             <td>{{data.responseB}}</td>
                             <td>{{data.total}}</td>
-                       
-                            <!--
-                            <td>{{data.responseB}}</td>
-                            <td>{{data.responseA}}</td>
-                            -->
-                            
                         </tr>
                     </tbody>
                 </table>  

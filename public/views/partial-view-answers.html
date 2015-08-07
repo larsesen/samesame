@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	
-	<div class="row top-pad-medium bottom-pad-small">
+	<div class="row top-pad-smaller bottom-pad-small">
 			<!--a button that takes you back to the menu -->
 			<div class="col-sm-2 col-sm-offset-1">
 				<a href="#/partial-index.html" name="menuButton" class="btn btn-def-bouvet">
@@ -9,29 +9,22 @@
 					Tilbake til meny
 				</a>
 			</div>
-
 	</div>
 
 
-	
-
-
-			
-	
-
 	<div class="row">
-		<div class="col-sm-8 col-sm-offset-2">
+		<div class="col-sm-8 col-sm-offset-2 middle-pos">
 
-		<div class="col-sm-4 col-sm-offset-5 text-smaller text-white top-pad-small">
+		<div class="text-white text-smaller top-pad-smallest">
 			Totalt antall svar: {{answers.length}}
 		<br><br>
 				Index: {{startAnswers + 1}} - {{startAnswers + 10}}
 		<br><br>
 		</div>
 
-		<!-- table displaying the contents of the database -->
-		<table class="table table-hover bg-white">
-			<thead>
+
+		<table class="table table-hover bg-white text-smallest">
+			<thead align="center">
 				<tr>
 					<th>UserID</th>
 					<th>QuestionID</th>
@@ -52,7 +45,7 @@
 		</table>
 	</div>
 
-	<br><br><br><br><br>
+
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-1">
 			<!--a button that triggers a modal to confirm that you want to delete all answers -->
@@ -80,11 +73,10 @@
 			<button class="btn btn-def-bouvet" ng-click="tenLastAnswers()" ng-disabled="startAnswers >= answers.length - 10">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 				<span class="glyphicon glyphicon-chevron-right"></span>
-			</button>
-		
+			</button>		
 	</div>
 
-	<br><br>
+
 	<div class="row">
 		<div class="col-sm-3 col-sm-offset-1">
 			<a href="/exportAnswers" class="btn btn-def-bouvet" download>Eksporter</a>
@@ -107,6 +99,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		
+		</div>	
 </div>
