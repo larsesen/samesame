@@ -6,20 +6,32 @@
 
 <h2 class="text-orange">{{registerAnswerHeader}}<br><br>
 {{questions.question1.description}}</h2>
-	
+</div>
+
 <br>
+
+
+
 <body>	
-	<div class="custom-image-size">
+<div class="col-sm-6 bg-white">
+	<div class="custom-image-size col-sm-4 col-sm-offset-4">
 		<img ng-src="./images/{{nextQ}}a.png" name="a" ng-click="nextQuestion('a')">
+	</div>
+</div>
+
+<div class="col-sm-6 bg-orange">
+	<div class="custom-image-size col-sm-4 col-sm-offset-2">
 		<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">		
 	</div>
 </div>
-	
-	<div class="middle-pos top-pad-small">
-		<a href="#/partial-start" class="btn btn-def-bouvet btn-front-large">
-			<span class="glyphicon glyphicon-repeat"></span>
-			Start på nytt
-		</a>
-	</div>
+
+<br><br>
+<div class="middle-pos top-pad-small">
+	<a href="#/partial-start" class="btn btn-def-bouvet btn-front-large">
+		<span class="glyphicon glyphicon-repeat"></span>
+		Start på nytt
+	</a>
+</div>
 
 </body>
+</div>

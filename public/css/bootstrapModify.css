@@ -11,7 +11,11 @@ body {
 
 
 .bg-white {
-	background-color: #fff;
+	background-color: #FFF;
+}
+
+.bg-orange {
+	background-color: #FF6400;
 }
 
 .middle-pos {
@@ -286,6 +290,6 @@ Styling in partial-stat-carousel.html
 }
 
 
-.image-horizontal div img {
+.image-horizontal img {
 	display: inline-block;
 }
