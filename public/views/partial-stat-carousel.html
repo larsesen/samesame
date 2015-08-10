@@ -1,10 +1,12 @@
 <div class="row">
     
+    <!--
     <div class="middle-pos text-white text-larger top-pad-smallest">
-        {{listName}}:
+        Prosentfordeling
     </div>
+    -->
 
-    <div class="col-sm-4 col-sm-offset-3 top-pad-large">
+    <div class="col-sm-4 col-sm-offset-4 top-pad-large">
         <div id="slides_control">
             
             <table>
@@ -18,13 +20,68 @@
 
          <div class="top-pad">
 
-                <div class="progress progress-bar-dimensions">
-                    <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{activeObject.percentageA}}%; ">          
-                        {{activeObject.percentageA}} %
+
+                <div class="col-sm-2 logo-size-small text-center">
+                    <img ng-src="./images/symbols/symbol_javazone.png">
+                </div>
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="progress progress-bar-dimensions">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{allList.percentageA}}%; ">          
+                            {{allList.percentageA}} %
+                        </div>
                     </div>
                 </div>
 
+
+                <br><br>
+
+
+                <div class="col-sm-2 logo-size-small-bouvet">
+                    <img ng-src="./images/symbols/symbol_bouvet_hvit.png">
+                </div>
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="progress progress-bar-dimensions">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{bouvetList.percentageA}}%; ">          
+                            {{bouvetList.percentageA}} %
+                        </div>
+                    </div>
+                </div>
+
+
+                <br><br>
+                
+
+                <div class="col-sm-2 logo-size-small text-center">
+                    <img ng-src="./images/symbols/symbol_mann.png">
+                </div>
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="progress progress-bar-dimensions">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{maleList.percentageA}}%; ">          
+                            {{maleList.percentageA}} %
+                        </div>
+                    </div>
+                </div>
+
+                
+                <br><br>
+
+
+                <div class="col-sm-2 logo-size-small text-center">
+                    <img ng-src="./images/symbols/symbol_kvinne.png">
+                </div>
+                    <div class="col-sm-8 col-sm-offset-2">
+                    <div class="progress progress-bar-dimensions">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{femaleList.percentageA}}%; ">          
+                            {{femaleList.percentageA}} %
+                        </div>
+                    </div>
+                </div>
+
+
+
         </div>
+
+
 
     </div>
 </div>

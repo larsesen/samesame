@@ -20,22 +20,18 @@
    
 
 
-    <div class="col-sm-4 col-sm-offset-4">
+  
        
-        <div ng-repeat="dataList in allData" class="text-white text-medium middle-pos">
-            List
-            <div class="text-orange text-small text-center">
-                {{dataList.name}}
-            </div>
-        
-            <div ng-repeat="data in dataList" class="typePerson">                                       
-                    
-                    <img ng-src="./images/{{data.questionid}}{{data.mostFreq}}.png" imageonload></td>
+    <div ng-repeat="dataList in allData" class="text-white text-medium middle-pos">
 
-            </div>
-            <br>
+        <div class="col-sm-10 col-sm-offset-1 image-size-custom image-horizontal">
+            <div ng-repeat="data in dataList | splitImageIntoSublists:6 " class="image-size-custom image-horizontal">                                                   
+                <img ng-src="./images/{{data.questionid}}{{data.mostFreq}}.png" imageonload></td>
+
         </div>
+        <br>
     </div>
+    
 
 </div>
 

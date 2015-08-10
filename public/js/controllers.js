@@ -465,7 +465,6 @@ angular.module("samesameApp.controllers", [])
 					cb(Statistics.getStatistics(type));
 				}
 
-				//Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
 
@@ -499,11 +498,15 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
-		$scope.arr = ['1','2','3','4','5','6','7','8','9','10'];
+		//$scope.arr = ['1','2','3','4','5','6','7','8','9','10'];
 
 		retrieveAllStatistics();
 		retrieveCounts();
 		pairs = initList();
+
+
+		console.log(pairs.length);
+		console.log(pairs);
 
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
@@ -524,12 +527,23 @@ angular.module("samesameApp.controllers", [])
 		$scope.getCurrentImage = function(suffix) {
 			setCurrentImageObject();
 			
+
+
 			//To initially set image while waiting for Angular
+			
 			if(!pairs[currentCollectionId][currentImageId]) {
 				return "loading.png";
 			}
 
 			$scope.dataList = pairs[currentCollectionId];
+			
+			$scope.allList = pairs[0][currentImageId];
+			$scope.bouvetList = pairs[1][currentImageId];
+			$scope.maleList = pairs[2][currentImageId];
+			$scope.femaleList = pairs[3][currentImageId];
+
+
+			//console.log("pairs: " + JSON.stringify(pairs[currentCollectionId]));
 
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
@@ -573,8 +587,10 @@ angular.module("samesameApp.controllers", [])
 			else {
 				currentImageId = currentImageId + 1;
 			}
+	
 		}	
-		$interval(increaseCount, 3000, pairs[currentCollectionId].length - 1);
+		
+		$interval(increaseCount, 5000, pairs[currentCollectionId].length - 1);
 	}])
 
 
@@ -604,6 +620,11 @@ angular.module("samesameApp.controllers", [])
 				if (cb) {
 					cb(Statistics.getStatistics(type));
 				}
+
+
+				console.log("current, getCurrent: " + JSON.stringify(Statistics.getCurrentAnswers(UserIDService.getUserID)));
+				console.log("average, getStatistics:" + JSON.stringify(Statistics.getStatistics(type)));
+
 				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}

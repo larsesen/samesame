@@ -167,7 +167,9 @@ angular.module("samesameApp.services", [])
 					imageURL : "./images/8b.png"
 				}
 				]
-			},
+			}
+			/*
+			,
 			question9: {
 				questionid: '9',
 				options : [
@@ -180,7 +182,7 @@ angular.module("samesameApp.services", [])
 				}
 				]
 			}
-			/*
+			
 			,
 			question10: {
 				questionid: '10',
