@@ -11,20 +11,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.limitAnswers = 10;
 		//the starting index of the view
 		$scope.startAnswers = 0;
-		//a boolean deciding whether to view all answers or only unprocessed
-		$scope.viewAll = true;
-
-		//toggle the viewAll field and fetch data again to reflect the change
-		$scope.toggleViewAll = function() {
-			if ($scope.viewAll) {
-				$scope.viewAll = false;
-			}
-			else {
-				$scope.viewAll = true;
-			}
-			$scope.tenFirstAnswers();
-			$scope.getAnswers();
-		};
+	
 
 		//update the index of viewed answers +10
 		$scope.tenNextAnswers = function() {
@@ -49,104 +36,37 @@ angular.module("samesameApp.controllers", [])
 		$scope.tenFirstAnswers = function() {
 			$scope.startAnswers = 0;
 		};
-
-		//find the number of unprocessed answers
-		$scope.setNumberOfUnprocessed = function() {
-			$scope.numberOfUnprocessed = filterFilter($scope.answers, {processed : 0}).length;
-		};
 		
-		/*
-		get all answers from the server,
-		uses the boolean 'viewAll' and also updates the number of unprocessed answers
-		*/
+		//get all answers from the server,
 		$scope.getAnswers = function() {
-			Answers.getAll($scope.viewAll).success(function (data) {
-					$scope.answers = data;
-					$scope.setNumberOfUnprocessed();
+			Answers.getAll().success(function (data) {
+				$scope.answers = data;
 			});
 		};
+
 
 		//initial call to fetch answers
 		$scope.getAnswers();
 
-		/*
-		get the answer with the id specified.
-		the answer is returned in an array from the server, so to get the answer we are looking for we use data[0]
-		locks the answer if it's unlocked
-		used when viewing a specific answer when the user presses 'behandle svar'
-		*/
-		$scope.getAnswer = function(id) {
-			Answers.get(id).success(function (data) {
-				$scope.oneAnswer = data[0];
-				if (data[0].locked === 0) {
-					Answers.toggleLock(id);
-				}
-			});
-		};
 
-		/*
-		used when the user presses 'merk som behandlet/ubehandlet'
-		changes the status of the answer with the id specified,
-		unlocks and changes the status of the 'processed' field, and finally gets all answers
-		*/
-		$scope.updateStatus = function(id) {
-			Answers.toggleLock(id).success(function() {
-				Answers.update(id).success(function() {
-					$scope.getAnswers();
-				});
-			});
-		};
 		
-		/*
-		used when the user closes the dialog,
-		unlocks the answer and fetches all answers again
-		*/
-		$scope.closeAndUnlock = function(id) {
-			Answers.toggleLock(id).success(function() {
-				$scope.getAnswers();
-			});
-		};
-
-		/*
-		deletes all answers and gets all answers again
-		*/
+		//deletes all answers and gets all answers again
 		$scope.deleteAnswers = function() {
 			Answers.deleteAll().success(function () {
 				$scope.getAnswers();
 			});
 		};
 
-		/*
-		deletes the answer with the specified id and gets all answers again
-		*/
+		
+		//deletes the answer with the specified id and gets all answers again
 		$scope.deleteAnswer = function(id) {
 			Answers.delete(id).success(function() {
 				$scope.getAnswers();
 			});
 		};
 
-		/*
-		uses a filter to get only unprocessed answers, selects the first elemet,
-		and checks the index of that element in the original array.
-		then finds the appropriate index, and updates the index
-		*/
-		$scope.findNextUnprocessed = function() {
-			var nextUnprocessed = $scope.answers.indexOf(filterFilter($scope.answers, {processed : 0})[0]);
-			var roundedIndex = roundIndex(nextUnprocessed);
-			$scope.startAnswers = roundedIndex;
 
-		};
-
-		/*
-		helper method for 'findeNextUnprocessed'
-		*/
-		function roundIndex(index) {
-			return index - (index % 10);
-		}
-
-		/*
-		helper method for 'tenLastAnswers'
-		*/
+		//helper method for 'tenLastAnswers'
 		function lastIndex(length) {
 			var mod = length % 10;
 			if (mod === 0) {
@@ -161,8 +81,9 @@ angular.module("samesameApp.controllers", [])
 			Answers.export().success(function() {
 			});
 		};
-
 	}])
+
+
 
 	//the controller used in the viewing of participants
 	.controller("ParticipantsCtrl", ["$scope", "filterFilter", "Participants", function($scope, filterFilter, Participants) {
@@ -281,6 +202,80 @@ angular.module("samesameApp.controllers", [])
 
 
 
+
+
+
+
+
+	.controller("RegisterGenderCtrl", ["$scope", "$location", "TextStrings", "AnsweredQuestions", "Questions", "Answers", "RecentAnswer", "UserIDService", function($scope, $location, TextStrings, AnsweredQuestions, Questions, Answers, RecentAnswer, UserIDService) {
+
+		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
+		$scope.mainTitle = TextStrings.getMainTitle();
+		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
+		$scope.dottedLine = TextStrings.getDottedLine();
+		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
+
+
+		//maintains total number of questions
+		var numberOfQuestions = Object.keys(Questions).length;
+
+		//Setting variables used throughout questionnaire
+		var questionid = 0;
+		var gender;
+		var userid = JSON.stringify(UserIDService.getUserID());
+		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions(numberOfQuestions);
+
+
+		/*
+		console.log("answered: " + JSON.stringify(answeredQuestions));
+		console.log("USERID: " + userid);
+	*/
+		 
+		//Needed for retrieving images correctly at init stage
+		AnsweredQuestions.removeIndex(answeredQuestions,questionid);
+		$scope.nextQ = questionid;
+		$scope.answeredQuestions = answeredQuestions;
+
+
+
+		$scope.nextQuestion = function(response,radio) {
+
+			if (response === 'a') {
+				gender = 'm';
+			}
+			else if (response === 'b') {
+				gender = 'f';
+			}
+			
+			UserIDService.setGender(gender);
+		
+			//Creating JSON object used to send to db
+			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "gender": gender  };
+			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
+
+			 Answers.create(dataJSON)
+			.success(function(data) {
+				console.log("answer registered" + JSON.stringify(dataJSON));
+				RecentAnswer.setAnswer(dataJSON);
+
+				$location.path("/partial-register-answer");				
+			});
+
+		};
+
+
+	}])
+
+
+
+
+
+
+
+
+
+
+
 	//the controller used on the page where the user registers answers
 	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService","TextStrings", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService, TextStrings) {
 
@@ -290,18 +285,17 @@ angular.module("samesameApp.controllers", [])
 		$scope.dottedLine = TextStrings.getDottedLine();
 		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
-		//setting that question about sex should be answered first
-		var nextQ = 1;
-		var sex;
 
-		//boolean determining whether the user has already attempted to submit
-		$scope.submitted = false;
+		
+		//Generates random number to select first question
+		
+		var nextQ = getRandomInt(1, Object.keys(Questions).length);
 
-		//maintains total number of questions
-		$scope.numberOfQuestions = Object.keys(Questions).length;
+		
+
 
 		//Setting variables used throughout questionnaire
-		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions($scope.numberOfQuestions);
+		var answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 		var userid = JSON.stringify(UserIDService.getUserID());
 		
 	
@@ -311,8 +305,9 @@ angular.module("samesameApp.controllers", [])
 		$scope.nextQ = nextQ;
 		$scope.answeredQuestions = answeredQuestions;
 
-		$scope.nextQuestion = function(response,radio) {
 
+
+		$scope.nextQuestion = function(response,radio) {
 
 			$interval(function() {
 
@@ -323,17 +318,11 @@ angular.module("samesameApp.controllers", [])
 				var elementsLeft = elementsLeftInList(answeredQuestions);
 				var questionid = $scope.nextQ;
 
-				if (questionid == 1) {
-					if (response === 'a') {
-						sex = 'm';
-					}
-					else if (response === 'b') {
-						sex = 'f';
-					}
-				}
+				
+				var gender = UserIDService.getGender();
 			
 				//Creating JSON object used to send to db
-				var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "sex": sex  };
+				var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "gender": gender  };
 				//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
 				 Answers.create(dataJSON)
@@ -359,7 +348,7 @@ angular.module("samesameApp.controllers", [])
 					}
 
 				});
-			}, 130, 1);
+			}, 100, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -455,8 +444,6 @@ angular.module("samesameApp.controllers", [])
 
 	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", function($scope, $interval, Statistics, TextStrings) {
 
-	//.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", function($scope, $interval, Statistics, TextStrings) {
-
 		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
 		$scope.mainTitle = TextStrings.getMainTitle();
 		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
@@ -512,6 +499,7 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
+		$scope.arr = ['1','2','3','4','5','6','7','8','9','10'];
 
 		retrieveAllStatistics();
 		retrieveCounts();
@@ -540,6 +528,9 @@ angular.module("samesameApp.controllers", [])
 			if(!pairs[currentCollectionId][currentImageId]) {
 				return "loading.png";
 			}
+
+			$scope.dataList = pairs[currentCollectionId];
+
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
 
@@ -654,35 +645,12 @@ angular.module("samesameApp.controllers", [])
 
 
 
-				
-			
-
-
-				$scope.typeData = Statistics.getTypeData();
-
-				
-				//Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
 
 
 		retrieveTypeData();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
+	
 
 
 	}])
@@ -726,3 +694,7 @@ function isBouvetEmployee(email) {
 	return (domain === "bouvet.no");
 }
 
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

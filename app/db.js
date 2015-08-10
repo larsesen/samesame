@@ -63,8 +63,8 @@ also contains a comment to relax two warnings of JSHint
 */
 function insertAnswer(values, callback) {
 	/*jshint multistr: true, laxbreak: true*/
-	query("INSERT INTO samesame.answers(userid, questionid, response, sex)" +
-		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "', '" + values.sex + "');", callback);
+	query("INSERT INTO samesame.answers(userid, questionid, response, gender)" +
+		"VALUES ('" + values.userid + "', '" + values.questionid + "', '" + values.response + "', '" + values.gender + "');", callback);
 }
 
 
@@ -162,11 +162,11 @@ from samesame.answers, samesame.participants where answers.userid=participants.u
 function getMaleStatistics(callback) {
 	query("select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " +
 		"from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
-			"from samesame.answers where sex='m' group by questionid) x", callback);
+			"from samesame.answers where gender='m' group by questionid) x", callback);
 /*
 select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ 
 from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b 
-from samesame.answers where sex='m' group by questionid) x;
+from samesame.answers where gender='m' group by questionid) x;
 */
 }
 
@@ -174,11 +174,11 @@ from samesame.answers where sex='m' group by questionid) x;
 function getFemaleStatistics(callback) {
 	query("select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ " +
 		"from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b " + 
-			"from samesame.answers where sex='f' group by questionid) x", callback);
+			"from samesame.answers where gender='f' group by questionid) x", callback);
 /*
 select *, greatest(a,b) as greatest, (a+b) as total, if(a>b, 'a', 'b') as mostFreq, round((a/(a+b)*100),2) as a_, round((b/(a+b)*100),2) as b_ 
 from (select questionid, sum(case when response='a' then 1 else 0 end) a, sum(case when response='b' then 1 else 0 end) b 
-from samesame.answers where sex='f' group by questionid) x;
+from samesame.answers where gender='f' group by questionid) x;
 */
 }
 
@@ -187,12 +187,12 @@ from samesame.answers where sex='f' group by questionid) x;
 function getCounts(callback) {
 	query("select count(*) as total from samesame.answers;" + 
 		"select count(*) as bouvet from samesame.answers,samesame.participants where samesame.answers.userid = samesame.participants.userid and bouvet=1;"+
-		"select count(*) as male from samesame.answers where sex='m';" +
-		"select count(*) as female from samesame.answers where sex='f'", callback);
+		"select count(*) as male from samesame.answers where gender='m';" +
+		"select count(*) as female from samesame.answers where gender='f'", callback);
 /*
 select count(*) as total from samesame.answers; select count(*) as bouvet from samesame.answers,samesame.participants 
-where samesame.answers.userid = samesame.participants.userid and bouvet=1; select count(*) as male from samesame.answers where sex='m'; 
-select count(*) as female from samesame.answers where sex='f';
+where samesame.answers.userid = samesame.participants.userid and bouvet=1; select count(*) as male from samesame.answers where gender='m'; 
+select count(*) as female from samesame.answers where gender='f';
 */
 }
 

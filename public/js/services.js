@@ -71,8 +71,7 @@ angular.module("samesameApp.services", [])
 
 		return {
 			question1: {
-				questionid: '1',
-				description : 'Ditt kjønn:', 
+				questionid: '1', 
 				options : [
 				{
 					value : 'a',
@@ -343,6 +342,7 @@ angular.module("samesameApp.services", [])
 			initAnsweredQuestions : function(length) {
 				answeredQuestions = new Array(length);
 				var i;
+				//index starts from 1 to avoid retrieving gender-question in real questionnaire
 				for (i = 1 ; i < length+1 ; i++) {
 					answeredQuestions[i] = i;
 				}
@@ -351,7 +351,7 @@ angular.module("samesameApp.services", [])
 
 			removeIndex : function(answeredQuestions, index) {
 				delete answeredQuestions[index];
-				return answeredQuestions;
+				//return answeredQuestions;
 			},
 
 			getNextQuestion : function(answeredQuestions) {
@@ -373,7 +373,8 @@ angular.module("samesameApp.services", [])
 
 	//Used to propagate userid throughout application
 	.service("UserIDService", function() {
-		var userid;
+		var userid,
+			usergender
 
 		var setUserID = function(id) {
 			userid = id;
@@ -383,9 +384,20 @@ angular.module("samesameApp.services", [])
 			return userid;
 		};
 
+		var setGender = function(gender) {
+			usergender = gender;
+		};
+
+		var getGender = function() {
+			return usergender;
+		};
+
+
 		return {
 			setUserID: setUserID,
-			getUserID: getUserID
+			getUserID: getUserID,
+			setGender: setGender,
+			getGender: getGender
 		};
 	})
 

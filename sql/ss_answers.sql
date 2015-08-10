@@ -11,7 +11,7 @@ CREATE TABLE answers (
 	answerid mediumInt AUTO_INCREMENT, 
 	userid BigInt,
 	questionid integer,
-	sex varchar(1) NOT NULL,
+	gender varchar(1) NOT NULL,
 	response varchar(1) NOT NULL,
 	primary key (userid, questionid),
 	key (answerid)

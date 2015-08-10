@@ -24,6 +24,16 @@ config(["$routeProvider", function($routeProvider) {
 		{
 			templateUrl: "views/partial-start.html", controller: "InitUserCtrl"
 		});
+
+
+	$routeProvider.when("/partial-register-gender",
+		{
+			templateUrl: "views/partial-register-gender.html", controller: "RegisterGenderCtrl"
+		});
+
+
+
+
 	$routeProvider.when("/partial-register-answer", 
 		{
 			templateUrl: "views/partial-register-answer.html", controller: "RegisterAnswerCtrl"
@@ -79,6 +89,25 @@ Stats views
 		{
 			templateUrl: "views/partial-view-results.html", controller: "StatisticsCompareCtrl"
 		});	
+
+
+
+
+
+
+	$routeProvider.when("/partial-imageHorizontal-test",
+		{
+			templateUrl: "views/partial-imageHorizontal-test.html", controller: "StatisticsCtrl"
+		});	
+
+
+
+
+
+
+
+
+
 
 
 	$routeProvider.otherwise({redirectTo: "/partial-index"});

@@ -55,7 +55,7 @@ function insertAnswer(req, res) {
 		userid: req.body.userid,
 		questionid: req.body.questionid,
 		response: req.body.response,
-		sex: req.body.sex
+		gender: req.body.gender
 	};
 	db.insertAnswer(values, function(err, rows) {
 		if (err) {
