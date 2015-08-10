@@ -264,13 +264,13 @@ Styling in partial-stat-carousel.html
 .progress-bar-custom {
 	font-size: 40px;
 	color: #FF6400;
-	min-width:6em;
+	min-width:4em;
 	line-height: 100px;
 
 }
 
 
-tr th {
+.center-align tr th, .center-align tr td {
 	text-align: center;
 }
 

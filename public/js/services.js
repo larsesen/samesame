@@ -72,10 +72,10 @@ angular.module("samesameApp.services", [])
 		return {
 			question1: {
 				questionid: '1',
+				description : 'Ditt kjønn:', 
 				options : [
 				{
 					value : 'a',
-					description : 'kjonn', 
 					imageURL : "./images/1a.png"
 				}, {
 					value : 'b',
@@ -89,7 +89,6 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description : 'filtype A', 
 					imageURL : "./images/2a.png"
 
 				}, {
@@ -103,7 +102,6 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description : 'Notifications',  
 					imageURL : "./images/3a.png"
 				}, {
 					value : 'b',
@@ -116,7 +114,6 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description: 'dorull',  
 					imageURL : "./images/4a.png"
 				}, {
 					value : 'b',
@@ -129,7 +126,6 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description: 'propper',
 					imageURL : "./images/5a.png"
 				}, {
 					value : 'b',
@@ -142,7 +138,6 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description:  'gir',
 					imageURL : "./images/6a.png"
 				}, {
 					value : 'b',
@@ -155,7 +150,6 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description: 'alarmer',
 					imageURL : "./images/7a.png"
 				}, {
 					value : 'b',
@@ -168,14 +162,136 @@ angular.module("samesameApp.services", [])
 				options : [
 				{
 					value : 'a',
-					description: 'mac',
-					imageURL : "./images/8a.jpg"
+					imageURL : "./images/8a.png"
 				}, {
 					value : 'b',
-					imageURL : "./images/8b.jpg"
+					imageURL : "./images/8b.png"
+				}
+				]
+			},
+			question9: {
+				questionid: '9',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/9a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/9b.png"
 				}
 				]
 			}
+			/*
+			,
+			question10: {
+				questionid: '10',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/10a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/10b.png"
+				}
+				]
+			},
+			question11: {
+				questionid: '11',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/11a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/11b.png"
+				}
+				]
+			},
+			question12: {
+				questionid: '12',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/12a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/12b.png"
+				}
+				]
+			},
+			question13: {
+				questionid: '13',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/13a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/13b.png"
+				}
+				]
+			},
+			question14: {
+				questionid: '14',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/14a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/14b.png"
+				}
+				]
+			},
+			question15: {
+				questionid: '15',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/15a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/15b.png"
+				}
+				]
+			},
+			question16: {
+				questionid: '16',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/16a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/16b.png"
+				}
+				]
+			},
+			question17: {
+				questionid: '17',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/17a.png"
+				}, {
+					value : 'b',
+					imageURL : "./images/17b.png"
+				}
+				]
+			},
+			question18: {
+				questionid: '18',
+				options : [
+				{
+					value : 'a',
+					imageURL : "./images/18a.jpg"
+				}, {
+					value : 'b',
+					imageURL : "./images/18b.jpg"
+				}
+				]
+			}
+			*/
 		};
 	})
 
@@ -554,6 +670,19 @@ angular.module("samesameApp.services", [])
 
 
 
+			/*
+			The purpose of this function is to retrieve interesting statistics to present to user
+			If user chooses the same answer as the type answer on ALL questions, then this function
+			returns the question where the users answer was a part of the biggest majority
+
+			If the user does not choose the same answer as the typical answer, then the function
+			will return the question where the user was a part of the smallest minority of answers.
+
+			The function returns an object holding necessary information about answer question and
+			percentages, which is used to show results in view.
+			*/
+
+
 			getBiggestDeviation : function(comparisons) {
 
 				//neg variables is the main check. But if no neg variables are found, I retrieve biggest positive deviation to present
@@ -684,7 +813,7 @@ angular.module("samesameApp.services", [])
 		}
 
 		var getRegisterAnswerHeader = function() {
-			return "Choose one picture from each category";
+			return "Velg ett bilde fra hver kategori";
 		}
 
 		return {
