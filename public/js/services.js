@@ -616,21 +616,6 @@ angular.module("samesameApp.services", [])
 			},
 
 
-
-
-
-
-
-
-
-
-
-		
-
-
-
-
-
 			retrieveTypeData : function() {
 				typeData = [];
 				return $http.get("/getTypeData");

@@ -226,11 +226,6 @@ angular.module("samesameApp.controllers", [])
 		var answeredQuestions = AnsweredQuestions.initAnsweredQuestions(numberOfQuestions);
 
 
-		/*
-		console.log("answered: " + JSON.stringify(answeredQuestions));
-		console.log("USERID: " + userid);
-	*/
-		 
 		//Needed for retrieving images correctly at init stage
 		AnsweredQuestions.removeIndex(answeredQuestions,questionid);
 		$scope.nextQ = questionid;
@@ -262,14 +257,7 @@ angular.module("samesameApp.controllers", [])
 			});
 
 		};
-
-
 	}])
-
-
-
-
-
 
 
 
@@ -621,10 +609,6 @@ angular.module("samesameApp.controllers", [])
 					cb(Statistics.getStatistics(type));
 				}
 
-
-				console.log("current, getCurrent: " + JSON.stringify(Statistics.getCurrentAnswers(UserIDService.getUserID)));
-				console.log("average, getStatistics:" + JSON.stringify(Statistics.getStatistics(type)));
-
 				Statistics.compareAnswers(Statistics.getStatistics(type), Statistics.getCurrentAnswers(UserIDService.getUserID()));
 			});
 		}
@@ -664,16 +648,10 @@ angular.module("samesameApp.controllers", [])
 				
 				$scope.resultObject = Statistics.getBiggestDeviation(comparisons);
 
-
-
 			});
 		}
 
-
 		retrieveTypeData();
-	
-
-
 	}])
 
 	
