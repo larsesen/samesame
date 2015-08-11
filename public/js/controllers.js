@@ -275,8 +275,7 @@ angular.module("samesameApp.controllers", [])
 
 
 		
-		//Generates random number to select first question
-		
+		//Generates random number within range to select first question
 		var nextQ = getRandomInt(1, Object.keys(Questions).length);
 
 		
@@ -291,7 +290,7 @@ angular.module("samesameApp.controllers", [])
 		//Needed for retrieving images correctly at init stage
 		AnsweredQuestions.removeIndex(answeredQuestions,nextQ);
 		$scope.nextQ = nextQ;
-		$scope.answeredQuestions = answeredQuestions;
+		//$scope.answeredQuestions = answeredQuestions;
 
 
 
@@ -302,11 +301,7 @@ angular.module("samesameApp.controllers", [])
 				answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 				var listEmpty = isListEmpty(answeredQuestions);
 
-				//Checks how many elements left. Used for routing request correctly
-				var elementsLeft = elementsLeftInList(answeredQuestions);
 				var questionid = $scope.nextQ;
-
-				
 				var gender = UserIDService.getGender();
 			
 				//Creating JSON object used to send to db
@@ -318,25 +313,19 @@ angular.module("samesameApp.controllers", [])
 					console.log("answer registered" + JSON.stringify(dataJSON));
 					RecentAnswer.setAnswer(dataJSON);
 
-					/*
-					Updating with next image, iff there are more images.
-					*/
+					//Updating with next image, iff there are more images.
 					if (!listEmpty) {
 						var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
 						//console.log("question number: " + nextQ); 
 						AnsweredQuestions.removeIndex(answeredQuestions,nextQ);	
 						$scope.nextQ = nextQ; 
-					}
-
-					if (elementsLeft > 0) {
-						$location.path("/partial-register-answer");				
+						$location.path("/partial-register-answer");	
 					}
 					else {
 						$location.path("/partial-view-results");
 					}
-
 				});
-			}, 100, 1);
+			}, 50, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -500,12 +489,6 @@ angular.module("samesameApp.controllers", [])
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
-		
-
-
-
-
-
 
 		var typePersonImages = function(allData) {
 			console.log("typePersonImages");
@@ -528,17 +511,13 @@ angular.module("samesameApp.controllers", [])
 
 		typePersonImages(pairs);
 
-
-
-
-
 		//Exposure
 		var currentCollectionId = 0, currentImageId = 0;
 		var activeObject;
 
 
 		var setCurrentImageObject = function() {
-			setListName(currentCollectionId);
+			//setListName(currentCollectionId);
 			$scope.activeObject = pairs[currentCollectionId][currentImageId];
 		}
 
@@ -549,7 +528,6 @@ angular.module("samesameApp.controllers", [])
 
 
 			//To initially set image while waiting for Angular
-			
 			if(!pairs[currentCollectionId][currentImageId]) {
 				return "loading.png";
 			}
@@ -568,6 +546,7 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
+/*
 		var setListName = function(currentCollectionId) {
 
 			if (currentCollectionId === 0) {
@@ -583,7 +562,7 @@ angular.module("samesameApp.controllers", [])
 				$scope.listName = "Prosentfordeling kvinner";
 			}
 		}
-
+*/
 
 
 		var increaseCount = function() {
@@ -679,6 +658,7 @@ angular.module("samesameApp.controllers", [])
 				
 				$scope.resultObject = Statistics.getBiggestDeviation(comparisons);
 
+
 			});
 		}
 
@@ -703,18 +683,6 @@ function isListEmpty(list) {
 		return true;
 	}
 
-
-function elementsLeftInList(list) {
-	var counter = 0;
-	var i;
-
-	for (i = 0 ; i < list.length ; i++) {
-		if (list[i] == null) {
-			counter++;
-		}
-	}
-	return (list.length - counter);
-}
 
 
 

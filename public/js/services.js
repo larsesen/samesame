@@ -168,7 +168,8 @@ angular.module("samesameApp.services", [])
 				}
 				]
 			}
-			/*
+			
+			
 			,
 			question9: {
 				questionid: '9',
@@ -182,7 +183,7 @@ angular.module("samesameApp.services", [])
 				}
 				]
 			}
-			
+		
 			,
 			question10: {
 				questionid: '10',
@@ -195,7 +196,9 @@ angular.module("samesameApp.services", [])
 					imageURL : "./images/10b.png"
 				}
 				]
-			},
+			}
+/*
+			,
 			question11: {
 				questionid: '11',
 				options : [
@@ -576,16 +579,16 @@ angular.module("samesameApp.services", [])
 
 
 			compareAnswers : function(average, currList) {
-			
-				var i;
-				var result = 0;
-				var counter = 0;
 				
-				for (i = 0; i < average.length; i++) {
-					/*
-					console.log("Average: Q" + average[i]["questionid"] + ", Response: " + average[i]["mostFreq"]);
-					console.log("Current: Q" + currList[i]["questionid"] + ", Response: " + currList[i]["response"]);			
-					*/
+				var result = 0;
+				var counter = 0;			
+				var listLength;
+
+				//In case a new question is added or removed while db is not empty
+				listLength = Math.min(currList.length, average.length);
+
+				var i;
+				for (i = 0; i < listLength; i++) {
 					if (average[i]["questionid"] === currList[i]["questionid"] && average[i]["mostFreq"] === currList[i]["response"]) {
 						counter ++;
 					}
@@ -649,8 +652,10 @@ angular.module("samesameApp.services", [])
 			compareCurrentWithType : function(typeData, currentAnswers) {
 				comparisons = [];
 
+				var listLength = Math.min(typeData.length, currentAnswers.length);
+
 				var i;
-				for (i=0; i < typeData.length; i++) {
+				for (i=0; i < listLength; i++) {
 
 					var sameAsType = (currentAnswers[i].response === typeData[i].mostFreq)
 
@@ -749,7 +754,7 @@ angular.module("samesameApp.services", [])
 					percentage;
 
 				if (biggestNegDeviationIndex === -1) {
-					console.log("Finding positive deviation");
+					//console.log("Finding positive deviation");
 					
 					questionid = currentAnswers[biggestPosDeviationIndex].questionid;
 					response = currentAnswers[biggestPosDeviationIndex].response;
@@ -764,7 +769,7 @@ angular.module("samesameApp.services", [])
 				}
 
 				else {
-					console.log("Finding negative deviation");
+					//console.log("Finding negative deviation");
 
 					questionid = currentAnswers[biggestNegDeviationIndex].questionid;
 					response = currentAnswers[biggestNegDeviationIndex].response;
