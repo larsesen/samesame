@@ -755,7 +755,6 @@ angular.module("samesameApp.services", [])
 
 				if (biggestNegDeviationIndex === -1) {
 					//console.log("Finding positive deviation");
-					
 					questionid = currentAnswers[biggestPosDeviationIndex].questionid;
 					response = currentAnswers[biggestPosDeviationIndex].response;
 					mostAnswered = true;
@@ -770,7 +769,6 @@ angular.module("samesameApp.services", [])
 
 				else {
 					//console.log("Finding negative deviation");
-
 					questionid = currentAnswers[biggestNegDeviationIndex].questionid;
 					response = currentAnswers[biggestNegDeviationIndex].response;
 					mostAnswered = false;

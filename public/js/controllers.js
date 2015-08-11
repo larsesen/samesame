@@ -350,12 +350,7 @@ angular.module("samesameApp.controllers", [])
 		//the initial field of duplicate contact info0
 		$scope.duplicateEmail = "";
 	
-		//retrieving userid to insert to db, so that answer is linked to specific person
-		$scope.userid = UserIDService.getUserID();
-		$scope.participant.userid = $scope.userid;
-
-
-		
+	
 		//a setter for the duplicate email field
 		$scope.setDuplicateEmail = function() {
 			$scope.duplicateEmail = $scope.participant.email;
@@ -378,9 +373,11 @@ angular.module("samesameApp.controllers", [])
 				bouvet = 0;
 			}
 
+			var userid = UserIDService.getUserID();
+		
 
 			//Creating JSON object used to send to db
-			var dataJSON = { "userid": $scope.participant.userid, "name": $scope.participant.name, "email": $scope.participant.email, "prize":$scope.participant.prize, "bouvet": bouvet};
+			var dataJSON = { "userid": userid, "name": $scope.participant.name, "email": $scope.participant.email, "prize":$scope.participant.prize, "bouvet": bouvet};
 
 
 			Participants.create(dataJSON)
@@ -431,6 +428,7 @@ angular.module("samesameApp.controllers", [])
 		var pairs;
 
 
+		//Retrieves data for the type parameter
 		var retrieveStatistics = function(type, cb) {
 			Statistics.resetStatistics();		
 			//initial call to fetch answers
@@ -454,6 +452,8 @@ angular.module("samesameApp.controllers", [])
 			//console.log("all stats refreshed");
 		}
 
+
+		//Retrieves number of answered questions for each type. 
 		var retrieveCounts = function() {
 			Statistics.resetCounts;
 			Statistics.retrieveCounts().success(function(data) {
@@ -486,10 +486,11 @@ angular.module("samesameApp.controllers", [])
 
 
 		//allData used in partial-stat-table
-		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
-		$scope.counts = Statistics.getCounts(); //Used in view to access variables
+		$scope.allData = Statistics.getAllStats(); //Used in view stat views to access variables
+		$scope.counts = Statistics.getCounts(); //Used in view partial-stat-table to access number of answered questions for each type.
 
 
+/*
 		var typePersonImages = function(allData) {
 			console.log("typePersonImages");
 			var arrayToReturn = [];
@@ -508,24 +509,21 @@ angular.module("samesameApp.controllers", [])
 				}
 			}
 		}
-
 		typePersonImages(pairs);
+*/
+
 
 		//Exposure
 		var currentCollectionId = 0, currentImageId = 0;
 		var activeObject;
-
 
 		var setCurrentImageObject = function() {
 			//setListName(currentCollectionId);
 			$scope.activeObject = pairs[currentCollectionId][currentImageId];
 		}
 
-
 		$scope.getCurrentImage = function(suffix) {
 			setCurrentImageObject();
-			
-
 
 			//To initially set image while waiting for Angular
 			if(!pairs[currentCollectionId][currentImageId]) {
@@ -534,13 +532,11 @@ angular.module("samesameApp.controllers", [])
 
 			$scope.dataList = pairs[currentCollectionId];
 			
+			//Each of following scope variables, corresponds to each progress bar in partial-stat-carousel
 			$scope.allList = pairs[0][currentImageId];
 			$scope.bouvetList = pairs[1][currentImageId];
 			$scope.maleList = pairs[2][currentImageId];
 			$scope.femaleList = pairs[3][currentImageId];
-
-
-			//console.log("pairs: " + JSON.stringify(pairs[currentCollectionId]));
 
 			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
 		}
@@ -588,7 +584,8 @@ angular.module("samesameApp.controllers", [])
 	
 		}	
 		
-		$interval(increaseCount, 5000, pairs[currentCollectionId].length - 1);
+		$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
+
 	}])
 
 
@@ -614,7 +611,6 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setStatistics(statistics,type);
 
 				$scope.currentAnswers = Statistics.getCurrentAnswers(UserIDService.getUserID);
-				//console.log(Statistics.getCurrentAnswers(UserIDService.getUserID));
 				if (cb) {
 					cb(Statistics.getStatistics(type));
 				}
@@ -628,7 +624,6 @@ angular.module("samesameApp.controllers", [])
 			retrieveStatistics(1);
 			retrieveStatistics(2);
 			retrieveStatistics(3);
-			//console.log("all stats refreshed");
 		}
 
 
@@ -642,10 +637,7 @@ angular.module("samesameApp.controllers", [])
 		getCurrentAnswers(UserIDService.getUserID);
 		retrieveAllStatistics();
 	
-		$scope.percentages = Statistics.getPercentageStats();
-
-
-
+		
 		var retrieveTypeData = function(type) {
 			Statistics.resetStatistics();		
 			//initial call to fetch answers
@@ -657,7 +649,6 @@ angular.module("samesameApp.controllers", [])
 				var comparisons = Statistics.compareCurrentWithType(Statistics.getTypeData(), $scope.currentAnswers);
 				
 				$scope.resultObject = Statistics.getBiggestDeviation(comparisons);
-
 
 			});
 		}
