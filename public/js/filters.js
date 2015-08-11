@@ -20,7 +20,7 @@ angular.module("samesameApp.filters", [])
 
 // http://stackoverflow.com/questions/18874458/horizontal-ng-repeater-with-new-row-breaks
 
-
+/*
 	.filter("splitImageIntoSublists", function() {
 		return function(imageArray, lengthOfSublist) {
 
@@ -51,5 +51,5 @@ angular.module("samesameApp.filters", [])
 			return arrayToReturn;
 		}
 	})
-
+*/
 	

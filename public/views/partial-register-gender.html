@@ -1,30 +1,32 @@
 
 
-<div class="text-large text-orange logo-topspace">
-	 &nbsp <img src="./photos/logo_medium.png">
-</div>
+	<div class="text-large text-orange ">
+		 &nbsp <img src="./photos/logo_medium.png">
+	</div>
 
-<div class="container middle-pos">
-	<h2 class="text-orange text-large top-pad-smallest">{{mainTitle}}</h2>
-	<h6 class="text-white">{{dottedLine}}</h6>
-	<p class="text-white text-smaller">{{secondaryTitle}}</p>
-	<h6 class="text-white">{{dottedLine}}</h6>
-	<!-- a button taking you to the page for registering answer-->
-	
-	<h2 class="text-white text-large"> Hvem er du? </h2>
-	<h3 class="text-orange text-medium"> Velg kjønn </h3>
 
-	<div class="btn-group bg-white reg-answer">
-		<img ng-src="./images/{{nextQ}}a.png" name="a" ng-click="nextQuestion('a')">
-		<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">	
-  	</div>
+<div class="col-sm-4">
+	<div class="container middle-pos">
+		<div class="text-orange text-large">{{mainTitle}}</div>
+		<h6 class="text-white">{{dottedLine}}</h6>
+		<p class="text-white text-smaller">{{secondaryTitle}}</p>
+		<h6 class="text-white">{{dottedLine}}</h6>
+		<!-- a button taking you to the page for registering answer-->
+		
+		<h2 class="text-white text-large"> Hvem er du? </h2>
+		<h3 class="text-orange text-medium"> Velg kjønn </h3>
 
-<div class="middle-pos top-pad-small">
-	<a href="#/partial-start" class="btn btn-def-bouvet btn-front-large">
-		<span class="glyphicon glyphicon-repeat"></span>
-		Start på nytt
-	</a>
-</div>
+		<div class="btn-group bg-white reg-answer">
+			<img ng-src="./images/{{nextQ}}a.png" name="a" ng-click="nextQuestion('a')">
+			<img ng-src="./images/{{nextQ}}b.png" name="b" ng-click="nextQuestion('b')">	
+	  	</div>
 
+	<div class="middle-pos top-pad-small">
+		<a href="#/partial-start" class="btn btn-def-bouvet btn-front-large">
+			<span class="glyphicon glyphicon-repeat"></span>
+			Start på nytt
+		</a>
+	</div>
+	</div>
 
 </div>

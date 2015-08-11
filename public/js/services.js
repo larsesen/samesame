@@ -815,11 +815,21 @@ angular.module("samesameApp.services", [])
 			return "Velg ett bilde fra hver kategori";
 		}
 
+		var getRegisterParticipant1Text = function() {
+			return "Hvis du vil være med i trekningen av premien, kan du fylle ut informasjonen under.";
+		}
+
+		var getRegisterParticipant2Text = function() {
+			return "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål.";
+		}
+
 		return {
-			getMainTitle : getMainTitle,
-			getSecondaryTitle : getSecondaryTitle,
-			getDottedLine : getDottedLine,
-			getRegisterAnswerHeader : getRegisterAnswerHeader
+			getMainTitle 				: getMainTitle,
+			getSecondaryTitle 			: getSecondaryTitle,
+			getDottedLine 				: getDottedLine,
+			getRegisterAnswerHeader 	: getRegisterAnswerHeader,
+			getRegisterParticipant1Text	: getRegisterParticipant1Text,
+			getRegisterParticipant2Text	: getRegisterParticipant2Text
 		};
 	})
 

@@ -353,7 +353,8 @@ angular.module("samesameApp.controllers", [])
 		$scope.mainTitle = TextStrings.getMainTitle();
 		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
 		$scope.dottedLine = TextStrings.getDottedLine();
-
+		$scope.participant1Text = TextStrings.getRegisterParticipant1Text();
+		$scope.participant2Text = TextStrings.getRegisterParticipant2Text();
 
 		//initial object of participant
 		$scope.participant = {};
@@ -452,7 +453,6 @@ angular.module("samesameApp.controllers", [])
 				if (cb) {
 					cb(Statistics.getStatistics(type));
 				}
-
 			});
 		}
 
@@ -486,20 +486,51 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
-		//$scope.arr = ['1','2','3','4','5','6','7','8','9','10'];
-
 		retrieveAllStatistics();
 		retrieveCounts();
 		pairs = initList();
 
-
+/*
 		console.log(pairs.length);
 		console.log(pairs);
+*/
 
+
+		//allData used in partial-stat-table
 		$scope.allData = Statistics.getAllStats(); //Used in view to access variables
 		$scope.counts = Statistics.getCounts(); //Used in view to access variables
 
 		
+
+
+
+
+
+
+		var typePersonImages = function(allData) {
+			console.log("typePersonImages");
+			var arrayToReturn = [];
+
+			console.log("length of allData: " + allData.length);
+			console.log(allData);
+
+
+			var i,j;
+
+			for (i = 0; i < allData.length ; i++ ) {
+				console.log("i: " + i);
+				console.log(allData[i]);
+				for (j = 0; j < allData[0].length; j++) {
+					
+				}
+			}
+		}
+
+		typePersonImages(pairs);
+
+
+
+
 
 		//Exposure
 		var currentCollectionId = 0, currentImageId = 0;
