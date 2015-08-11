@@ -19,6 +19,8 @@
     </div>
    
 
+
+<!--
     <div class="row">
 <div class="col-md-4">
  <div> a</div>
@@ -28,7 +30,7 @@
 <div class="col-md-4"> bar </div>
 <div class="col-md-4"> qux </div>
     </div>
-  
+-->  
        
     <div ng-repeat="dataList in allData" class="text-white text-medium middle-pos">
 
@@ -39,17 +41,9 @@
             ===New List===
             </div>
 
-            <div ng-repeat="data in dataList | splitImageIntoSublists:3">   
-                
-
-                <div class="text-white text-medium">
-  
-
-                    <div ng-repeat="elem in data" class="col-sm-4">
-                        <img ng-src="./images/{{elem.questionid}}{{elem.mostFreq}}.png" imageonload></td>"
-                    </div>
-                    
-                </div>                                                
+            <div ng-repeat="data in dataList">      
+                <img ng-src="./images/{{data.questionid}}{{data.mostFreq}}.png">
+            </div>                                                
                 
  
             </div>
