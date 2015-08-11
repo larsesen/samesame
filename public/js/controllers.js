@@ -207,7 +207,7 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("RegisterGenderCtrl", ["$scope", "$location", "TextStrings", "AnsweredQuestions", "Questions", "Answers", "RecentAnswer", "UserIDService", function($scope, $location, TextStrings, AnsweredQuestions, Questions, Answers, RecentAnswer, UserIDService) {
+	.controller("RegisterGenderCtrl", ["$scope", "$interval", "$location", "TextStrings", "AnsweredQuestions", "Questions", "Answers", "RecentAnswer", "UserIDService", function($scope, $interval, $location, TextStrings, AnsweredQuestions, Questions, Answers, RecentAnswer, UserIDService) {
 
 		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
 		$scope.mainTitle = TextStrings.getMainTitle();
@@ -235,27 +235,30 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.nextQuestion = function(response,radio) {
 
-			if (response === 'a') {
-				gender = 'm';
-			}
-			else if (response === 'b') {
-				gender = 'f';
-			}
+			$interval(function() {
+
+				if (response === 'a') {
+					gender = 'm';
+				}
+				else if (response === 'b') {
+					gender = 'f';
+				}
+				
+				UserIDService.setGender(gender);
 			
-			UserIDService.setGender(gender);
-		
-			//Creating JSON object used to send to db
-			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "gender": gender  };
-			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
+				//Creating JSON object used to send to db
+				var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "gender": gender  };
+				//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
-			 Answers.create(dataJSON)
-			.success(function(data) {
-				console.log("answer registered" + JSON.stringify(dataJSON));
-				RecentAnswer.setAnswer(dataJSON);
+				 Answers.create(dataJSON)
+				.success(function(data) {
+					console.log("answer registered" + JSON.stringify(dataJSON));
+					RecentAnswer.setAnswer(dataJSON);
 
-				$location.path("/partial-register-answer");				
-			});
-
+					$location.path("/partial-register-answer");				
+				});
+			//}, 150, 1);
+			}, 0, 1);
 		};
 	}])
 
@@ -296,7 +299,7 @@ angular.module("samesameApp.controllers", [])
 
 		$scope.nextQuestion = function(response,radio) {
 
-			$interval(function() {
+			//$interval(function() {
 
 				answeredQuestions = AnsweredQuestions.getAnsweredQuestions();
 				var listEmpty = isListEmpty(answeredQuestions);
@@ -325,7 +328,7 @@ angular.module("samesameApp.controllers", [])
 						$location.path("/partial-view-results");
 					}
 				});
-			}, 50, 1);
+			//}, 50, 1);
 			$scope.questions = Questions.questions;
 		};
 	}])
@@ -560,7 +563,6 @@ angular.module("samesameApp.controllers", [])
 		}
 */
 
-
 		var increaseCount = function() {
 
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
@@ -573,6 +575,7 @@ angular.module("samesameApp.controllers", [])
 				}
 
 				retrieveStatistics(nextCollectionId, function(imagePairList) {
+					console.log('alt');
 					currentImageId = 0;
 					currentCollectionId = nextCollectionId;
 					pairs[nextCollectionId] = imagePairList;
@@ -584,7 +587,7 @@ angular.module("samesameApp.controllers", [])
 	
 		}	
 		
-		$interval(increaseCount, 1000, pairs[currentCollectionId].length - 1);
+		$interval(increaseCount, 5000, pairs[currentCollectionId].length - 1);
 
 	}])
 
@@ -636,7 +639,24 @@ angular.module("samesameApp.controllers", [])
 
 		getCurrentAnswers(UserIDService.getUserID);
 		retrieveAllStatistics();
-	
+
+		$scope.resultDispatcher = {
+			_resultObject: null,
+			getImage: function() {
+				if (this._resultObject) {
+					return this._resultObject.questionid + this._resultObject.response;
+				} else {
+					return 'loading';
+				}
+			},
+			getPercent: function() {
+				if (this._resultObject) {
+					return this._resultObject.percent;
+				} else {
+					return '???';
+				}
+			}
+		};	
 		
 		var retrieveTypeData = function(type) {
 			Statistics.resetStatistics();		
@@ -648,8 +668,7 @@ angular.module("samesameApp.controllers", [])
 
 				var comparisons = Statistics.compareCurrentWithType(Statistics.getTypeData(), $scope.currentAnswers);
 				
-				$scope.resultObject = Statistics.getBiggestDeviation(comparisons);
-
+				$scope.resultDispatcher._resultObject = Statistics.getBiggestDeviation(comparisons);
 			});
 		}
 

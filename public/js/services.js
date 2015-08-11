@@ -495,8 +495,10 @@ angular.module("samesameApp.services", [])
 						questionid : currObject[i]["questionid"],
 						responseA : currObject[i]["a"],
 						percentageA : currObject[i]["a_"],
+						percentageAText : currObject[i]["a_"] < 50 ? '' : (currObject[i]["a_"] + ' %'),
 						responseB : currObject[i]["b"],
 						percentageB : currObject[i]["b_"],
+						percentageBText : currObject[i]["b_"] <= 50 ? '' : (currObject[i]["b_"] + ' %'),
 						total : currObject[i]["total"],
 	
 						mostFreq : currObject[i]["mostFreq"],

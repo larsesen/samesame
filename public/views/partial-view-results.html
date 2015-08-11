@@ -14,11 +14,11 @@
 	
 
 
-	<div class="text-smaller text-white image-size-custom middle-pos">
+	<div class="text-smaller text-white custom-image-size-results middle-pos">
 		Du skilte deg mest ut med følgende svar: <br><br>
 
-		<img ng-src="./images/{{resultObject.questionid}}{{resultObject.response}}.png" imageonload> <br><br>
-		{{resultObject.percent}} % svarte det samme som deg <br><br>
+		<img ng-src="./images/{{resultDispatcher.getImage()}}.png" imageonload> <br><br>
+		{{resultDispatcher.getPercent()}} % svarte det samme som deg <br><br>
 
 
 	</div>
