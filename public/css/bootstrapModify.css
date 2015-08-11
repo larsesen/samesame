@@ -215,19 +215,33 @@ Various paddings
 
 
 /*
-Styling in partial-register-answer.html
+image sizes and borders for active objects
 */
-.custom-image-size img {
+
+.custom-image-size-gender img {
+	width: 200px;
+	height: 200px;
+}
+
+.custom-image-size-answer img {
 	width: 380px;
 	height: 380px;
 }
 
-.reg-answer img:active {
+.custom-image-size-results img {
+	width:180px;
+	height:180px;
+}
+
+.reg-answer-orange img:active {
 	border:5px solid #FF6400;
 	opacity: 0.90;
 }
 
-
+.reg-answer-white img:active {
+	border:5px solid #FFF;
+	opacity: 0.90;
+}
 
 /*
 Styling in partial-register-participant.html
@@ -255,9 +269,9 @@ input:checked + img {
 /*
 Styling in partial-stat-carousel.html
 */
-.custom-image-size td img {
-	width: 300px;
-	height: 300px;
+.custom-image-size-carousel img {
+	width: 500px;
+	height: 500px;
 }
 
 .progress-bar-dimensions{
@@ -265,14 +279,23 @@ Styling in partial-stat-carousel.html
 	width:100%;
 }
 
-.progress-bar-custom {
+.progress-bar-custom-orange {
 	font-size: 20px;
 	color: #000;
 	background-color: #FF6400;
-	min-width:3em;
+	
 	line-height: 50px;
-
 }
+
+.progress-bar-custom-white {
+	font-size: 20px;
+	color: #000;
+	background-color: #FFF;
+	
+	line-height: 50px;
+	border:0;
+}
+
 
 
 .center-align tr th, .center-align tr td {
@@ -286,8 +309,8 @@ Styling in partial-stat-carousel.html
 }
 
 .image-size-custom img {
-	height:200px;
-	width: 200px;
+	height:400px;
+	width: 400px;
 }
 
 
