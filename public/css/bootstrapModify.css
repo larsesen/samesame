@@ -233,6 +233,11 @@ image sizes and borders for active objects
 	height:180px;
 }
 
+.custom-image-size-type img {
+	width:450px;
+	height:450px;
+}
+
 .reg-answer-orange img:active {
 	border:5px solid #FF6400;
 	opacity: 0.90;
@@ -307,12 +312,6 @@ Styling in partial-stat-carousel.html
 	height:100px;
 	width:100px;
 }
-
-.image-size-custom img {
-	height:400px;
-	width: 400px;
-}
-
 
 .image-horizontal img {
 	display: inline-block;

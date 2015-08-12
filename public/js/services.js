@@ -197,7 +197,7 @@ angular.module("samesameApp.services", [])
 				}
 				]
 			}
-/*
+
 			,
 			question11: {
 				questionid: '11',
@@ -246,7 +246,9 @@ angular.module("samesameApp.services", [])
 					imageURL : "./images/14b.png"
 				}
 				]
-			},
+			}
+			/*
+			,
 			question15: {
 				questionid: '15',
 				options : [
@@ -817,7 +819,7 @@ angular.module("samesameApp.services", [])
 		}
 
 		var getRegisterAnswerHeader = function() {
-			return "Velg ett bilde fra hver kategori";
+			return "Er du sånn eller slik?";
 		}
 
 		var getRegisterParticipant1Text = function() {

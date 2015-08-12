@@ -441,18 +441,26 @@ angular.module("samesameApp.controllers", [])
 				Statistics.setStatistics(statistics,type);
 
 				if (cb) {
-					cb(Statistics.getStatistics(type));
+					cb(Statistics.getStatistics(type), type);
 				}
 			});
 		}
 
 
 		var retrieveAllStatistics = function(cb) {
-			retrieveStatistics(0);
-			retrieveStatistics(1);
-			retrieveStatistics(2);
-			retrieveStatistics(3);
-			//console.log("all stats refreshed");
+			var count = 4;
+			var data = [];
+			var allDone = function(partial, index) {
+				count = count - 1;
+				data[index] = partial;
+				if (count === 0) {
+					cb(data);
+				}
+			}
+			retrieveStatistics(0, allDone);
+			retrieveStatistics(1, allDone);
+			retrieveStatistics(2, allDone);
+			retrieveStatistics(3, allDone);
 		}
 
 
@@ -478,42 +486,76 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
-		retrieveAllStatistics();
+		retrieveAllStatistics(function(allData, index) {
+			//console.log("typePersonImages");
+	
+			var activeList = allData[0];
+			console.log(activeList);
+			var lengthOfSublist = 3;
+			var arrayToReturn = [];
+			var subArray = [];
+
+			var pushed = true;
+
+			var i;
+
+			for (i = 0; i < activeList.length ; i++ ) {
+
+
+
+				
+				if ((i+1) % lengthOfSublist === 0) {
+					subArray.push(activeList[i]);
+					arrayToReturn.push(subArray);
+					subArray = [];
+					pushed = true;
+				}
+
+				else {
+					subArray.push(activeList[i]);
+					pushed = false;
+				}
+			}
+
+			if (!pushed) {
+				arrayToReturn.push(subArray);
+			}
+
+			console.log("Array to return: " + JSON.stringify(arrayToReturn));
+			$scope.activeList = arrayToReturn;
+			return arrayToReturn;
+			
+		});
+	
 		retrieveCounts();
 		pairs = initList();
 
-/*
-		console.log(pairs.length);
-		console.log(pairs);
-*/
-
-
-		//allData used in partial-stat-table
-		$scope.allData = Statistics.getAllStats(); //Used in view stat views to access variables
+		
+		
+		$scope.allData = Statistics.getAllStats(); //allData used in partial-stat-table
 		$scope.counts = Statistics.getCounts(); //Used in view partial-stat-table to access number of answered questions for each type.
 
 
-/*
-		var typePersonImages = function(allData) {
-			console.log("typePersonImages");
-			var arrayToReturn = [];
-
-			console.log("length of allData: " + allData.length);
-			console.log(allData);
 
 
-			var i,j;
+		
 
-			for (i = 0; i < allData.length ; i++ ) {
-				console.log("i: " + i);
-				console.log(allData[i]);
-				for (j = 0; j < allData[0].length; j++) {
-					
-				}
-			}
-		}
-		typePersonImages(pairs);
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		//Exposure
@@ -575,7 +617,6 @@ angular.module("samesameApp.controllers", [])
 				}
 
 				retrieveStatistics(nextCollectionId, function(imagePairList) {
-					console.log('alt');
 					currentImageId = 0;
 					currentCollectionId = nextCollectionId;
 					pairs[nextCollectionId] = imagePairList;
@@ -587,7 +628,7 @@ angular.module("samesameApp.controllers", [])
 	
 		}	
 		
-		$interval(increaseCount, 5000, pairs[currentCollectionId].length - 1);
+		$interval(increaseCount, 6000, pairs[currentCollectionId].length - 1);
 
 	}])
 
