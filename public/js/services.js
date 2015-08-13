@@ -806,8 +806,8 @@ angular.module("samesameApp.services", [])
 	.value("TextStrings", {
 
 		registerAnswerHeader 			: "Er du sånn eller slik?",
-		getRegisterParticipant1Text 	: "Hvis du vil være med i trekningen av premien, kan du fylle ut informasjonen under.",
-		getRegisterParticipant2Text 	: "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål."
+		registerParticipant1Text 	: "Velg premien du liker best, fortell oss hva du heter og hvilken e-postadresse vi skal bruke hvis du trekkes ut som VINNER! ",
+		registerParticipant2Text 	: "Ingen fare: Vi sletter både navn og e-post etter trekningen. Æresord og kors på halsen."
 	})
 
 
@@ -816,7 +816,8 @@ angular.module("samesameApp.services", [])
 		numberOfImagesInCarousel 	: 15,
 		numberOfListsTypePerson 	: 4,
 		getMillisForCarouselSlide 	: 5000,
-		getMillisForTypePerson 		: 10000
+		getMillisForTypePerson 		: 10000,
+		getMillisForDisplayLogo		: 10000
 	})
 
 

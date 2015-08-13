@@ -201,6 +201,9 @@ Various paddings
 	padding-top: 12em;
 }
 
+.top-pad-larger {
+	padding:top: 15em;
+}
 
 .logo-topspace {
 	padding-top: 30px;
@@ -326,10 +329,11 @@ Styling in partial-stat-carousel.html
 	height:40px;
 }
 
-.concept-logo-front img {
-	height:200px;
+.concept-logo-large img {
+	height:500px;
 }
 
 .concept-logo img {
 	height:150px;
 }
+

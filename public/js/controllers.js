@@ -727,7 +727,7 @@ angular.module("samesameApp.controllers", [])
 		var handleInterval = function() {
 			if ($location.path() === "/partial-stat-carousel") {
 				if (count === 0) {
-					$location.path("/partial-stat-typePerson");
+					$location.path("/partial-view-logo");
 				} else {
 					getNextImageForCarousel(function() {
 						$interval(handleInterval, SliderConstants.getMillisForCarouselSlide, 1);
@@ -741,6 +741,43 @@ angular.module("samesameApp.controllers", [])
 
 
 	}])
+
+
+
+
+
+	
+	.controller("DisplayLogoCtrl", ["$scope", "$interval", "$location", "SliderConstants", function($scope, $interval, $location, SliderConstants) {
+
+
+		var redirect = function() {
+			$location.path("/partial-stat-typePerson");
+		}
+
+
+		$interval(redirect, SliderConstants.getMillisForDisplayLogo, 1);
+
+	}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
