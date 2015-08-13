@@ -830,13 +830,23 @@ angular.module("samesameApp.services", [])
 			return "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål.";
 		}
 
+		var getMaxIterationsForType = function() {
+			return 2;
+		}
+
+		var getMaxIterationsForCarousel = function() {
+			return 2;
+		}
+
 		return {
 			getMainTitle 				: getMainTitle,
 			getSecondaryTitle 			: getSecondaryTitle,
 			getDottedLine 				: getDottedLine,
 			getRegisterAnswerHeader 	: getRegisterAnswerHeader,
 			getRegisterParticipant1Text	: getRegisterParticipant1Text,
-			getRegisterParticipant2Text	: getRegisterParticipant2Text
+			getRegisterParticipant2Text	: getRegisterParticipant2Text,
+			getMaxIterationsForType		: getMaxIterationsForType,
+			getMaxIterationsForCarousel : getMaxIterationsForCarousel
 		};
 	})
 

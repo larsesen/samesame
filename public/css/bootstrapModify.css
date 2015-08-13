@@ -234,8 +234,8 @@ image sizes and borders for active objects
 }
 
 .custom-image-size-type img {
-	width:450px;
-	height:450px;
+	width:220px;
+	height:220px;
 }
 
 .reg-answer-orange img:active {

@@ -420,7 +420,7 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "Statistics", "TextStrings", function($scope, $interval, Statistics, TextStrings) {
+	.controller("StatisticsCtrl", ["$scope", "$interval", "$location", "Statistics", "TextStrings", function($scope, $interval, $location, Statistics, TextStrings) {
 
 		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
 		$scope.mainTitle = TextStrings.getMainTitle();
@@ -486,47 +486,67 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
-		retrieveAllStatistics(function(allData, index) {
-			//console.log("typePersonImages");
+		//Administers freshness of typical person lists
+		var getNextListForTypePerson = function(cb) {
+			console.log('start');
 	
-			var activeList = allData[0];
-			console.log(activeList);
-			var lengthOfSublist = 3;
-			var arrayToReturn = [];
-			var subArray = [];
+			retrieveAllStatistics(function(allData) {
 
-			var pushed = true;
+				var activeList = allData[currentList],
+				lengthOfSublist = 3,
+				arrayToReturn = [],
+				subArray = [];
 
-			var i;
+				var pushed = true;
 
-			for (i = 0; i < activeList.length ; i++ ) {
-
-
-
-				
-				if ((i+1) % lengthOfSublist === 0) {
-					subArray.push(activeList[i]);
+				var i;
+				for (i = 0; i < activeList.length ; i++ ) {				
+					if ((i+1) % lengthOfSublist === 0) {
+						subArray.push(activeList[i]);
+						arrayToReturn.push(subArray);
+						subArray = [];
+						pushed = true;
+					}
+					else {
+						subArray.push(activeList[i]);
+						pushed = false;
+					}
+				}
+				if (!pushed) {
 					arrayToReturn.push(subArray);
-					subArray = [];
-					pushed = true;
 				}
+				$scope.activeList = arrayToReturn;
+				$scope.listname = getListname(currentList);
 
+				if (currentList === allData.length-1) {
+					currentList = 0;
+				}
 				else {
-					subArray.push(activeList[i]);
-					pushed = false;
+					currentList ++;
 				}
-			}
 
-			if (!pushed) {
-				arrayToReturn.push(subArray);
-			}
+				cb();
+				console.log('getNextListForTypePerson: ' + $scope.listname);
 
-			console.log("Array to return: " + JSON.stringify(arrayToReturn));
-			$scope.activeList = arrayToReturn;
-			return arrayToReturn;
-			
-		});
-	
+			});
+		};
+
+
+		var getListname = function(index) {
+			if (index === 0) {
+				return "Javazonedeltakeren";
+			}
+			else if (index === 1) {
+				return "Bouvetansatte";
+			}
+			else if (index === 2) {
+				return "mannen";
+			}
+			else if (index === 3) {
+				return "kvinnen";
+			}
+		} 
+
 		retrieveCounts();
 		pairs = initList();
 
@@ -537,29 +557,10 @@ angular.module("samesameApp.controllers", [])
 
 
 
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		//Exposure
 		var currentCollectionId = 0, currentImageId = 0;
+		var currentList = 0;
+
 		var activeObject;
 
 		var setCurrentImageObject = function() {
@@ -568,6 +569,7 @@ angular.module("samesameApp.controllers", [])
 		}
 
 		$scope.getCurrentImage = function(suffix) {
+			
 			setCurrentImageObject();
 
 			//To initially set image while waiting for Angular
@@ -587,27 +589,13 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
-/*
-		var setListName = function(currentCollectionId) {
+		var getNextImageForCarousel = function(cb) {
+			
 
-			if (currentCollectionId === 0) {
-				$scope.listName = "Prosentfordeling";
-			}
-			else if (currentCollectionId === 1) {
-				$scope.listName = "Prosentfordeling for Bouvet";
-			}
-			else if (currentCollectionId === 2) {
-				$scope.listName = "Prosentfordeling menn";
-			}
-			else if (currentCollectionId === 3) {
-				$scope.listName = "Prosentfordeling kvinner";
-			}
-		}
-*/
-
-		var increaseCount = function() {
 
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
+				//console.log("End of list");
+
 				var nextCollectionId;
 				if (currentCollectionId === pairs.length - 1) {
 					nextCollectionId = 0;
@@ -620,18 +608,49 @@ angular.module("samesameApp.controllers", [])
 					currentImageId = 0;
 					currentCollectionId = nextCollectionId;
 					pairs[nextCollectionId] = imagePairList;
+					cb();
 				});
 			} 
 			else {
 				currentImageId = currentImageId + 1;
+				cb();
 			}
-	
 		}	
-		
-		$interval(increaseCount, 6000, pairs[currentCollectionId].length - 1);
+
+
+
+
+
+
+		var count = $location.path() === "/partial-stat-carousel" ? 14 : 8;
+		var handleInterval = function() {
+			console.log('handleInterval');
+			if ($location.path() === "/partial-stat-carousel") {
+				if (count === 0) {
+					$location.path("/partial-stat-typePerson");
+				} else {
+					getNextImageForCarousel(function() {
+						$interval(handleInterval, 600, 1);
+					});
+				}
+			}
+
+			else if ($location.path() === "/partial-stat-typePerson") {
+				if (count === 0) {
+					$location.path("/partial-stat-carousel");
+				} else {	
+					getNextListForTypePerson(function() {
+						$interval(handleInterval, 600,1);
+					});
+				}
+			}
+			count = count - 1;
+		};
+
+		handleInterval();
+
 
 	}])
-
 
 
 
@@ -684,6 +703,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.resultDispatcher = {
 			_resultObject: null,
 			getImage: function() {
+				console.log(this._resultObject)
 				if (this._resultObject) {
 					return this._resultObject.questionid + this._resultObject.response;
 				} else {
