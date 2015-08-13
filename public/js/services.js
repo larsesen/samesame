@@ -797,7 +797,7 @@ angular.module("samesameApp.services", [])
 
 
 
-	//Used to hold editable textfields throughout application
+	//Used to hold textfields throughout application
 	.value("TextStrings", {
 
 		registerAnswerHeader 			: "Er du sånn eller slik?",
