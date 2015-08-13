@@ -810,8 +810,8 @@ angular.module("samesameApp.services", [])
 
 		numberOfImagesInCarousel 	: 15,
 		numberOfListsTypePerson 	: 4,
-		getMillisForCarouselSlide 	: 15000,
-		getMillisForTypePerson 		: 10000,
+		getMillisForCarouselSlide 	: 2000,
+		getMillisForTypePerson 		: 5000,
 		getMillisForDisplayLogo		: 10000
 	})
 
