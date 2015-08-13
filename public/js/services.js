@@ -830,12 +830,28 @@ angular.module("samesameApp.services", [])
 			return "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål.";
 		}
 
-		var getMaxIterationsForType = function() {
+		var getIterationsForType = function() {
 			return 2;
 		}
 
-		var getMaxIterationsForCarousel = function() {
+		var getIterationsForCarousel = function() {
 			return 2;
+		}
+
+		var getNumberOfImagesInCarousel = function() {
+			return 15;
+		}
+
+		var getNumberOfListsTypePerson = function() {
+			return 4;
+		}
+
+		var getMillisForCarouselSlide = function() {
+			return 5000;
+		}
+
+		var getMillisForTypePerson = function() {
+			return 10000;
 		}
 
 		return {
@@ -845,8 +861,12 @@ angular.module("samesameApp.services", [])
 			getRegisterAnswerHeader 	: getRegisterAnswerHeader,
 			getRegisterParticipant1Text	: getRegisterParticipant1Text,
 			getRegisterParticipant2Text	: getRegisterParticipant2Text,
-			getMaxIterationsForType		: getMaxIterationsForType,
-			getMaxIterationsForCarousel : getMaxIterationsForCarousel
+			getIterationsForType		: getIterationsForType,
+			getIterationsForCarousel 	: getIterationsForCarousel,
+			getNumberOfImagesInCarousel : getNumberOfImagesInCarousel,
+			getNumberOfListsTypePerson 	: getNumberOfListsTypePerson,
+			getMillisForCarouselSlide: getMillisForCarouselSlide,
+			getMillisForTypePerson		: getMillisForTypePerson
 		};
 	})
 

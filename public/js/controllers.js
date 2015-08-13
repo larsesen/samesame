@@ -488,7 +488,6 @@ angular.module("samesameApp.controllers", [])
 
 		//Administers freshness of typical person lists
 		var getNextListForTypePerson = function(cb) {
-			console.log('start');
 	
 			retrieveAllStatistics(function(allData) {
 
@@ -526,7 +525,6 @@ angular.module("samesameApp.controllers", [])
 				}
 
 				cb();
-				console.log('getNextListForTypePerson: ' + $scope.listname);
 
 			});
 		};
@@ -589,10 +587,9 @@ angular.module("samesameApp.controllers", [])
 		}
 
 
+
 		var getNextImageForCarousel = function(cb) {
 			
-
-
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
 				//console.log("End of list");
 
@@ -620,17 +617,17 @@ angular.module("samesameApp.controllers", [])
 
 
 
+		var imagesInCarousel = TextStrings.getNumberOfImagesInCarousel();
+		var typePersonLists = TextStrings.getNumberOfListsTypePerson();
 
-
-		var count = $location.path() === "/partial-stat-carousel" ? 14 : 8;
+		var count = $location.path() === "/partial-stat-carousel" ? imagesInCarousel : typePersonLists;
 		var handleInterval = function() {
-			console.log('handleInterval');
 			if ($location.path() === "/partial-stat-carousel") {
 				if (count === 0) {
 					$location.path("/partial-stat-typePerson");
 				} else {
 					getNextImageForCarousel(function() {
-						$interval(handleInterval, 600, 1);
+						$interval(handleInterval, TextStrings.getMillisForCarouselSlide(), 1);
 					});
 				}
 			}
@@ -640,7 +637,7 @@ angular.module("samesameApp.controllers", [])
 					$location.path("/partial-stat-carousel");
 				} else {	
 					getNextListForTypePerson(function() {
-						$interval(handleInterval, 600,1);
+						$interval(handleInterval, TextStrings.getMillisForTypePerson(),1);
 					});
 				}
 			}
