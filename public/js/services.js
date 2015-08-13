@@ -534,7 +534,6 @@ angular.module("samesameApp.services", [])
 				else if (type === 3) {
 					allStat.push(statFemale);
 				}
-				//console.log(JSON.stringify(allStat));
 			},
 
 
@@ -598,7 +597,6 @@ angular.module("samesameApp.services", [])
 					}
 				} 
 				result = (counter/currList.length)*100;
-				//console.log(result);
 				statPercentage.push(result);
 			},
 
@@ -678,6 +676,7 @@ angular.module("samesameApp.services", [])
 
 
 
+
 			/*
 			The purpose of this function is to retrieve interesting statistics to present to user
 			If user chooses the same answer as the type answer on ALL questions, then this function
@@ -686,11 +685,9 @@ angular.module("samesameApp.services", [])
 			If the user does not choose the same answer as the typical answer, then the function
 			will return the question where the user was a part of the smallest minority of answers.
 
-			The function returns an object holding necessary information about answer question and
+			The function returns an object holding necessary information about answer, question and
 			percentages, which is used to show results in view.
 			*/
-
-
 			getBiggestDeviation : function(comparisons) {
 
 				//neg variables is the main check. But if no neg variables are found, I retrieve biggest positive deviation to present
@@ -705,7 +702,7 @@ angular.module("samesameApp.services", [])
 				var statObject = []
 
 				var i;
-				//Purpously omitting index=0, because statistics male/female is not that interesting
+				//Purpously omitting index=0, because statistics male/female is not interesting
 				for (i = 1; i < comparisons.length; i++) {
 					
 					var typeAnswer = comparisons[i].mostAnswered;
@@ -758,7 +755,6 @@ angular.module("samesameApp.services", [])
 					percentage;
 
 				if (biggestNegDeviationIndex === -1) {
-					//console.log("Finding positive deviation");
 					questionid = currentAnswers[biggestPosDeviationIndex].questionid;
 					response = currentAnswers[biggestPosDeviationIndex].response;
 					mostAnswered = true;
@@ -772,7 +768,6 @@ angular.module("samesameApp.services", [])
 				}
 
 				else {
-					//console.log("Finding negative deviation");
 					questionid = currentAnswers[biggestNegDeviationIndex].questionid;
 					response = currentAnswers[biggestNegDeviationIndex].response;
 					mostAnswered = false;
@@ -815,7 +810,7 @@ angular.module("samesameApp.services", [])
 
 		numberOfImagesInCarousel 	: 15,
 		numberOfListsTypePerson 	: 4,
-		getMillisForCarouselSlide 	: 5000,
+		getMillisForCarouselSlide 	: 15000,
 		getMillisForTypePerson 		: 10000,
 		getMillisForDisplayLogo		: 10000
 	})

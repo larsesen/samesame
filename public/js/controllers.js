@@ -242,7 +242,6 @@ angular.module("samesameApp.controllers", [])
 		
 			//Creating JSON object used to send to db
 			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "gender": gender  };
-			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
 			 Answers.create(dataJSON)
 			.success(function(data) {
@@ -295,7 +294,6 @@ angular.module("samesameApp.controllers", [])
 		
 			//Creating JSON object used to send to db
 			var dataJSON = { "userid" : userid, "questionid" : questionid, "response" : response, "gender": gender  };
-			//console.log("dataJSON: " + JSON.stringify(dataJSON));  
 
 			 Answers.create(dataJSON)
 			.success(function(data) {
@@ -305,7 +303,6 @@ angular.module("samesameApp.controllers", [])
 				//Updating with next image, iff there are more images.
 				if (!listEmpty) {
 					var nextQ = AnsweredQuestions.getNextQuestion(answeredQuestions);
-					//console.log("question number: " + nextQ); 
 					AnsweredQuestions.removeIndex(answeredQuestions,nextQ);	
 					$scope.nextQ = nextQ; 
 					$location.path("/partial-register-answer");	
@@ -350,7 +347,6 @@ angular.module("samesameApp.controllers", [])
 		*/
 		$scope.submitParticipant = function() {
 			var bouvet;
-			//console.log(JSON.stringify($scope.participant));
 
 			if (isBouvetEmployee($scope.participant.email)) {
 				bouvet = 1;
@@ -548,7 +544,6 @@ angular.module("samesameApp.controllers", [])
 		var getNextImageForCarousel = function(cb) {
 			
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
-				//console.log("End of list");
 
 				var nextCollectionId;
 				if (currentCollectionId === pairs.length - 1) {
@@ -697,7 +692,6 @@ angular.module("samesameApp.controllers", [])
 		var getNextImageForCarousel = function(cb) {
 			
 			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
-				//console.log("End of list");
 
 				var nextCollectionId;
 				if (currentCollectionId === pairs.length - 1) {
@@ -764,25 +758,6 @@ angular.module("samesameApp.controllers", [])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	.controller("StatisticsTableCtrl", ["$scope", "Statistics", function($scope, Statistics) {
 
 		//Retrieves data for the type parameter specified
@@ -831,6 +806,7 @@ angular.module("samesameApp.controllers", [])
 		$scope.allData = Statistics.getAllStats(); //allData used in partial-stat-table
 		$scope.counts = Statistics.getCounts(); //Used in view partial-stat-table to access number of answered questions for each type.
 
+		
 		}])
 
 
