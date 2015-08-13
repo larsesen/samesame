@@ -8,8 +8,16 @@ describe('generateRandomEntry.js, happy flow of application:', function() {
   it('should click through application with random entries', function() {
         util.directToIndex(browser);
         util.clickToAnswerPage(browser);
+        expect(browser.getCurrentUrl()).toEqual(baseURL + "/public/index.html#/partial-register-gender");
         util.fillAnswerRandomly(browser);
-        util.clickProceedButton(browser);
+
+
+        var proceedButton = by.name("proceedButton");
+        browser.driver.isElementPresent(proceedButton).then(function(isPresent){
+            element(proceedButton).click();
+        })
+        
+
         expect(browser.getCurrentUrl()).toEqual(baseURL + "/public/index.html#/partial-register-participant");
     });
 

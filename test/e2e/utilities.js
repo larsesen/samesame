@@ -3,7 +3,7 @@ var milliseconds = (new Date).getTime();
 
 var responses = ["a", "b"];
 var prize = ["participantPrizeA", "participantPrizeB"];
-var numberOfQuestions = 8;
+var numberOfQuestions = 15;
 
 /********************************
 URLs
@@ -95,18 +95,19 @@ function pickWinner(browser) {
     browser.findElement(by.name("pickWinner")).click();
 }
 
-/*
+
+
 function deleteAnswers(browser) {
     browser.findElement(by.name("deleteAnswers")).click();
     browser.findElement(by.name("confirmDelete")).click();
 }
-*/
-/*
+
+
 function deleteParticipants(browser) {
     browser.findElement(by.name("deleteParticipants")).click();
     browser.findElement(by.name("confirmDelete")).click();
 }
-*/
+
 
 function registerParticipant(browser, timestamp) {
     browser.findElement(By.name("participantName")).sendKeys("test");
@@ -169,7 +170,6 @@ exports.clickSeeAllParticipants = clickSeeAllParticipants;
 exports.clickMenuButton = clickMenuButton;
 exports.clickStatistics = clickStatistics;
 exports.clickTableStatistics = clickTableStatistics;
-exports.clickComparisonStatistics = clickComparisonStatistics;
 exports.clickTypeStatistics = clickTypeStatistics;
 exports.clickStatisticMenuButton = clickStatisticMenuButton;
 

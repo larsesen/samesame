@@ -30,7 +30,7 @@ describe('redirecting.js, test redirection and Urls:', function() {
     expect(browser.getCurrentUrl()).toEqual(baseURL + "#/partial-start");
 
     util.clickStartButton(browser);
-    expect(browser.getCurrentUrl()).toEqual(baseURL + "#/partial-register-answer");
+    expect(browser.getCurrentUrl()).toEqual(baseURL + "#/partial-register-gender");
 
     util.fillAnswerRandomly(browser); 
     expect(browser.getCurrentUrl()).toEqual(baseURL + "#/partial-view-results")  
