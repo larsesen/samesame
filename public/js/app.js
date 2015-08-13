@@ -77,12 +77,12 @@ Stats views
 
 	$routeProvider.when("/partial-stat-typePerson",
 		{
-			templateUrl: "views/partial-stat-typePerson.html", controller: "StatisticsCtrl",
+			templateUrl: "views/partial-stat-typePerson.html", controller: "StatisticsTypePersonCtrl",
 		});
 
 	$routeProvider.when("/partial-stat-carousel",
 	{
-		templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsCtrl"
+		templateUrl: "views/partial-stat-carousel.html", controller: "StatisticsCarouselCtrl"
 	});
 
 	$routeProvider.when("/partial-view-results",

@@ -396,8 +396,6 @@ angular.module("samesameApp.controllers", [])
 	// Inits a unique user id. Used for db interaction for a single user
 	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", "TextStrings", function($scope, $location, UserIDService, TextStrings) {	
 		
-		
-
 		var d = new Date();
 		var id = d.getTime();
 
@@ -408,11 +406,9 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsCtrl", ["$scope", "$interval", "$location", "Statistics", "TextStrings", function($scope, $interval, $location, Statistics, TextStrings) {
+	.controller("StatisticsTypePersonCtrl", ["$scope", "$interval", "$location", "Statistics", "TextStrings", function($scope, $interval, $location, Statistics, TextStrings) {
 
 		
-
-
 		var pairs;
 
 
@@ -591,22 +587,11 @@ angular.module("samesameApp.controllers", [])
 
 
 
-		var imagesInCarousel = TextStrings.getNumberOfImagesInCarousel();
-		var typePersonLists = TextStrings.getNumberOfListsTypePerson();
+		var count = TextStrings.getNumberOfListsTypePerson();
 
-		var count = $location.path() === "/partial-stat-carousel" ? imagesInCarousel : typePersonLists;
 		var handleInterval = function() {
-			if ($location.path() === "/partial-stat-carousel") {
-				if (count === 0) {
-					$location.path("/partial-stat-typePerson");
-				} else {
-					getNextImageForCarousel(function() {
-						$interval(handleInterval, TextStrings.getMillisForCarouselSlide(), 1);
-					});
-				}
-			}
-
-			else if ($location.path() === "/partial-stat-typePerson") {
+			
+			if ($location.path() === "/partial-stat-typePerson") {
 				if (count === 0) {
 					$location.path("/partial-stat-carousel");
 				} else {	
@@ -626,13 +611,190 @@ angular.module("samesameApp.controllers", [])
 
 
 
-	.controller("StatisticsTableCtrl", ["$scope", "Statistics", "TextStrings", function($scope, Statistics, TextStrings) {
 
 
-		var pairs;
+	.controller("StatisticsCarouselCtrl", ["$scope", "$interval", "$location", "Statistics", "TextStrings", function($scope, $interval, $location, Statistics, TextStrings) {
+
+		var pairs = [];
 
 
 		//Retrieves data for the type parameter
+		var retrieveStatistics = function(type, cb) {
+			Statistics.resetStatistics();		
+			//initial call to fetch answers
+			Statistics.retrieveStatistics(type).success(function(data) {
+				var statistics = data;		
+				// sets objectlist
+				Statistics.setStatistics(statistics,type);
+
+				if (cb) {
+					cb(Statistics.getStatistics(type), type);
+				}
+			});
+		}
+
+
+		var retrieveAllStatistics = function(cb) {
+			var count = 4;
+			var data = [];
+			var allDone = function(partial, index) {
+				count = count - 1;
+				data[index] = partial;
+			
+			}
+			retrieveStatistics(0, allDone);
+			retrieveStatistics(1, allDone);
+			retrieveStatistics(2, allDone);
+			retrieveStatistics(3, allDone);
+		}
+
+		//Following variables used for stat-carousel
+		var initList = function() {
+			var pairs = [
+			Statistics.getStatistics(0),
+			Statistics.getStatistics(1),
+			Statistics.getStatistics(2),
+			Statistics.getStatistics(3)
+			]
+			return pairs;
+		}
+
+
+
+
+		//Exposure
+		var currentCollectionId = 0, currentImageId = 0;
+		var currentList = 0;
+
+		var activeObject;
+
+		var setCurrentImageObject = function() {
+			//setListName(currentCollectionId);
+			$scope.activeObject = pairs[currentCollectionId][currentImageId];
+		}
+
+		$scope.getCurrentImage = function(suffix) {
+			
+			setCurrentImageObject();
+
+			//To initially set image while waiting for Angular
+			if(!pairs[currentCollectionId][currentImageId]) {
+				return "loading.png";
+			}
+
+			$scope.dataList = pairs[currentCollectionId];
+			
+			//Each of following scope variables, corresponds to each progress bar in partial-stat-carousel
+			$scope.allList = pairs[0][currentImageId];
+			$scope.bouvetList = pairs[1][currentImageId];
+			$scope.maleList = pairs[2][currentImageId];
+			$scope.femaleList = pairs[3][currentImageId];
+
+			return pairs[currentCollectionId][currentImageId].questionid + suffix + '.png';
+		}
+
+
+
+
+		retrieveAllStatistics();
+		pairs = initList();
+
+		
+		
+		$scope.allData = Statistics.getAllStats(); //allData used in partial-stat-table
+		$scope.counts = Statistics.getCounts(); //Used in view partial-stat-table to access number of answered questions for each type.
+
+
+
+
+		var getNextImageForCarousel = function(cb) {
+			
+			if(currentImageId === pairs[currentCollectionId].length - 1) { //if end of the current collection
+				//console.log("End of list");
+
+				var nextCollectionId;
+				if (currentCollectionId === pairs.length - 1) {
+					nextCollectionId = 0;
+				}
+				else {
+					nextCollectionId = currentCollectionId + 1;
+				}
+
+				retrieveStatistics(nextCollectionId, function(imagePairList) {
+					currentImageId = 0;
+					currentCollectionId = nextCollectionId;
+					pairs[nextCollectionId] = imagePairList;
+					cb();
+				});
+			} 
+			else {
+				currentImageId = currentImageId + 1;
+				cb();
+			}
+		}	
+
+
+
+
+		var count = TextStrings.getNumberOfImagesInCarousel();
+		var handleInterval = function() {
+			if ($location.path() === "/partial-stat-carousel") {
+				if (count === 0) {
+					$location.path("/partial-stat-typePerson");
+				} else {
+					getNextImageForCarousel(function() {
+						$interval(handleInterval, TextStrings.getMillisForCarouselSlide(), 1);
+					});
+				}
+			}		
+			count = count - 1;
+		};
+
+		handleInterval();
+
+
+	}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	.controller("StatisticsTableCtrl", ["$scope", "Statistics", "TextStrings", function($scope, Statistics, TextStrings) {
+
+		//Retrieves data for the type parameter specified
 		var retrieveStatistics = function(type, cb) {
 			Statistics.resetStatistics();		
 			//initial call to fetch answers
@@ -671,25 +833,9 @@ angular.module("samesameApp.controllers", [])
 			});
 		}
 
-		//Following variables used for stat-carousel
-		var initList = function() {
-			var pairs = [
-			Statistics.getStatistics(0),
-			Statistics.getStatistics(1),
-			Statistics.getStatistics(2),
-			Statistics.getStatistics(3)
-			]
-			return pairs;
-		}
-
-
-
 
 		retrieveAllStatistics();
 		retrieveCounts();
-		pairs = initList();
-
-		
 		
 		$scope.allData = Statistics.getAllStats(); //allData used in partial-stat-table
 		$scope.counts = Statistics.getCounts(); //Used in view partial-stat-table to access number of answered questions for each type.
