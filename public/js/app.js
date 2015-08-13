@@ -72,7 +72,7 @@ Stats views
 
 	$routeProvider.when("/partial-stat-table",
 		{
-			templateUrl: "views/partial-stat-table.html", controller: "StatisticsCtrl"
+			templateUrl: "views/partial-stat-table.html", controller: "StatisticsTableCtrl"
 		});
 
 	$routeProvider.when("/partial-stat-typePerson",

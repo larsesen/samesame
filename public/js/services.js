@@ -805,19 +805,6 @@ angular.module("samesameApp.services", [])
 	//Used to hold editable textfields throughout application
 	.service("TextStrings", function() {
 		
-
-		var getMainTitle = function() {
-			return "Same same, but different";
-		};
-
-		var getSecondaryTitle = function() {
-			return "There are two kinds of people";
-		};
-
-		var getDottedLine = function() {
-			return "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -";
-		}
-
 		var getRegisterAnswerHeader = function() {
 			return "Er du sånn eller slik?";
 		}
@@ -830,13 +817,6 @@ angular.module("samesameApp.services", [])
 			return "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål.";
 		}
 
-		var getIterationsForType = function() {
-			return 2;
-		}
-
-		var getIterationsForCarousel = function() {
-			return 2;
-		}
 
 		var getNumberOfImagesInCarousel = function() {
 			return 15;
@@ -855,18 +835,13 @@ angular.module("samesameApp.services", [])
 		}
 
 		return {
-			getMainTitle 				: getMainTitle,
-			getSecondaryTitle 			: getSecondaryTitle,
-			getDottedLine 				: getDottedLine,
-			getRegisterAnswerHeader 	: getRegisterAnswerHeader,
-			getRegisterParticipant1Text	: getRegisterParticipant1Text,
-			getRegisterParticipant2Text	: getRegisterParticipant2Text,
-			getIterationsForType		: getIterationsForType,
-			getIterationsForCarousel 	: getIterationsForCarousel,
-			getNumberOfImagesInCarousel : getNumberOfImagesInCarousel,
-			getNumberOfListsTypePerson 	: getNumberOfListsTypePerson,
-			getMillisForCarouselSlide: getMillisForCarouselSlide,
-			getMillisForTypePerson		: getMillisForTypePerson
+			getRegisterAnswerHeader 		: getRegisterAnswerHeader,
+			getRegisterParticipant1Text		: getRegisterParticipant1Text,
+			getRegisterParticipant2Text		: getRegisterParticipant2Text,
+			getNumberOfImagesInCarousel 	: getNumberOfImagesInCarousel,
+			getNumberOfListsTypePerson 		: getNumberOfListsTypePerson,
+			getMillisForCarouselSlide		: getMillisForCarouselSlide,
+			getMillisForTypePerson			: getMillisForTypePerson
 		};
 	})
 

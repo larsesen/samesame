@@ -209,10 +209,7 @@ angular.module("samesameApp.controllers", [])
 
 	.controller("RegisterGenderCtrl", ["$scope", "$interval", "$location", "TextStrings", "AnsweredQuestions", "Questions", "Answers", "RecentAnswer", "UserIDService", function($scope, $interval, $location, TextStrings, AnsweredQuestions, Questions, Answers, RecentAnswer, UserIDService) {
 
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
+		
 		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
 
@@ -270,10 +267,7 @@ angular.module("samesameApp.controllers", [])
 	//the controller used on the page where the user registers answers
 	.controller("RegisterAnswerCtrl", ["$scope", "$location", "$interval", "Answers", "Questions", "RecentAnswer","AnsweredQuestions", "UserIDService","TextStrings", function($scope, $location, $interval, Answers, Questions, RecentAnswer, AnsweredQuestions, UserIDService, TextStrings) {
 
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
+		
 		$scope.registerAnswerHeader = TextStrings.getRegisterAnswerHeader();
 
 
@@ -341,10 +335,7 @@ angular.module("samesameApp.controllers", [])
 	//the controller used on the page where the user registers the contact info
 	.controller("RegisterParticipantCtrl", ["$scope", "$location", "Participants", "UserIDService", "Statistics", "TextStrings", function($scope, $location, Participants, UserIDService, Statistics, TextStrings) {
 
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
+		
 		$scope.participant1Text = TextStrings.getRegisterParticipant1Text();
 		$scope.participant2Text = TextStrings.getRegisterParticipant2Text();
 
@@ -405,10 +396,7 @@ angular.module("samesameApp.controllers", [])
 	// Inits a unique user id. Used for db interaction for a single user
 	.controller("InitUserCtrl", ["$scope", "$location", "UserIDService", "TextStrings", function($scope, $location, UserIDService, TextStrings) {	
 		
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
+		
 
 		var d = new Date();
 		var id = d.getTime();
@@ -422,10 +410,7 @@ angular.module("samesameApp.controllers", [])
 
 	.controller("StatisticsCtrl", ["$scope", "$interval", "$location", "Statistics", "TextStrings", function($scope, $interval, $location, Statistics, TextStrings) {
 
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
+		
 
 
 		var pairs;
@@ -462,17 +447,6 @@ angular.module("samesameApp.controllers", [])
 			retrieveStatistics(2, allDone);
 			retrieveStatistics(3, allDone);
 		}
-
-
-		//Retrieves number of answered questions for each type. 
-		var retrieveCounts = function() {
-			Statistics.resetCounts;
-			Statistics.retrieveCounts().success(function(data) {
-				var statistics = data;
-				Statistics.setCounts(statistics);
-			});
-		}
-
 
 		//Following variables used for stat-carousel
 		var initList = function() {
@@ -545,7 +519,7 @@ angular.module("samesameApp.controllers", [])
 			}
 		} 
 
-		retrieveCounts();
+		
 		pairs = initList();
 
 		
@@ -652,13 +626,84 @@ angular.module("samesameApp.controllers", [])
 
 
 
+	.controller("StatisticsTableCtrl", ["$scope", "Statistics", "TextStrings", function($scope, Statistics, TextStrings) {
+
+
+		var pairs;
+
+
+		//Retrieves data for the type parameter
+		var retrieveStatistics = function(type, cb) {
+			Statistics.resetStatistics();		
+			//initial call to fetch answers
+			Statistics.retrieveStatistics(type).success(function(data) {
+				var statistics = data;		
+				// sets objectlist
+				Statistics.setStatistics(statistics,type);
+
+				if (cb) {
+					cb(Statistics.getStatistics(type), type);
+				}
+			});
+		}
+
+
+		var retrieveAllStatistics = function(cb) {
+			var count = 4;
+			var data = [];
+			var allDone = function(partial, index) {
+				count = count - 1;
+				data[index] = partial;
+			}
+			retrieveStatistics(0, allDone);
+			retrieveStatistics(1, allDone);
+			retrieveStatistics(2, allDone);
+			retrieveStatistics(3, allDone);
+		}
+
+
+		//Retrieves number of answered questions for each type. 
+		var retrieveCounts = function() {
+			Statistics.resetCounts;
+			Statistics.retrieveCounts().success(function(data) {
+				var statistics = data;
+				Statistics.setCounts(statistics);
+			});
+		}
+
+		//Following variables used for stat-carousel
+		var initList = function() {
+			var pairs = [
+			Statistics.getStatistics(0),
+			Statistics.getStatistics(1),
+			Statistics.getStatistics(2),
+			Statistics.getStatistics(3)
+			]
+			return pairs;
+		}
+
+
+
+
+		retrieveAllStatistics();
+		retrieveCounts();
+		pairs = initList();
+
+		
+		
+		$scope.allData = Statistics.getAllStats(); //allData used in partial-stat-table
+		$scope.counts = Statistics.getCounts(); //Used in view partial-stat-table to access number of answered questions for each type.
+
+		}])
+
+
+
+
+
 
 	.controller("StatisticsCompareCtrl", ["$scope", "$interval", "Statistics", "TextStrings", "UserIDService", function($scope, $interval, Statistics, TextStrings, UserIDService) {
 
-		// Setting scope variables for printing to view. Text strings only need to be changed in the "TextStrings" service, to change all over application
-		$scope.mainTitle = TextStrings.getMainTitle();
-		$scope.secondaryTitle = TextStrings.getSecondaryTitle();
-		$scope.dottedLine = TextStrings.getDottedLine();
+		
 
 
 
