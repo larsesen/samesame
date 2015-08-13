@@ -803,47 +803,22 @@ angular.module("samesameApp.services", [])
 
 
 	//Used to hold editable textfields throughout application
-	.service("TextStrings", function() {
-		
-		var getRegisterAnswerHeader = function() {
-			return "Er du sånn eller slik?";
-		}
+	.value("TextStrings", {
 
-		var getRegisterParticipant1Text = function() {
-			return "Hvis du vil være med i trekningen av premien, kan du fylle ut informasjonen under.";
-		}
-
-		var getRegisterParticipant2Text = function() {
-			return "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål.";
-		}
-
-
-		var getNumberOfImagesInCarousel = function() {
-			return 15;
-		}
-
-		var getNumberOfListsTypePerson = function() {
-			return 4;
-		}
-
-		var getMillisForCarouselSlide = function() {
-			return 5000;
-		}
-
-		var getMillisForTypePerson = function() {
-			return 10000;
-		}
-
-		return {
-			getRegisterAnswerHeader 		: getRegisterAnswerHeader,
-			getRegisterParticipant1Text		: getRegisterParticipant1Text,
-			getRegisterParticipant2Text		: getRegisterParticipant2Text,
-			getNumberOfImagesInCarousel 	: getNumberOfImagesInCarousel,
-			getNumberOfListsTypePerson 		: getNumberOfListsTypePerson,
-			getMillisForCarouselSlide		: getMillisForCarouselSlide,
-			getMillisForTypePerson			: getMillisForTypePerson
-		};
+		registerAnswerHeader 			: "Er du sånn eller slik?",
+		getRegisterParticipant1Text 	: "Hvis du vil være med i trekningen av premien, kan du fylle ut informasjonen under.",
+		getRegisterParticipant2Text 	: "Informasjonen du har oppgitt vil bli slettet etter trekningen, og vil ikke benyttes av Bouvet til annet formål."
 	})
+
+
+	.value("SliderConstants", {
+
+		numberOfImagesInCarousel 	: 15,
+		numberOfListsTypePerson 	: 4,
+		getMillisForCarouselSlide 	: 5000,
+		getMillisForTypePerson 		: 10000
+	})
+
 
 
 	
