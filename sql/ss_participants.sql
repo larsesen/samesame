@@ -16,5 +16,3 @@ CREATE TABLE participants (
 	);
 
 
-
-INSERT INTO `participants` VALUES ('test1406884464899@testing.no',1,'test',0,0),('test1406884464903@bouvet.no',2,'test',0,1);
